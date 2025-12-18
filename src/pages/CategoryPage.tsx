@@ -23,7 +23,8 @@ export function CategoryPage() {
             'database': 'Database',
             'backend': 'Backend',
             'version-control': 'Version Control',
-            'ide': 'IDE'
+            'ide': 'IDE',
+            'ai-chatbots': 'AI Chatbots'
         };
         return map[slug];
     };

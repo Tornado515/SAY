@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Code, Smartphone, Brain, Palette, Database, Server, GitBranch, Layers } from 'lucide-react';
+import { ArrowLeft, Code, Smartphone, Brain, Palette, Database, Server, GitBranch, Layers, MessageSquare } from 'lucide-react';
 
 const categories = [
     {
@@ -27,6 +27,14 @@ const categories = [
         description: 'Intelligent assistants that help you write, debug, and understand code faster. Featuring Cursor, Copilot, and more.',
         color: 'text-purple-400',
         bg: 'bg-purple-400/10'
+    },
+    {
+        title: 'AI Chatbots',
+        slug: 'ai-chatbots',
+        icon: MessageSquare,
+        description: 'General purpose AI assistants for coding, research, brainstorming, and writing. Includes ChatGPT, Claude, Gemini, and more.',
+        color: 'text-teal-400',
+        bg: 'bg-teal-400/10'
     },
     {
         title: 'AI Mockup & UI',

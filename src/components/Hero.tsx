@@ -1,4 +1,5 @@
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 export function Hero() {
@@ -23,13 +24,13 @@ export function Hero() {
                         A curated directory of the best tools, frameworks, and AI assistants to help you build and ship your next big idea.
                     </p>
                     <div className="mt-10 flex items-center justify-center gap-x-6">
-                        <a
-                            href="#frameworks"
+                        <Link
+                            to="/tools"
                             className="group flex items-center gap-2 rounded-full bg-indigo-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all hover:bg-indigo-500 hover:scale-105"
                         >
                             Explore Tools
                             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                        </a>
+                        </Link>
                     </div>
                 </motion.div>
             </div>

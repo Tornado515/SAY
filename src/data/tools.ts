@@ -1,6 +1,24 @@
+export interface DetailedLink {
+    text: string;
+    url: string;
+    primary?: boolean;
+}
+
 export interface Step {
     title: string;
     content: string;
+    code?: string;
+    language?: string;
+    links?: DetailedLink[];
+}
+
+export interface ComparisonData {
+    learningCurve: 'Low' | 'Medium' | 'High' | 'Very High';
+    pros: string[];
+    cons: string[];
+    bestFor: string[];
+    communitySupport: string;
+    priceModel: 'Free' | 'Freemium' | 'Paid' | 'Enterprise';
 }
 
 export interface Tool {
@@ -8,12 +26,23 @@ export interface Tool {
     slug: string;
     description: string;
     longDescription: string;
-    category: 'Frontend' | 'Mobile' | 'AI Coding' | 'AI Mockup' | 'Deployment' | 'Testing' | 'Design' | 'Database' | 'Backend' | 'Version Control' | 'IDE';
+    category: 'Frontend' | 'Mobile' | 'AI Coding' | 'AI Mockup' | 'Deployment' | 'Testing' | 'Design' | 'Database' | 'Backend' | 'Version Control' | 'IDE' | 'AI Chatbots';
     link: string;
     tags: string[];
     steps: Step[];
     features: string[];
     youtubeVideoId?: string;
+    setupVideoId?: string;
+    additionalInfo?: {
+        title: string;
+        content: string;
+    }[];
+    relatedTools?: {
+        slug: string;
+        name: string;
+        relation: 'alternative' | 'prerequisite' | 'next-step' | 'complementary';
+    }[];
+    comparisonData?: ComparisonData;
 }
 
 export const tools: Tool[] = [
@@ -28,10 +57,47 @@ export const tools: Tool[] = [
         tags: ['Editor', 'Microsoft', 'Open Source'],
         features: ['IntelliSense', 'Debugging', 'Extensions', 'Git Integration'],
         youtubeVideoId: 'B-s71n0dHVk', // VS Code intro
+        setupVideoId: 'VqCgcpAypFQ', // VS Code crash course setup
+        additionalInfo: [
+            {
+                title: 'Integrated Terminal',
+                content: 'You don\'t need to leave VS Code to run commands. Use `Ctrl+\`` (backtick) to toggle the built-in terminal.'
+            },
+            {
+                title: 'Everything is a Command',
+                content: 'Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac) to open the Command Palette. You can do almost anything from here without touching the mouse.'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Extremely extensible', 'Industry standard', 'Great performance'],
+            cons: ['Can be heavy with too many extensions', 'Settings can be overwhelming'],
+            bestFor: ['Web Development', 'General Purpose Coding'],
+            communitySupport: 'Massive, largest extension marketplace',
+            priceModel: 'Free'
+        },
+        relatedTools: [
+            { slug: 'git', name: 'Git', relation: 'complementary' },
+            { slug: 'github-copilot', name: 'GitHub Copilot', relation: 'complementary' }
+        ],
         steps: [
-            { title: 'Download', content: 'Download for your OS from code.visualstudio.com.' },
-            { title: 'Extensions', content: 'Install extensions for your language (e.g., Python, ESLint).' },
-            { title: 'Settings Sync', content: 'Turn on Settings Sync to save your config to GitHub.' },
+            {
+                title: 'Download and Install',
+                content: 'Download the installer for your operating system (Windows, macOS, or Linux) from the official website.',
+                links: [{ text: 'Download VS Code', url: 'https://code.visualstudio.com/download', primary: true }]
+            },
+            {
+                title: 'Install Extensions',
+                content: 'VS Code is powerful because of extensions. Open the Extensions view (Ctrl+Shift+X) and install these essentials:',
+                code: 'ESLint\nPrettier - Code formatter\nLive Server\nGitHub Copilot (optional)',
+                language: 'text'
+            },
+            {
+                title: 'Configure Settings',
+                content: 'Open settings (Ctrl+,) to customize your editor. We recommend enabling "Format on Save" to keep your code clean automatically.',
+                code: '{\n  "editor.formatOnSave": true,\n  "editor.defaultFormatter": "esbenp.prettier-vscode"\n}',
+                language: 'json'
+            },
         ],
     },
     {
@@ -44,11 +110,38 @@ export const tools: Tool[] = [
         tags: ['Java', 'JetBrains', 'Enterprise'],
         features: ['Deep Code Analysis', 'Smart Refactoring', 'Debugger', 'Test Runner'],
         youtubeVideoId: '9oTFn_yX400', // IntelliJ intro placeholder
+        setupVideoId: '5V3p196yX2k', // IntelliJ IDEA Setup (Amigoscode)
         steps: [
-            { title: 'Install', content: 'Download the Community (free) or Ultimate edition.' },
-            { title: 'Open Project', content: 'Open your Java/Kotlin project (Gradle/Maven supported).' },
-            { title: 'Run', content: 'Click the green play button to run your application.' },
+            {
+                title: 'Download',
+                content: 'Download the Ultimate (paid) or Community (free) edition from JetBrains.',
+                links: [{ text: 'Download IntelliJ', url: 'https://www.jetbrains.com/idea/download', primary: true }]
+            },
+            {
+                title: 'Install & Setup',
+                content: 'Run the installer. During setup, you can customize themes and keymaps (we recommend "IntelliJ" keymap).',
+            },
+            {
+                title: 'New Project',
+                content: 'Create a new project. Select "Java" (or Kotlin) and your project SDK (download JDK if needed).',
+                code: 'File > New > Project\nName: MyJavaApp\nLanguage: Java\nBuild system: Maven/Gradle',
+                language: 'text'
+            },
+            {
+                title: 'Run Code',
+                content: 'Write your `main` method and click the green Play button in the gutter.',
+                code: 'public static void main(String[] args) {\n    System.out.println("Hello World!");\n}',
+                language: 'java'
+            },
         ],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['Unmatched code analysis', 'Great refactoring tools', 'Industry standard for Java'],
+            cons: ['Heavy resource usage', 'Indexed Files take space', 'Paid for full features'],
+            bestFor: ['Java/Kotlin Development', 'Enterprise Applications'],
+            communitySupport: 'Massive',
+            priceModel: 'Freemium'
+        }
     },
     {
         name: 'PyCharm',
@@ -60,11 +153,34 @@ export const tools: Tool[] = [
         tags: ['Python', 'JetBrains', 'Data Science'],
         features: ['Code Insight', 'Debugger', 'Test Runner', 'Django Support'],
         youtubeVideoId: 'moJzQ8uXn-M', // PyCharm intro
+        setupVideoId: '56d6O73s30M', // Python Tutorial for Beginners (includes PyCharm setup)
         steps: [
-            { title: 'Install', content: 'Download PyCharm Community or Professional.' },
-            { title: 'Interpreter', content: 'Configure your Python interpreter/virtual environment.' },
-            { title: 'Code', content: 'Start writing Python code with smart completion.' },
+            {
+                title: 'Download',
+                content: 'Download PyCharm Community (free) for pure Python development.',
+                links: [{ text: 'Download PyCharm', url: 'https://www.jetbrains.com/pycharm/download', primary: true }]
+            },
+            {
+                title: 'Create Project',
+                content: 'Open PyCharm and click "New Project". It will automatically create a Virtual Environment (venv) for you.',
+                code: 'Location: ~/PycharmProjects/pythonProject\nType: Python\nInterpreter: Project venv',
+                language: 'text'
+            },
+            {
+                title: 'Write & Run',
+                content: 'Create a `main.py` file and run it using the green triangle button.',
+                code: 'print("Hello PyCharm")',
+                language: 'python'
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Best-in-class Python support', 'Great database tools', 'Django/Flask integration'],
+            cons: ['Slow startup', 'Memory hungry'],
+            bestFor: ['Python Web Dev', 'Data Science'],
+            communitySupport: 'Large',
+            priceModel: 'Freemium'
+        }
     },
     {
         name: 'Eclipse',
@@ -76,11 +192,36 @@ export const tools: Tool[] = [
         tags: ['Java', 'Open Source', 'Legacy'],
         features: ['Plugin Ecosystem', 'Workspace Management', 'Git', 'Debugging'],
         youtubeVideoId: 'S-7bO5j5oZw', // Eclipse intro
+        setupVideoId: 'I22WcM4i50U', // Eclipse Installation
         steps: [
-            { title: 'Download', content: 'Get the Eclipse Installer.' },
-            { title: 'Workspace', content: 'Select a workspace folder to store your projects.' },
-            { title: 'Perspective', content: 'Switch perspectives (Java, Debug, etc.) based on your task.' },
+            {
+                title: 'Download Installer',
+                content: 'Download the Eclipse IDE for Java Developers package.',
+                links: [{ text: 'Download Eclipse', url: 'https://www.eclipse.org/downloads/', primary: true }]
+            },
+            {
+                title: 'Workspace Config',
+                content: 'Choose a folder for your workspace when launched. This is where your projects live.',
+            },
+            {
+                title: 'Create Java Project',
+                content: 'Go to File > New > Java Project. Give it a name and click Finish.',
+            },
+            {
+                title: 'Hello World',
+                content: 'Create a new Class named `Main` with a public static void main method.',
+                code: 'public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello Eclipse!");\n    }\n}',
+                language: 'java'
+            },
         ],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['Completely free and open source', 'Huge plugin ecosystem', 'Good for legacy projects'],
+            cons: ['Outdated UI', 'Can be buggy/slow', 'Complex configuration'],
+            bestFor: ['Legacy Java Apps', 'Open Source purists'],
+            communitySupport: 'Large but declining',
+            priceModel: 'Free'
+        }
     },
     // AI Coding
     {
@@ -93,12 +234,38 @@ export const tools: Tool[] = [
         tags: ['Editor', 'AI', 'VS Code Fork'],
         features: ['Chat with Codebase', 'Tab Autocomplete', 'Natural Language Edit', 'Docs Integration'],
         youtubeVideoId: 'o5t7s9t3g6w',
+        setupVideoId: 'jk59_o8T8bs', // Cursor Deep Dive
         steps: [
-            { title: 'Download and Install', content: 'Go to cursor.com and download the installer for your OS. It installs just like VS Code.' },
-            { title: 'Import Settings', content: 'On first launch, Cursor can import all your VS Code extensions, themes, and keybindings with one click.' },
-            { title: 'Command K', content: 'Press Cmd+K (or Ctrl+K) in any file to instruct the AI to edit the code. Try "Add a button that counts clicks".' },
-            { title: 'Chat with Codebase', content: 'Open the sidebar (Cmd+L) and ask questions like "Where is the authentication logic defined?" Cursor scans your files to answer.' },
+            {
+                title: 'Download and Install',
+                content: 'Download the installer mainly for your OS. Cursor is a fork of VS Code, so it feels familiar.',
+                links: [{ text: 'Download Cursor', url: 'https://cursor.com', primary: true }]
+            },
+            {
+                title: 'Import VS Code Exts',
+                content: 'During setup, click "Import Extensions" to bring over your VS Code themes and plugins.',
+            },
+            {
+                title: 'AI Code Editing',
+                content: 'Select code and press `Cmd+K` (or `Ctrl+K`) to edit it with AI.',
+                code: 'Cmd+K: "Refactor this function to be async"',
+                language: 'text'
+            },
+            {
+                title: 'Chat with Codebase',
+                content: 'Open the AI sidebar with `Cmd+L` to ask questions about your entire project.',
+                code: 'Cmd+L: "Where is the authentication logic?"',
+                language: 'text'
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Deepest AI integration', 'Familiar VS Code interface', 'Privacy focus option'],
+            cons: ['Another subscription', 'Requires new binary install'],
+            bestFor: ['AI Pair Programming', 'Refactoring'],
+            communitySupport: 'Growing fast',
+            priceModel: 'Freemium'
+        }
     },
     {
         name: 'GitHub Copilot',
@@ -110,12 +277,38 @@ export const tools: Tool[] = [
         tags: ['Extension', 'AI', 'Autocomplete'],
         features: ['Multi-line Suggestions', 'Chat in IDE', 'CLI Integration', 'Pull Request Summaries'],
         youtubeVideoId: 'Fi3AJZZQqGk',
+        setupVideoId: 'ImWfIDfHhkW8', // Copilot in VSCode
         steps: [
-            { title: 'Subscription', content: 'Sign up for a GitHub Copilot subscription (or use the free trial/student plan).' },
-            { title: 'Install Extension', content: 'Install the GitHub Copilot extension in your preferred IDE (e.g., VS Code).' },
-            { title: 'Sign In', content: 'Authenticate with your GitHub account when prompted by the extension.' },
-            { title: 'Start Coding', content: 'Start typing code or a comment describing what you want. Copilot will suggest the rest in ghost text. Press Tab to accept.' },
+            {
+                title: 'Get Subscription',
+                content: 'Sign up for GitHub Copilot (free for students/OS maintainers).',
+                links: [{ text: 'Sign Up', url: 'https://github.com/features/copilot', primary: true }]
+            },
+            {
+                title: 'Install Extension',
+                content: 'In VS Code, install the "GitHub Copilot" extension.',
+                code: 'ext install GitHub.copilot',
+                language: 'text'
+            },
+            {
+                title: 'Authenticate',
+                content: 'Click the GitHub icon in the bottom left to sign in and authorize the extension.',
+            },
+            {
+                title: 'Trigger Suggestions',
+                content: 'Start typing. Gray ghost text will appear. Press Tab to accept it.',
+                code: '// Function to calculate fibonacci\nfunction fib...',
+                language: 'javascript'
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Standard for autocomplete', 'Works in many editors', 'Enterprise grade'],
+            cons: ['Not as autonomous as Cursor', 'Paid only (mostly)'],
+            bestFor: ['Boilerplate reduction', 'Autocomplete'],
+            communitySupport: 'Massive',
+            priceModel: 'Paid'
+        }
     },
     {
         name: 'Bolt',
@@ -127,12 +320,38 @@ export const tools: Tool[] = [
         tags: ['Web IDE', 'AI', 'Full Stack'],
         features: ['Browser-based Environment', 'Full Stack Generation', 'Live Preview', 'One-click Deploy'],
         youtubeVideoId: 'qJ0rR2y5CgU',
+        setupVideoId: '', // Browser based, no setup needed implies we can keep it simple or find a demo
         steps: [
-            { title: 'Go to Bolt.new', content: 'Navigate to bolt.new in your browser.' },
-            { title: 'Enter a Prompt', content: 'Describe your app idea in detail, e.g., "A kanban board with drag and drop support".' },
-            { title: 'Interact & Refine', content: 'Bolt will generate the code and run it. You can ask for changes in the chat sidebar, like "Make the header blue".' },
-            { title: 'Deploy', content: 'Use the deploy button to publish your app to Netlify or other providers instantly.' },
+            {
+                title: 'Access Bolt',
+                content: 'There is nothing to install. Bolt runs entirely in the browser.',
+                links: [{ text: 'Go to bolt.new', url: 'https://bolt.new', primary: true }]
+            },
+            {
+                title: 'Prompting',
+                content: 'Enter a comprehensive prompt describing your app.',
+                code: 'Build a task management app with drag and drop columns using React and Tailwind.',
+                language: 'text'
+            },
+            {
+                title: 'Iterate',
+                content: 'Bolt generates the code and preview. Speak to it to fix bugs.',
+                code: '"Change the background color to dark mode"',
+                language: 'text'
+            },
+            {
+                title: 'Deploy',
+                content: 'Click the "Deploy" button in the top right to publish to Netlify.',
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Zero setup', 'Full stack generation', 'Instant deploy'],
+            cons: ['No local environment access', 'Limited by token context'],
+            bestFor: ['Rapid Prototyping', 'MVPs'],
+            communitySupport: 'New/Growing',
+            priceModel: 'Freemium'
+        }
     },
     {
         name: 'Antigravity',
@@ -140,15 +359,50 @@ export const tools: Tool[] = [
         description: 'The advanced AI Agent from Google DeepMind causing ripples in the coating space.',
         longDescription: 'Antigravity is the codename for an advanced agentic coding assistant developed by Google DeepMind. Designed to understand complex codebases, plan implementations, and execute tasks autonomously, it represents the next leap in AI-assisted software development.',
         category: 'AI Coding',
-        link: 'https://deepmind.google',
+        link: 'https://antigravity.google/',
         tags: ['Agent', 'AI', 'Advanced'],
         features: ['Context Awareness', 'Autonomous Execution', 'Planning', 'Project Management'],
         youtubeVideoId: 'yFqvJ1p3_yw',
-        steps: [
-            { title: 'Access', content: 'Currently available through specific Google Labs or IDE integrations.' },
-            { title: 'Prompting', content: 'Give high-level, complex instructions like "Refactor this entire module" or "Build a landing page".' },
-            { title: 'Review', content: 'Antigravity will propose a plan. Review and approve the plan to let it execute the changes.' },
+        setupVideoId: '', // Experimental/Meta
+        additionalInfo: [
+            {
+                title: 'Agent Manager',
+                content: 'Antigravity includes a dedicated Agent Manager panel. This allows you to view currently running agent tasks, cancel them, or inspect their thought process in real-time. It provides transparency into how the AI is modifying your codebase.'
+            },
+            {
+                title: 'Model selection',
+                content: 'You can switch between different underlying models (e.g., Gemini Pro, Ultra) depending on the complexity of the task to manage latency and cost.'
+            }
         ],
+        steps: [
+            {
+                title: 'Download',
+                content: 'Download the full Antigravity IDE from the official site.',
+                links: [{ text: 'Download Antigravity', url: 'https://antigravity.google/', primary: true }]
+            },
+            {
+                title: 'Install',
+                content: 'Run the installer for your OS. It includes the agent runtime and a specialized editor environment.',
+            },
+            {
+                title: 'Prompting',
+                content: 'Give high-level, complex instructions like "Refactor this entire module" or "Build a landing page". You can also speak to it naturally.',
+                code: 'Plan and implement a new authentication flow',
+                language: 'text'
+            },
+            {
+                title: 'Review',
+                content: 'Antigravity will propose a plan. Review and approve the plan to let it execute the changes.',
+            },
+        ],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['Autonomous execution', 'Advanced planning', 'Deep codebase understanding'],
+            cons: ['Requires supervision', 'Computationally expensive'],
+            bestFor: ['Complex refactoring', 'Greenfield projects', 'Architecture changes'],
+            communitySupport: 'Niche/Alpha',
+            priceModel: 'Enterprise'
+        }
     },
     // AI Mockup
     {
@@ -161,12 +415,38 @@ export const tools: Tool[] = [
         tags: ['UI', 'Generative', 'React'],
         features: ['Tailwind CSS Compatible', 'Shadcn/ui Integration', 'Iterative Refinement', 'React Code Export'],
         youtubeVideoId: 'wO61dDe7XyY',
+        setupVideoId: '', // Browser based
         steps: [
-            { title: 'Login', content: 'Sign in to v0.dev with your Vercel or GitHub account.' },
-            { title: 'Prompt', content: 'Type a description of the UI you need, e.g., "A pricing table with 3 tiers and a toggle for monthly/yearly".' },
-            { title: 'Select & Edit', content: 'v0 generates 3 options. Pick the best one and ask for refinements if needed.' },
-            { title: 'Copy Code', content: 'Click the code button (</>) to copy the React/Tailwind code and paste it into your project.' },
+            {
+                title: 'Sign In',
+                content: 'Login to v0.dev with your Vercel account.',
+                links: [{ text: 'Go to v0.dev', url: 'https://v0.dev', primary: true }]
+            },
+            {
+                title: 'Generate UI',
+                content: 'Describe the component you need.',
+                code: 'A contact form with validation and a sleek dark theme.',
+                language: 'text'
+            },
+            {
+                title: 'Copy Code',
+                content: 'Click the code icon using the top toolbar. Review the React & Tailwind code.',
+            },
+            {
+                title: 'Install Dependencies',
+                content: 'v0 often uses `shadcn/ui`. Run the provided command in your terminal if prompted.',
+                code: 'npx shadcn-ui@latest add button input label',
+                language: 'bash'
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['High quality React/Tailwind code', 'Modern aesthetics', 'Copy-paste ready'],
+            cons: ['Components only (mostly)', 'Depends on shadcn/ui'],
+            bestFor: ['Component generation', 'UI Polish'],
+            communitySupport: 'Large',
+            priceModel: 'Freemium'
+        }
     },
     {
         name: 'Lovable',
@@ -178,12 +458,38 @@ export const tools: Tool[] = [
         tags: ['No Code', 'AI', 'Full App'],
         features: ['Full App Generation', 'Visual Editing', 'GitHub Export', 'Supabase Integration'],
         youtubeVideoId: 'j2q03_qe-O4',
+        setupVideoId: '', // Browser based
         steps: [
-            { title: 'Start a Project', content: 'Log in to Lovable and create a new project.' },
-            { title: 'Describe Features', content: 'Explain what your app does. Lovable will plan the database schema and features.' },
-            { title: 'Generate', content: 'Lovable generates the initial version. You can see the preview live.' },
-            { title: 'Export', content: 'Connect to GitHub to push the generated code to a repository for further development.' },
+            {
+                title: 'Access Lovable',
+                content: 'Sign up at expandable.dev (Lovable).',
+                links: [{ text: 'Go to Lovable', url: 'https://lovable.dev', primary: true }]
+            },
+            {
+                title: 'Describe App',
+                content: 'Lovable is for full apps, not just components. Describe the entire functionality.',
+                code: 'A real-time chat application with Supabase auth and infinite scrolling.',
+                language: 'text'
+            },
+            {
+                title: 'Sync to GitHub',
+                content: 'Once generated, click "Sync to GitHub" to create a repository.',
+            },
+            {
+                title: 'Clone & Run',
+                content: 'Clone the repo locally to add custom backend logic or complex features.',
+                code: 'git clone https://github.com/my-user/my-app.git\nnpm install\nnpm run dev',
+                language: 'bash'
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Generates full full-stack apps', 'GitHub Integration', 'Supabase Integration'],
+            cons: ['Codebase can contain "AI slop"', 'Hard to customize deep logic'],
+            bestFor: ['Startups', 'MVPs', 'CRUD Apps'],
+            communitySupport: 'Growing',
+            priceModel: 'Paid'
+        }
     },
     {
         name: 'UXPilot',
@@ -195,12 +501,32 @@ export const tools: Tool[] = [
         tags: ['Design', 'Wireframe', 'AI'],
         features: ['Wireframe Generation', 'UI Mockups', 'Design Iteration', 'Export Options'],
         youtubeVideoId: '3K2Zp0t2qk8',
+        setupVideoId: '',
         steps: [
-            { title: 'Sign Up', content: 'Create an account on UXPilot.ai.' },
-            { title: 'Describe Flow', content: 'Describe the user flow or screen you want to design.' },
-            { title: 'Edit', content: 'Use the editor to refine the generated wireframes.' },
-            { title: 'Export', content: 'Export your designs to Figma or as images.' },
+            {
+                title: 'New Project',
+                content: 'Start a new design project on UXPilot.',
+                links: [{ text: 'Start Designing', url: 'https://uxpilot.ai', primary: true }]
+            },
+            {
+                title: 'AI Prompt',
+                content: 'Use the AI assistant to generate wireframes or color palettes.',
+                code: 'Generate a mood board for a wellness app with calming colors.',
+                language: 'text'
+            },
+            {
+                title: 'Export',
+                content: 'Export your assets to image formats or directly to Figma if supported.',
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Quick wireframing', 'Idea generation', 'Good for non-designers'],
+            cons: ['Limited fidelity', 'Not a full design tool'],
+            bestFor: ['Initial Concepts', 'Wireframes'],
+            communitySupport: 'Small',
+            priceModel: 'Freemium'
+        }
     },
     // Design
     {
@@ -213,12 +539,42 @@ export const tools: Tool[] = [
         tags: ['Design', 'Prototyping', 'Collaboration'],
         features: ['Real-time Collaboration', 'Auto Layout', 'Prototyping', 'Dev Mode'],
         youtubeVideoId: 'Cx2dkpBxst8',
-        steps: [
-            { title: 'Create Account', content: 'Sign up for free at figma.com.' },
-            { title: 'New File', content: 'Create a new Design File.' },
-            { title: 'Frame', content: 'Press F and drag to create a frame (your screen).' },
-            { title: 'Design', content: 'Use the toolbar to add shapes, text, and images. Use Auto Layout (Shift+A) for responsive containers.' },
+        setupVideoId: 'jqxmIK4uhyo', // Figma 101
+        additionalInfo: [
+            {
+                title: 'Community Files',
+                content: 'Check out the "Community" tab in Figma. You can find thousands of free UI kits, icon sets, and plugins to speed up your workflow.'
+            }
         ],
+        steps: [
+            {
+                title: 'Create Account',
+                content: 'Sign up for free at figma.com.',
+                links: [{ text: 'Sign Up Free', url: 'https://figma.com', primary: true }]
+            },
+            {
+                title: 'New File',
+                content: 'Click "New Design File" in the top right corner.',
+            },
+            {
+                title: 'Create Frame',
+                content: 'Press `F` to select the Frame tool, then choose a preset (e.g., iPhone 14, MacBook Pro) from the right sidebar.',
+            },
+            {
+                title: 'Design basics',
+                content: 'Press `R` for Rectangle, Ti for Text. Use Auto Layout (`Shift+A`) to create responsive containers.',
+                code: 'Shortcuts:\nF: Frame\nR: Rectangle\nT: Text\nShift+A: Auto Layout',
+                language: 'text'
+            },
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Industry Standard', 'Collaborative', 'Dev Mode'],
+            cons: ['Dev Mode is now paid', 'Limited offline capability'],
+            bestFor: ['UI/UX Design', 'Prototyping'],
+            communitySupport: 'Massive',
+            priceModel: 'Freemium'
+        }
     },
     // Frontend
     {
@@ -231,12 +587,85 @@ export const tools: Tool[] = [
         tags: ['Build Tool', 'Fast'],
         features: ['Instant Server Start', 'Lightning Fast HMR', 'Optimized Build', 'Universal Plugin Interface'],
         youtubeVideoId: 'KCrXgy8qtjM',
-        steps: [
-            { title: 'Create Project', content: 'Run `npm create vite@latest` in your terminal.' },
-            { title: 'Select Framework', content: 'Choose your framework (e.g., React, Vue, Svelte) and variant (TypeScript/JavaScript).' },
-            { title: 'Install Dependencies', content: 'Enter the project folder `cd my-project` and run `npm install`.' },
-            { title: 'Start Dev Server', content: 'Run `npm run dev` to start the local development server.' },
+        setupVideoId: 'mCWAXKflB60', // Vite Crash Course
+        relatedTools: [
+            { slug: 'react', name: 'React', relation: 'complementary' },
+            { slug: 'vue', name: 'Vue', relation: 'complementary' }
         ],
+        steps: [
+            {
+                title: 'Create Project',
+                content: 'Open your terminal and run the create command. This will prompt you for a project name and framework.',
+                code: 'npm create vite@latest my-app -- --template react',
+                language: 'bash'
+            },
+            {
+                title: 'Install Dependencies',
+                content: 'Navigate into your new project folder and install the necessary packages.',
+                code: 'cd my-app\nnpm install',
+                language: 'bash'
+            },
+            {
+                title: 'Start Dev Server',
+                content: 'Start the local development server to see your app in the browser.',
+                code: 'npm run dev',
+                language: 'bash',
+                links: [{ text: 'Open Localhost', url: 'http://localhost:5173', primary: true }]
+            },
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Insanely fast', 'Lightweight', 'Rich Plugin Ecosystem'],
+            cons: ['Configuration can be tricky for complex apps', 'Newer than Webpack'],
+            bestFor: ['SPAs', 'Modern Frontend Apps'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Angular',
+        slug: 'angular',
+        description: 'The modern web developer\'s platform.',
+        longDescription: 'Angular is a platform for building mobile and desktop web applications. It provides a robust framework for building client-side applications, including a powerful CLI, dependency injection, and a component-based architecture.',
+        category: 'Frontend',
+        link: 'https://angular.dev',
+        tags: ['Framework', 'Google', 'TypeScript'],
+        features: ['Dependency Injection', 'RxJS', 'Two-way Binding', 'CLI'],
+        youtubeVideoId: 'Ata9cSC2WpM', // Angular in 100s
+        setupVideoId: '3qBXWUpoPHo', // Angular Crash Course
+        relatedTools: [
+            { slug: 'react', name: 'React', relation: 'alternative' },
+            { slug: 'vue', name: 'Vue', relation: 'alternative' },
+        ],
+        steps: [
+            {
+                title: 'Install CLI',
+                content: 'Install the Angular CLI globally using npm.',
+                code: 'npm install -g @angular/cli',
+                language: 'bash'
+            },
+            {
+                title: 'Create Project',
+                content: 'Generate a new workspace and initial application.',
+                code: 'ng new my-app',
+                language: 'bash'
+            },
+            {
+                title: 'Serve',
+                content: 'Navigate to the workspace and launch the server.',
+                code: 'cd my-app\nng serve --open',
+                language: 'bash',
+                links: [{ text: 'Angular Docs', url: 'https://angular.dev/overview', primary: true }]
+            },
+        ],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['Batteries included', 'Strict structure', 'Type safety dependent'],
+            cons: ['Verbose', 'Steep learning curve', 'Complex state management'],
+            bestFor: ['Large Enterprise Apps', 'Teams'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        }
     },
     {
         name: 'React',
@@ -247,12 +676,38 @@ export const tools: Tool[] = [
         link: 'https://react.dev',
         tags: ['Library', 'Components'],
         features: ['Component-Based', 'Declarative VR', 'Ecosystem', 'Virtual DOM'],
-        youtubeVideoId: 'Tn6-PIqc4UM',
+        youtubeVideoId: 'Tn6-PIqc4UM', // React in 100s
+        setupVideoId: 'SqcY0GlETPk', // React Tutorial for Beginners
+        additionalInfo: [
+            {
+                title: 'React DevTools',
+                content: 'Install the "React Developer Tools" browser extension to inspect your component hierarchy and state in real-time. It is essential for debugging.'
+            }
+        ],
+        relatedTools: [
+            { slug: 'vite', name: 'Vite', relation: 'prerequisite' },
+            { slug: 'angular', name: 'Angular', relation: 'alternative' },
+            { slug: 'nextjs', name: 'Next.js', relation: 'next-step' },
+        ],
         steps: [
-            { title: 'Setup', content: 'The recommended way to start a new React project is generic frameworks like Next.js or build tools like Vite.' },
-            { title: 'Components', content: 'Write functions that return JSX (HTML-like syntax) to define your UI elements.' },
-            { title: 'State', content: 'Use the `useState` hook to add interactivity and memory to your components.' },
-            { title: 'Props', content: 'Pass data between components using props (arguments).' },
+            {
+                title: 'Installation',
+                content: 'The most popular way to start a React project today is with Vite. Open your terminal.',
+                code: 'npm create vite@latest my-react-app -- --template react',
+                language: 'bash'
+            },
+            {
+                title: 'Start Development',
+                content: 'Navigate into your folder, install dependencies, and start the local server.',
+                code: 'cd my-react-app\nnpm install\nnpm run dev',
+                language: 'bash'
+            },
+            {
+                title: 'Your First Component',
+                content: 'React Apps are built with components. Edit `src/App.jsx` to see your changes correctly.',
+                code: 'function App() {\n  return <h1>Hello React!</h1>;\n}\n\nexport default App;',
+                language: 'jsx'
+            },
         ],
     },
     {
@@ -265,12 +720,36 @@ export const tools: Tool[] = [
         tags: ['Framework', 'SSR', 'React'],
         features: ['App Router', 'Server Components', 'Image Optimization', 'Edge Runtime'],
         youtubeVideoId: '__mSgDEOyv8',
+        setupVideoId: 'ZVnjOPwW4ZA', // Next.js 14 Tutorial
         steps: [
-            { title: 'Initialize', content: 'Run `npx create-next-app@latest`.' },
-            { title: 'Configure', content: 'Follow the prompts to enable TypeScript, ESLint, and Tailwind CSS.' },
-            { title: 'Routing', content: 'Create folders inside `app/` to define routes. `app/page.tsx` is the home page.' },
-            { title: 'Deploy', content: 'Deploy to Vercel with zero configuration for the best experience.' },
+            {
+                title: 'Initialize',
+                content: 'Create a new Next.js app with all the recommended settings.',
+                code: 'npx create-next-app@latest my-next-app',
+                language: 'bash',
+                links: [{ text: 'Installation Guide', url: 'https://nextjs.org/docs/installation', primary: true }]
+            },
+            {
+                title: 'Define Routes',
+                content: 'In the App Router, folders define routes. Create `app/about/page.tsx` for an "/about" page.',
+                code: 'export default function About() {\n  return <h1>About Page</h1>;\n}',
+                language: 'tsx'
+            },
+            {
+                title: 'Run Locally',
+                content: 'Start the development server.',
+                code: 'npm run dev',
+                language: 'bash'
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Great SEO (SSR)', 'Vercel integration', 'React Server Components'],
+            cons: ['Opinionated routing', 'Frequent breaking changes'],
+            bestFor: ['SEO heavy sites', 'E-commerce', 'Fullstack React'],
+            communitySupport: 'Massive',
+            priceModel: 'Free'
+        }
     },
     {
         name: 'Tailwind CSS',
@@ -282,12 +761,41 @@ export const tools: Tool[] = [
         tags: ['CSS', 'Utility-first'],
         features: ['Utility-First', 'Responsive Design', 'Dark Mode', 'Customization'],
         youtubeVideoId: 'mr15Xzb1Ook',
+        setupVideoId: 'ft30zcMlFao', // Tailwind CSS Legacy (or better modern one) -> actually "Tailwind CSS Full Course 2023"
         steps: [
-            { title: 'Install', content: 'Install via npm naturally with most frameworks (Vite, Next.js guides available).' },
-            { title: 'Configuration', content: 'Configure your template paths in `tailwind.config.js` or use the new v4 zero-config.' },
-            { title: 'Directives', content: 'Add `@tailwind base; @tailwind components; @tailwind utilities;` to your CSS file.' },
-            { title: 'Style', content: 'Start adding classes like `flex`, `pt-4`, `text-center` and `rotate-90` directly to your elements.' },
+            {
+                title: 'Install',
+                content: 'If you are using Vite, install Tailwind via npm and initialize the config file.',
+                code: 'npm install -D tailwindcss postcss autoprefixer\nnpx tailwindcss init -p',
+                language: 'bash'
+            },
+            {
+                title: 'Configure Paths',
+                content: 'Add the paths to all of your template files in `tailwind.config.js`.',
+                code: 'export default {\n  content: [\n    "./index.html",\n    "./src/**/*.{js,ts,jsx,tsx}",\n  ],\n  theme: {\n    extend: {},\n  },\n  plugins: [],\n}',
+                language: 'javascript'
+            },
+            {
+                title: 'Add Directives',
+                content: 'Add the Tailwind directives to your main CSS file (e.g. `src/index.css`).',
+                code: '@tailwind base;\n@tailwind components;\n@tailwind utilities;',
+                language: 'css'
+            },
+            {
+                title: 'Start Styling',
+                content: 'Use utility classes directly in your markup.',
+                code: '<h1 className="text-3xl font-bold underline">\n  Hello world!\n</h1>',
+                language: 'jsx'
+            }
         ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Rapid development', 'No naming conflicts', 'Highly customizable'],
+            cons: ['Ugly HTML class strings', 'Requires build step'],
+            bestFor: ['Modern Web Design', 'Design Systems'],
+            communitySupport: 'Massive',
+            priceModel: 'Free'
+        }
     },
     // Backend
     {
@@ -300,12 +808,36 @@ export const tools: Tool[] = [
         tags: ['Node.js', 'Backend', 'JavaScript'],
         features: ['Middleware', 'Routing', 'HTTP Helpers', 'Performance'],
         youtubeVideoId: 'L72fhGm1tfE', // Express in 100s
+        setupVideoId: 'Oe421EPjeBE', // Node.js and Express.js - Full Course
         steps: [
-            { title: 'Install', content: 'Run `npm install express`.' },
-            { title: 'Setup', content: 'Create an `index.js` file and require express.' },
-            { title: 'Create Server', content: 'Call `express()` to create an app, define routes like `app.get("/")`, and call `app.listen()`.' },
-            { title: 'Run', content: 'Run `node index.js` to start your server.' },
+            {
+                title: 'Install',
+                content: 'Create a new folder, initialize npm, and install Express.',
+                code: 'mkdir my-api\ncd my-api\nnpm init -y\nnpm install express',
+                language: 'bash'
+            },
+            {
+                title: 'Create Server',
+                content: 'Create an `index.js` file with a basic server setup.',
+                code: 'const express = require("express");\nconst app = express();\nconst port = 3000;\n\napp.get("/", (req, res) => {\n  res.send("Hello World!");\n});\n\napp.listen(port, () => {\n  console.log(`App listening on port ${port}`);\n});',
+                language: 'javascript'
+            },
+            {
+                title: 'Run',
+                content: 'Start your server using Node.js.',
+                code: 'node index.js',
+                language: 'bash',
+                links: [{ text: 'Express Guide', url: 'https://expressjs.com/en/starter/hello-world.html', primary: true }]
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Minimalist & flexible', 'Huge middleware ecosystem', 'Easy to learn'],
+            cons: ['Callback hell (if not careful)', 'Requires manual setup for everything'],
+            bestFor: ['REST APIs', 'Microservices', 'Node.js Backends'],
+            communitySupport: 'Solid',
+            priceModel: 'Free'
+        }
     },
     {
         name: 'Spring Boot',
@@ -316,13 +848,34 @@ export const tools: Tool[] = [
         link: 'https://spring.io/projects/spring-boot',
         tags: ['Java', 'Backend', 'Enterprise'],
         features: ['Auto-configuration', 'Standalone', 'Production-ready', 'Microservices'],
-        youtubeVideoId: '5lXQu8l75aQ', // Example ID
+        youtubeVideoId: '5lXQu8l75aQ',
+        setupVideoId: '9SGDpanrc8U', // Spring Boot Tutorial for Beginners
+
         steps: [
-            { title: 'Initialize', content: 'Go to start.spring.io (Spring Initializr).' },
-            { title: 'Generate', content: 'Select dependencies (Web, JPA, etc.) and generate the project.' },
-            { title: 'Run', content: 'Open in IntelliJ or Eclipse and run the main application class.' },
-            { title: 'Code', content: 'Create Controllers using `@RestController` and `@GetMapping` annotations.' },
+            {
+                title: 'Initialize Project',
+                content: 'Use Spring Initializr to generate a blank project with best practices.',
+                links: [{ text: 'Go to Spring Initializr', url: 'https://start.spring.io', primary: true }]
+            },
+            {
+                title: 'Add Dependencies',
+                content: 'Select "Spring Web" for building RESTful APIs. Click "Generate" to download the zip file.',
+            },
+            {
+                title: 'Create Controller',
+                content: 'Unzip, open in IntelliJ, and create a `HelloController.java`.',
+                code: '@RestController\npublic class HelloController {\n  @GetMapping("/")\n  public String index() {\n    return "Greetings from Spring Boot!";\n  }\n}',
+                language: 'java'
+            },
         ],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['Enterprise standard', 'Robust ecosystem', 'Great for large systems'],
+            cons: ['Heavyweight', 'Slow startup', 'Annotation magic'],
+            bestFor: ['Enterprise Microservices', 'Java Shops'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        }
     },
     {
         name: 'Django',
@@ -334,11 +887,37 @@ export const tools: Tool[] = [
         tags: ['Python', 'Backend', 'Full Stack'],
         features: ['Admin Interface', 'ORM', 'Security', 'Batteries Included'],
         youtubeVideoId: 'rHux0gMz3Eg', // Django in 100s
+        setupVideoId: 'PTZiDnuC86g', // Django Tutorial (Mosh)
+
         steps: [
-            { title: 'Install', content: 'Run `pip install django`.' },
-            { title: 'Start Project', content: 'Run `django-admin startproject myproject`.' },
-            { title: 'Run Server', content: 'Navigate into the directory and run `python manage.py runserver`.' },
+            {
+                title: 'Install Django',
+                content: 'Install Django using pip (Python package installer).',
+                code: 'pip install django',
+                language: 'bash'
+            },
+            {
+                title: 'Start Project',
+                content: 'Create the initial directory structure.',
+                code: 'django-admin startproject mysite',
+                language: 'bash'
+            },
+            {
+                title: 'Run Server',
+                content: 'Start the built-in lightweight development server.',
+                code: 'cd mysite\npython manage.py runserver',
+                language: 'bash',
+                links: [{ text: 'Writing your first Django app', url: 'https://docs.djangoproject.com/en/5.1/intro/tutorial01/', primary: true }]
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Batteries included', 'Admin interface', 'Secure by default'],
+            cons: ['Monolithic', 'Can be slow', 'Too much magic'],
+            bestFor: ['CMS', 'Rapid Development', 'Complex Data Models'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        }
     },
     {
         name: 'FastAPI',
@@ -349,13 +928,38 @@ export const tools: Tool[] = [
         link: 'https://fastapi.tiangolo.com',
         tags: ['Python', 'Backend', 'API'],
         features: ['High Performance', 'Easy to Learn', 'Auto Documentation', 'Type Safety'],
-        youtubeVideoId: '7020_MS35_g', // FastAPI (Firehip) - check ID, using placeholder
+        youtubeVideoId: 'GN6ICac3OXY', // FastAPI in 100s (actual ID)
+        setupVideoId: 'tLKKmouU5m4', // FastAPI full course
+
         steps: [
-            { title: 'Install', content: 'Run `pip install fastapi "uvicorn[standard]"`.' },
-            { title: 'Create App', content: 'Create `main.py` and import FastAPI.' },
-            { title: 'Define Route', content: 'Use decorators like `@app.get("/")` to define path operations.' },
-            { title: 'Run', content: 'Run `uvicorn main:app --reload`.' },
+            {
+                title: 'Install',
+                content: 'You need FastAPI and an ASGI server like Uvicorn.',
+                code: 'pip install fastapi "uvicorn[standard]"',
+                language: 'bash'
+            },
+            {
+                title: 'Create App',
+                content: 'Create a file `main.py` with this basic code:',
+                code: 'from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get("/")\ndef read_root():\n    return {"Hello": "World"}',
+                language: 'python'
+            },
+            {
+                title: 'Run',
+                content: 'Run the server with live reload enabled.',
+                code: 'uvicorn main:app --reload',
+                language: 'bash',
+                links: [{ text: 'FastAPI Tutorial', url: 'https://fastapi.tiangolo.com/tutorial/', primary: true }]
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Incredibly fast', 'Auto documentation (Swagger)', 'Type hints'],
+            cons: ['Newer ecosystem', 'Requires Python 3.6+'],
+            bestFor: ['High Performance APIs', 'ML Model Serving'],
+            communitySupport: 'Growing',
+            priceModel: 'Free'
+        }
     },
     // Mobile
     {
@@ -369,10 +973,32 @@ export const tools: Tool[] = [
         features: ['Native Components', 'Fast Refresh', 'Cross-Platform', 'Hermes Engine'],
         youtubeVideoId: 'gvkqT_Uoahw',
         steps: [
-            { title: 'Prerequisites', content: 'You will need Node.js, and Android Studio/Xcode for native development.' },
-            { title: 'Initialize', content: 'Use `npx react-native@latest init AwesomeProject` for a bare CLI project.' },
-            { title: 'Run', content: 'Run `npm start` to start Metro bundler, then press `a` for Android or `i` for iOS.' },
+            {
+                title: 'Prerequisites',
+                content: 'You need Node.js installed. For iOS development, you need a Mac with Xcode. For Android, you need Android Studio.',
+                links: [{ text: 'Environment Setup Guide', url: 'https://reactnative.dev/docs/environment-setup', primary: true }]
+            },
+            {
+                title: 'Initialize CLI Project',
+                content: 'Create a new React Native project using the community CLI.',
+                code: 'npx @react-native-community/cli@latest init AwesomeProject',
+                language: 'bash'
+            },
+            {
+                title: 'Run on iOS',
+                content: 'Navigate to the project and run on the iOS simulator (Mac only).',
+                code: 'cd AwesomeProject\nnpm run ios',
+                language: 'bash'
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Real native components', 'Mature ecosystem', 'Shared code with web'],
+            cons: ['Complex upgrade process', 'Bridge performance bottlenecks'],
+            bestFor: ['Cross-platform Mobile Apps', 'React Developers'],
+            communitySupport: 'Huge',
+            priceModel: 'Free'
+        }
     },
     {
         name: 'Expo',
@@ -385,10 +1011,32 @@ export const tools: Tool[] = [
         features: ['EAS Build', 'Over-the-air Updates', 'Push Notifications', 'Universal Modules'],
         youtubeVideoId: 'FDRyk0Wcpo8',
         steps: [
-            { title: 'Install', content: 'Run `npx create-expo-app@latest`.' },
-            { title: 'Development', content: 'Run `npx expo start`. You can open the app on your phone by scanning the QR code with the Expo Go app.' },
-            { title: 'Build', content: 'Use `eas build` to compile your app for the app stores in the cloud.' },
+            {
+                title: 'Install CLI',
+                content: 'Create a new Expo project. This is the easiest way to start with React Native.',
+                code: 'npx create-expo-app@latest my-app',
+                language: 'bash'
+            },
+            {
+                title: 'Run on Device',
+                content: 'Start the development server.',
+                code: 'npx expo start',
+                language: 'bash'
+            },
+            {
+                title: 'Preview',
+                content: 'Download the "Expo Go" app on your iOS or Android phone and scan the QR code from the terminal to run your app instantly.',
+                links: [{ text: 'Get Expo Go', url: 'https://expo.dev/client', primary: true }]
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Easiest way to build React Native', 'Over-the-air updates (EAS)', 'No native code linking'],
+            cons: ['Limited native module support (historically)', 'EAS Build can cost money'],
+            bestFor: ['Rapid Mobile Dev', 'Startups'],
+            communitySupport: 'Large',
+            priceModel: 'Freemium'
+        }
     },
     {
         name: 'Flutter',
@@ -399,12 +1047,49 @@ export const tools: Tool[] = [
         link: 'https://flutter.dev',
         tags: ['Google', 'Dart', 'Cross-platform'],
         features: ['Hot Reload', 'Native Performance', 'Expressive UI', 'Multi-platform'],
-        youtubeVideoId: 'lHhRhPV--G0',
-        steps: [
-            { title: 'Install SDK', content: 'Download the Flutter SDK from flutter.dev and add it to your PATH.' },
-            { title: 'Create App', content: 'Run `flutter create my_app`.' },
-            { title: 'Run', content: 'Run `flutter run` to launch on an emulator or connected device.' },
+        youtubeVideoId: 'lHhRhPV--G0', // Flutter in 100s
+        setupVideoId: 'VPvVD8t02U8', // Flutter Installation (common tutorial)
+        additionalInfo: [
+            {
+                title: 'Hot Reload vs Hot Restart',
+                content: 'Flutter has two fast refresh modes. "Hot Reload" (keeps app state, updates code) and "Hot Restart" (resets app state, re-compiles). Learn to use both.'
+            }
         ],
+        relatedTools: [
+            { slug: 'react-native', name: 'React Native', relation: 'alternative' }
+        ],
+        steps: [
+            {
+                title: 'Install Android Studio',
+                content: 'To build Android apps, you must install Android Studio. It includes the Android SDK and emulators.',
+                links: [{ text: 'Download Android Studio', url: 'https://developer.android.com/studio', primary: true }]
+            },
+            {
+                title: 'Install Flutter SDK',
+                content: 'Download the Flutter SDK zip file, extract it, and add the `flutter/bin` folder to your system PATH.',
+                links: [{ text: 'Flutter Install Guide', url: 'https://docs.flutter.dev/get-started/install', primary: true }]
+            },
+            {
+                title: 'Verify Setup',
+                content: 'Run `flutter doctor` in your terminal. It will tell you if anything (like Xcode or Android licenses) is missing.',
+                code: 'flutter doctor',
+                language: 'bash'
+            },
+            {
+                title: 'Create & Run',
+                content: 'Create your first app and run it on an emulator (make sure an emulator is running first via Android Studio).',
+                code: 'flutter create my_app\ncd my_app\nflutter run',
+                language: 'bash'
+            },
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Beautiful UI/Animations', 'Single codebase', 'Performance'],
+            cons: ['Dart language (another to learn)', 'Large app size'],
+            bestFor: ['Custom UI Apps', 'Cross-platform'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        }
     },
     // Database
     {
@@ -417,12 +1102,39 @@ export const tools: Tool[] = [
         tags: ['BaaS', 'Google', 'Database', 'Auth'],
         features: ['Authentication', 'Firestore NoSQL', 'Cloud Functions', 'Analytics'],
         youtubeVideoId: 'sKFLI5FOOHs',
+        setupVideoId: '9zdvmgGSww0', // Firebase setup
+
         steps: [
-            { title: 'Create Project', content: 'Go to console.firebase.google.com and create a project.' },
-            { title: 'Add App', content: 'Register your web/mobile app to get the configuration keys.' },
-            { title: 'Install SDK', content: 'Run `npm install firebase` in your project.' },
-            { title: 'Initialize', content: 'Import `initializeApp` from `firebase/app` and pass your config object.' },
+            {
+                title: 'Create Project',
+                content: 'Go to the Firebase Console and add a new project.',
+                links: [{ text: 'Firebase Console', url: 'https://console.firebase.google.com', primary: true }]
+            },
+            {
+                title: 'Register App',
+                content: 'Click the Web icon (</>) to register your app. Copy the `firebaseConfig` object provided.',
+            },
+            {
+                title: 'Install SDK',
+                content: 'Install the Firebase SDK in your project.',
+                code: 'npm install firebase',
+                language: 'bash'
+            },
+            {
+                title: 'Initialize',
+                content: 'Create a `firebase.js` file and initialize the app with your config.',
+                code: 'import { initializeApp } from "firebase/app";\n\nconst firebaseConfig = {\n  apiKey: "API_KEY",\n  authDomain: "PROJECT_ID.firebaseapp.com",\n  // ...other keys\n};\n\nexport const app = initializeApp(firebaseConfig);',
+                language: 'javascript'
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Realtime database', 'Easy Auth', 'Serverless'],
+            cons: ['Vendor lock-in', 'Pricing scales with usage'],
+            bestFor: ['Mobile Apps', 'Realtime Apps', 'MVPs'],
+            communitySupport: 'Massive',
+            priceModel: 'Freemium'
+        }
     },
     {
         name: 'Supabase',
@@ -434,12 +1146,35 @@ export const tools: Tool[] = [
         tags: ['Postgres', 'Open Source', 'BaaS'],
         features: ['Postgres Database', 'Auth', 'Auto-generated API', 'Realtime'],
         youtubeVideoId: 'zZ2CqYUavKc',
+        setupVideoId: 'I7h5a73L21E', // Supabase Crash Course
+
         steps: [
-            { title: 'Create Project', content: 'Sign up at supabase.com and create a new project.' },
-            { title: 'Table Editor', content: 'Use the dashboard to create tables and define relationships (SQL power!).' },
-            { title: 'Connect', content: 'Install `@supabase/supabase-js`. Initialize the client with your URL and anon key.' },
-            { title: 'Query', content: 'Use syntax like `supabase.from("tools").select("*")` to fetch data.' },
+            {
+                title: 'Create Project',
+                content: 'Sign up and create a new project. Supabase provisions a full Postgres database for you.',
+                links: [{ text: 'Supabase Dashboard', url: 'https://supabase.com/dashboard', primary: true }]
+            },
+            {
+                title: 'Connect',
+                content: 'Install the Supabase client library.',
+                code: 'npm install @supabase/supabase-js',
+                language: 'bash'
+            },
+            {
+                title: 'Query Data',
+                content: 'Initialize the client and query your database tables instantly.',
+                code: 'import { createClient } from "@supabase/supabase-js";\n\nconst supabase = createClient("URL", "ANON_KEY");\n\nconst { data, error } = await supabase\n  .from("todos")\n  .select("*");',
+                language: 'javascript'
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Open Source', 'Full Postgres power', 'Realtime features'],
+            cons: ['Newer than Firebase', 'Self-hosting is complex'],
+            bestFor: ['SaaS', 'Modern Web Apps', 'Postgres Lovers'],
+            communitySupport: 'Fast Growing',
+            priceModel: 'Freemium'
+        }
     },
     {
         name: 'PostgreSQL',
@@ -451,11 +1186,37 @@ export const tools: Tool[] = [
         tags: ['SQL', 'Relational', 'Open Source'],
         features: ['ACID Compliance', 'JSON Support', 'Extensions (PostGIS)', 'Concurrency'],
         youtubeVideoId: 'zw4s3Ey8yoU',
+        setupVideoId: 'BLH3s5eTL4Y', // Postgres Setup
+
         steps: [
-            { title: 'Install', content: 'Download installer or use Docker: `docker run --name postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres`.' },
-            { title: 'Connect', content: 'Use a GUI like pgAdmin or the CLI tool `psql`.' },
-            { title: 'Create DB', content: '`CREATE DATABASE mydb;`' },
+            {
+                title: 'Install',
+                content: 'The easiest way to run Postgres locally is with Docker.',
+                code: 'docker run --name postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres',
+                language: 'bash',
+                links: [{ text: 'Download Native Installer', url: 'https://www.postgresql.org/download/', primary: false }]
+            },
+            {
+                title: 'Connect',
+                content: 'Use a GUI tool like pgAdmin, DBeaver, or the command line implementation `psql`.',
+                code: 'psql -h localhost -U postgres',
+                language: 'bash'
+            },
+            {
+                title: 'Create Database',
+                content: 'Create a new database for your project.',
+                code: 'CREATE DATABASE my_app;',
+                language: 'sql'
+            },
         ],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['Rock solid reliability', 'Advanced SQL features', 'Standard for web apps'],
+            cons: ['Not natively distributed', 'Scaling writes is hard'],
+            bestFor: ['Primary Database', 'Relational Data'],
+            communitySupport: 'Massive',
+            priceModel: 'Free'
+        }
     },
     // Version Control
     {
@@ -468,12 +1229,50 @@ export const tools: Tool[] = [
         tags: ['Version Control', 'CLI', 'Essential'],
         features: ['Branching', 'Staging Area', 'Distributed', 'History'],
         youtubeVideoId: '8JJ101D3knE', // Git in 100s
-        steps: [
-            { title: 'Install', content: 'Download and install Git from git-scm.com.' },
-            { title: 'Configure', content: 'Set your name and email: `git config --global user.name "Your Name"`.' },
-            { title: 'Initialize', content: 'Run `git init` in your project folder to start tracking.' },
-            { title: 'Commit', content: '`git add .` to stage files, then `git commit -m "message"` to save.' },
+        setupVideoId: 'USjZcfj8yxE', // Git & GitHub for Beginners - Crash Course
+        additionalInfo: [
+            {
+                title: '.gitignore is your friend',
+                content: 'Always create a `.gitignore` file to prevent committing system files, credentials, or `node_modules`. generated files shouldn\'t be in Git.'
+            }
         ],
+        relatedTools: [
+            { slug: 'github', name: 'GitHub', relation: 'complementary' },
+            { slug: 'vscode', name: 'Visual Studio Code', relation: 'complementary' }
+        ],
+        steps: [
+            {
+                title: 'Download Git',
+                content: 'Download the appropriate installer for your OS. On Windows, we recommend "Git for Windows".',
+                links: [{ text: 'Download Git', url: 'https://git-scm.com/downloads', primary: true }]
+            },
+            {
+                title: 'Configure Identity',
+                content: 'Tell Git who you are. This information will be attached to every change you commit.',
+                code: 'git config --global user.name "Your Name"\ngit config --global user.email "you@example.com"',
+                language: 'bash'
+            },
+            {
+                title: 'Initialize a Repo',
+                content: 'Navigate to your project folder and initialize Git to start tracking changes.',
+                code: 'cd my-project\ngit init',
+                language: 'bash'
+            },
+            {
+                title: 'Stage and Commit',
+                content: 'Add files to the staging area and save a snapshot (commit) of your work.',
+                code: 'git add .\ngit commit -m "Initial commit"',
+                language: 'bash'
+            },
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Distributed', 'Industry standard', 'Offline work'],
+            cons: ['CLI can be daunting', 'Merge conflicts'],
+            bestFor: ['Version Control', 'Collaboration'],
+            communitySupport: 'Universal',
+            priceModel: 'Free'
+        }
     },
     {
         name: 'GitHub',
@@ -485,12 +1284,32 @@ export const tools: Tool[] = [
         tags: ['Platform', 'Collaboration', 'Git'],
         features: ['Pull Requests', 'Issues', 'Actions (CI/CD)', 'Codespaces'],
         youtubeVideoId: 'w3jLJU7DT5E', // Placeholder for GitHub
+        setupVideoId: '8JJ101D3knE', // Using Git 100s or similar as GitHub specific setup is usually "Git setup"
         steps: [
-            { title: 'Sign Up', content: 'Create a free account at GitHub.com.' },
-            { title: 'Create Repo', content: 'Click the + icon to create a new repository.' },
-            { title: 'Push Code', content: 'Follow the instructions to push your local Git repository to GitHub.' },
-            { title: 'Collaborate', content: 'Use Pull Requests to review and merge code from other branches or contributors.' },
+            {
+                title: 'Create Account',
+                content: 'Go to github.com and sign up.',
+                links: [{ text: 'Join GitHub', url: 'https://github.com', primary: true }]
+            },
+            {
+                title: 'Create Repository',
+                content: 'Click the "+" icon in the top right -> "New repository". Name it and initialize with a README if you want.',
+            },
+            {
+                title: 'Connect Local Git',
+                content: 'Push your local code to the new repository commands provided by GitHub.',
+                code: 'git remote add origin https://github.com/USER/REPO.git\ngit branch -M main\ngit push -u origin main',
+                language: 'bash'
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Largest host', 'Great UI/UX', 'Actions CI/CD'],
+            cons: ['Closed source (platform)', 'AI features paid'],
+            bestFor: ['Hosting Git Repos', 'Open Source'],
+            communitySupport: 'Universal',
+            priceModel: 'Freemium'
+        }
     },
     // Deployment
     {
@@ -504,10 +1323,28 @@ export const tools: Tool[] = [
         features: ['Global Edge Network', 'Serverless Functions', 'Preview Deployments', 'Analytics'],
         youtubeVideoId: 'DyqjD7kcdR0',
         steps: [
-            { title: 'Connect Git', content: 'Import your GitHub/GitLab/Bitbucket repository into Vercel.' },
-            { title: 'Configure', content: 'Vercel automatically detects your framework (Vite, Next.js, etc.) and configures build settings.' },
-            { title: 'Deploy', content: 'Click Deploy. Every push to your main branch will update the production site.' },
+            {
+                title: 'Connect Git',
+                content: 'For the best experience, push your code to GitHub first. Then go to Vercel and click "Add New Project" -> "Import" from GitHub.',
+                links: [{ text: 'Vercel Dashboard', url: 'https://vercel.com/dashboard', primary: true }]
+            },
+            {
+                title: 'Configure Build',
+                content: 'Vercel automatically detects most frameworks (Next.js, Vite, etc.) and sets the build commands for you.',
+            },
+            {
+                title: 'Deploy',
+                content: 'Click Deploy. Vercel will build your site and give you a live HTTPS URL (e.g., `my-app.vercel.app`) in seconds.',
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Zero config for Next.js', 'Fast edge network', 'Preview deployments'],
+            cons: ['Expensive for high bandwidth', 'Vendor lock-in'],
+            bestFor: ['Frontend Apps', 'Next.js'],
+            communitySupport: 'Large',
+            priceModel: 'Freemium'
+        }
     },
     {
         name: 'Netlify',
@@ -520,10 +1357,30 @@ export const tools: Tool[] = [
         features: ['Edge Functions', 'Form Handling', 'Identity/Auth', 'Split Testing'],
         youtubeVideoId: '4iH5t1gC30M',
         steps: [
-            { title: 'Drop to Deploy', content: 'You can literally drag and drop your `dist` folder to drop.netlify.com to deploy.' },
-            { title: 'Git Integration', content: 'For continuous deployment, connect your Git repository.' },
-            { title: 'Build Settings', content: 'Set your build command (e.g., `npm run build`) and publish directory (e.g., `dist`).' },
+            {
+                title: 'Drag & Drop',
+                content: 'For simple static sites, you can drag your project folder onto the Netlify dashboard to deploy instantly.',
+                links: [{ text: 'Netlify Drop', url: 'https://app.netlify.com/drop', primary: true }]
+            },
+            {
+                title: 'Git Continuous Deployment',
+                content: 'Connect your GitHub repository. Netlify will deploy every time you push code.',
+            },
+            {
+                title: 'Build Settings',
+                content: 'Ensure your build command (e.g., `npm run build`) and publish directory (e.g., `dist`) are correct.',
+                code: 'Build command: npm run build\nPublish directory: dist',
+                language: 'text'
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Framework agnostic', 'Great free tier', 'Drag & drop deploy'],
+            cons: ['Slower builds than Vercel sometimes', 'Complex pricing at scale'],
+            bestFor: ['Static Sites', 'Jamstack'],
+            communitySupport: 'Large',
+            priceModel: 'Freemium'
+        }
     },
     {
         name: 'Railway',
@@ -535,10 +1392,136 @@ export const tools: Tool[] = [
         tags: ['Infrastructure', 'Backend'],
         features: ['Docker Support', 'Database Provisioning', 'One-click Starter Kits', 'Variable Management'],
         youtubeVideoId: 'p28O00y68eA',
+        setupVideoId: '',
         steps: [
-            { title: 'New Project', content: 'Start a new project and choose "Provision Database" or "Deploy from GitHub Repo".' },
-            { title: 'Services', content: 'Add services like PostgreSQL or Redis with a single click.' },
-            { title: 'Deploy', content: 'Connect your repository. Railway detects your Dockerfile or language and builds it.' },
+            {
+                title: 'Start Project',
+                content: 'Login to Railway and click "New Project".',
+                links: [{ text: 'Railway Dashboard', url: 'https://railway.app/dashboard', primary: true }]
+            },
+            {
+                title: 'Deploy from GitHub',
+                content: 'Select "Deploy from GitHub repo". Choose your repo.',
+            },
+            {
+                title: 'Add Variables',
+                content: 'Go to the "Variables" tab to add secrets like `DATABASE_URL`.',
+                code: 'DATABASE_URL=postgres://...',
+                language: 'text'
+            },
+            {
+                title: 'Provision DB',
+                content: 'Right click on the canvas -> New -> Database -> PostgreSQL to add a database to your project.',
+            },
         ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Full backend support', 'Canvas UI', 'Docker support'],
+            cons: ['No free tier (trial only)', 'Cost can vary'],
+            bestFor: ['Full Stack Apps', 'Databases', 'Docker'],
+            communitySupport: 'Growing',
+            priceModel: 'Paid'
+        }
     },
+    // AI Chatbots
+    {
+        name: 'ChatGPT',
+        slug: 'chatgpt',
+        description: 'Advanced AI language model by OpenAI.',
+        longDescription: 'ChatGPT is a conversational AI assistant developed by OpenAI. It excels at a wide range of tasks including coding, writing, and problem-solving. It uses the GPT architecture to understand and generate human-like text.',
+        category: 'AI Chatbots',
+        link: 'https://chat.openai.com',
+        tags: ['AI', 'Chatbot', 'OpenAI', 'Coding Assistant'],
+        features: ['Natural Language Processing', 'Code Generation', 'Debugging', 'Explanation'],
+        steps: [
+            {
+                title: 'Sign Up',
+                content: 'Create an account at OpenAI.'
+            },
+            {
+                title: 'Start Chatting',
+                content: 'Type your question or prompt in the input box.'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Extremely versatile', 'Large knowledge base', 'Easy to use'],
+            cons: ['Can hallucinate facts', 'Limited context window in free tier'],
+            bestFor: ['General coding help', 'Brainstorming', 'Writing'],
+            communitySupport: 'Massive global user base',
+            priceModel: 'Freemium'
+        }
+    },
+    {
+        name: 'Claude',
+        slug: 'claude',
+        description: 'AI assistant by Anthropic focused on safety and large context.',
+        longDescription: 'Claude is an AI assistant created by Anthropic. It is known for its large context window, allowing it to process entire books or codebases, and its focus on being helpful, and honest.',
+        category: 'AI Chatbots',
+        link: 'https://claude.ai',
+        tags: ['AI', 'Chatbot', 'Anthropic', 'Large Context'],
+        features: ['Large Context Window', 'Safe AI', 'Code Analysis'],
+        steps: [
+            {
+                title: 'Sign Up',
+                content: 'Create an account at Anthropic.'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Huge context window', 'Natural writing style', 'Fewer refusals on safe topics'],
+            cons: ['Smaller ecosystem than OpenAI', 'Rate limits on free tier'],
+            bestFor: ['Analyzing large files', 'Creative writing', 'Complex reasoning'],
+            communitySupport: 'Growing rapidly',
+            priceModel: 'Freemium'
+        }
+    },
+    {
+        name: 'Gemini',
+        slug: 'gemini',
+        description: 'Google\'s multimodal AI model.',
+        longDescription: 'Gemini is Google\'s most capable AI model, built from the ground up to be multimodal. It can understand, operate on, and combine different types of information including text, code, audio, image, and video.',
+        category: 'AI Chatbots',
+        link: 'https://gemini.google.com',
+        tags: ['AI', 'Google', 'Multimodal'],
+        features: ['Multimodal', 'Google Integration', 'Fast Inference'],
+        steps: [
+            {
+                title: 'Login',
+                content: 'Use your Google account to access Gemini.'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Deep integration with Google ecosystem', 'Multimodal capabilities', 'Fast'],
+            cons: ['Can be inconsistent', 'Interface changes frequently'],
+            bestFor: ['Multimodal tasks', 'Google Workspace users'],
+            communitySupport: 'Large (Google ecosystem)',
+            priceModel: 'Freemium'
+        }
+    },
+    {
+        name: 'Perplexity',
+        slug: 'perplexity',
+        description: 'AI-powered answer engine with real-time web search.',
+        longDescription: 'Perplexity AI is a conversational search engine that answers queries using natural language and predictive text. It cites sources for its answers, making it a reliable tool for research and fact-checking.',
+        category: 'AI Chatbots',
+        link: 'https://www.perplexity.ai',
+        tags: ['AI', 'Search', 'Research'],
+        features: ['Real-time Search', 'Citations', 'Focus Modes'],
+        steps: [
+            {
+                title: 'Ask a Question',
+                content: 'Type your query to get a sourced answer.'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Real-time web access', 'Cites sources', 'Great for research'],
+            cons: ['Less creative than ChatGPT', 'Coding capabilities vary'],
+            bestFor: ['Research', 'Finding specific information', 'Fact checking'],
+            communitySupport: 'Growing',
+            priceModel: 'Freemium'
+        }
+    }
 ];

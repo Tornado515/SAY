@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Github } from 'lucide-react';
+import { Menu, X, Github, ChevronDown, ChevronRight } from 'lucide-react';
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -8,23 +8,32 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMobileCategoriesOpen, setIsMobileCategoriesOpen] = useState(false);
     const location = useLocation();
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-    const closeMenu = () => setIsMenuOpen(false);
+    const closeMenu = () => {
+        setIsMenuOpen(false);
+        setIsMobileCategoriesOpen(false);
+    }
+    const toggleMobileCategories = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsMobileCategoriesOpen(!isMobileCategoriesOpen);
+    };
 
-    const navLinks = [
-        { name: 'Frontend', path: '/category/frontend' },
-        { name: 'Mobile', path: '/category/mobile' },
-        { name: 'Design', path: '/category/design' },
+    const categories = [
         { name: 'AI Coding', path: '/category/ai-coding' },
+        { name: 'AI Chatbots', path: '/category/ai-chatbots' },
         { name: 'AI Mockup', path: '/category/ai-mockup' },
+        { name: 'Frontend', path: '/category/frontend' },
         { name: 'Backend', path: '/category/backend' },
+        { name: 'Mobile', path: '/category/mobile' },
         { name: 'Database', path: '/category/database' },
         { name: 'Version Control', path: '/category/version-control' },
+        { name: 'Design', path: '/category/design' },
         { name: 'IDE', path: '/category/ide' },
         { name: 'Deployment', path: '/category/deployment' },
-        { name: 'Categories', path: '/categories' },
     ];
 
     return (
@@ -38,16 +47,68 @@ export function Layout({ children }: LayoutProps) {
 
                         {/* Desktop Nav */}
                         <nav className="hidden lg:flex items-center gap-6">
-                            {navLinks.map((link) => (
+                            <Link
+                                to="/"
+                                className={`text-sm font-medium transition-colors hover:text-white ${location.pathname === '/' ? 'text-white' : 'text-neutral-400'
+                                    }`}
+                            >
+                                Home
+                            </Link>
+
+                            <Link
+                                to="/getting-started"
+                                className={`text-sm font-medium transition-colors hover:text-white ${location.pathname === '/getting-started' ? 'text-white' : 'text-neutral-400'
+                                    }`}
+                            >
+                                Getting Started
+                            </Link>
+
+                            {/* Tools Dropdown */}
+                            <div className="relative group h-16 flex items-center">
                                 <Link
-                                    key={link.name}
-                                    to={link.path}
-                                    className={`text-sm font-medium transition-colors hover:text-white ${location.pathname === link.path ? 'text-white' : 'text-neutral-400'
+                                    to="/tools"
+                                    className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-white group-hover:text-white focus:outline-none ${location.pathname.startsWith('/tool') || location.pathname === '/tools' || location.pathname.startsWith('/category') ? 'text-white' : 'text-neutral-400'
                                         }`}
                                 >
-                                    {link.name}
+                                    Tools
+                                    <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
                                 </Link>
-                            ))}
+
+                                <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0">
+                                    <div className="w-56 bg-neutral-900 border border-white/10 rounded-xl shadow-xl overflow-hidden py-1">
+                                        <Link
+                                            to="/categories"
+                                            className="block px-4 py-2 text-sm text-indigo-400 hover:bg-white/5 hover:text-indigo-300 font-medium border-b border-white/5"
+                                        >
+                                            View All Categories
+                                        </Link>
+                                        <Link
+                                            to="/tools"
+                                            className="block px-4 py-2 text-sm text-neutral-200 hover:bg-white/5 hover:text-white font-medium border-b border-white/5"
+                                        >
+                                            Browse All Tools
+                                        </Link>
+                                        <Link
+                                            to="/compare"
+                                            className="block px-4 py-2 text-sm text-neutral-200 hover:bg-white/5 hover:text-white font-medium border-b border-white/5"
+                                        >
+                                            Compare Tools
+                                        </Link>
+                                        <div className="py-1">
+                                            <span className="px-4 text-xs font-semibold text-neutral-500 uppercase tracking-wider">Quick Access</span>
+                                        </div>
+                                        {categories.map((cat) => (
+                                            <Link
+                                                key={cat.name}
+                                                to={cat.path}
+                                                className="block px-4 py-2 text-sm text-neutral-400 hover:bg-white/5 hover:text-white"
+                                            >
+                                                {cat.name}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
                         </nav>
                     </div>
 
@@ -76,19 +137,84 @@ export function Layout({ children }: LayoutProps) {
 
             {/* Mobile Menu Overlay */}
             {isMenuOpen && (
-                <div className="lg:hidden fixed inset-0 z-40 bg-neutral-950/95 backdrop-blur-3xl pt-20 px-6">
-                    <nav className="flex flex-col gap-6 text-lg">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.name}
-                                to={link.path}
-                                onClick={closeMenu}
-                                className={`font-medium transition-colors hover:text-white ${location.pathname === link.path ? 'text-white' : 'text-neutral-400'
-                                    }`}
-                            >
-                                {link.name}
-                            </Link>
-                        ))}
+                <div className="lg:hidden fixed inset-0 z-40 bg-neutral-950/95 backdrop-blur-3xl pt-20 px-6 overflow-y-auto">
+                    <nav className="flex flex-col gap-6 text-lg pb-10">
+                        <Link
+                            to="/"
+                            onClick={closeMenu}
+                            className={`font-medium transition-colors hover:text-white ${location.pathname === '/' ? 'text-white' : 'text-neutral-400'
+                                }`}
+                        >
+                            Home
+                        </Link>
+
+                        <Link
+                            to="/getting-started"
+                            onClick={closeMenu}
+                            className={`font-medium transition-colors hover:text-white ${location.pathname === '/getting-started' ? 'text-white' : 'text-neutral-400'
+                                }`}
+                        >
+                            Getting Started
+                        </Link>
+
+                        <div className="space-y-3">
+                            <div className="flex items-center justify-between pb-2 cursor-pointer" onClick={() => setIsMobileCategoriesOpen(!isMobileCategoriesOpen)}>
+                                <Link
+                                    to="/tools"
+                                    onClick={closeMenu}
+                                    className="text-white font-medium flex-grow"
+                                >
+                                    Tools
+                                </Link>
+                                <button
+                                    onClick={toggleMobileCategories}
+                                    className="p-2 -mr-2 text-neutral-400"
+                                >
+                                    {isMobileCategoriesOpen ? <ChevronDown className="w-5 h-5" /> : <ChevronRight className="w-5 h-5" />}
+                                </button>
+                            </div>
+
+                            {isMobileCategoriesOpen && (
+                                <div className="pl-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
+                                    <Link
+                                        to="/categories"
+                                        onClick={closeMenu}
+                                        className="block text-base text-indigo-400 hover:text-indigo-300"
+                                    >
+                                        View All Categories
+                                    </Link>
+                                    <Link
+                                        to="/tools"
+                                        onClick={closeMenu}
+                                        className="block text-base text-white hover:text-indigo-300"
+                                    >
+                                        Browse All Tools
+                                    </Link>
+                                    <Link
+                                        to="/compare"
+                                        onClick={closeMenu}
+                                        className="block text-base text-white hover:text-indigo-300"
+                                    >
+                                        Compare Tools
+                                    </Link>
+                                    <div className="pt-2 pb-1 border-t border-white/5">
+                                        <span className="text-xs font-medium text-neutral-500 uppercase">Categories</span>
+                                    </div>
+                                    {categories.map((link) => (
+                                        <Link
+                                            key={link.name}
+                                            to={link.path}
+                                            onClick={closeMenu}
+                                            className={`block text-base transition-colors hover:text-white ${location.pathname === link.path ? 'text-white' : 'text-neutral-400'
+                                                }`}
+                                        >
+                                            {link.name}
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
                         <a
                             href="https://github.com/Tornado515/SAY"
                             target="_blank"
@@ -109,7 +235,8 @@ export function Layout({ children }: LayoutProps) {
             <footer className="border-t border-white/5 bg-neutral-950 py-12 mt-20">
                 <div className="container mx-auto px-4 text-center text-sm text-neutral-500 sm:px-6 lg:px-8">
                     <div className="flex justify-center gap-6 mb-4">
-                        <Link to="/categories" className="hover:text-white transition-colors">Categories</Link>
+                        <Link to="/tools" className="hover:text-white transition-colors">Tools</Link>
+                        <Link to="/compare" className="hover:text-white transition-colors">Compare</Link>
                         <a href="https://github.com/Tornado515/SAY" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">GitHub</a>
                     </div>
                     <p>© {new Date().getFullYear()} SAY. Open source and community driven.</p>
