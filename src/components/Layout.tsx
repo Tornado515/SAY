@@ -162,7 +162,7 @@ export function Layout({ children }: LayoutProps) {
                                 <Link
                                     to="/tools"
                                     onClick={closeMenu}
-                                    className="text-white font-medium flex-grow"
+                                    className={`font-medium flex-grow ${location.pathname.startsWith('/tool') || location.pathname === '/tools' || location.pathname.startsWith('/category') ? 'text-white' : 'text-neutral-400'}`}
                                 >
                                     Tools
                                 </Link>

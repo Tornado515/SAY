@@ -6,10 +6,12 @@ import { CategoriesPage } from './pages/CategoriesPage';
 import { ToolsPage } from './pages/ToolsPage';
 import { ComparisonPage } from './pages/ComparisonPage';
 import { GettingStartedPage } from './pages/GettingStartedPage';
+import { ScrollToTop } from './components/ScrollToTop';
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/tools" element={<ToolsPage />} />

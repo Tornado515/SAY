@@ -1,15 +1,18 @@
 import type { Tool } from '../data/tools';
 import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 interface ToolCardProps {
     tool: Tool;
 }
 
 export function ToolCard({ tool }: ToolCardProps) {
+    const location = useLocation();
+
     return (
         <Link
             to={`/tool/${tool.slug}`}
+            state={{ from: location.pathname, fromName: location.pathname.includes('/category/') ? tool.category : 'All Tools' }}
             className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/5 bg-white/5 p-6 transition-all hover:border-white/10 hover:bg-white/10"
         >
             <div className="flex items-center justify-between mb-4">

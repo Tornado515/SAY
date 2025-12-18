@@ -709,6 +709,14 @@ export const tools: Tool[] = [
                 language: 'jsx'
             },
         ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Huge ecosystem', 'Component-based', 'In-demand skill'],
+            cons: ['Requires learning hooks', 'Too many choices (styles, state)'],
+            bestFor: ['SPAs', 'Large Applications', 'Career growth'],
+            communitySupport: 'Massive',
+            priceModel: 'Free'
+        }
     },
     {
         name: 'Next.js',

@@ -1,12 +1,18 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { tools } from '../data/tools';
-import { ExternalLink, ArrowLeft, CheckCircle, ArrowRightLeft, Check, X } from 'lucide-react';
+import { ExternalLink, ArrowLeft, CheckCircle, ArrowRightLeft } from 'lucide-react';
 import { Layout } from '../components/Layout';
 import { motion } from 'framer-motion';
+import { QuickSpecsSection } from '../components/QuickSpecsSection';
 
 export function ToolDetailPage() {
     const { slug } = useParams();
+    const location = useLocation();
     const tool = tools.find((t) => t.slug === slug);
+
+    // Dynamic Back Link State
+    const backLink = location.state?.from || '/tools';
+    const backLabel = location.state?.fromName ? `Back to ${location.state.fromName}` : 'Back to Tools';
 
     if (!tool) {
         return (
@@ -27,11 +33,11 @@ export function ToolDetailPage() {
                 <div className="mx-auto max-w-4xl">
                     {/* Back Link */}
                     <Link
-                        to="/tools"
+                        to={backLink}
                         className="group mb-8 inline-flex items-center gap-2 text-sm font-medium text-neutral-400 transition-colors hover:text-white"
                     >
                         <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-                        Back to Tools
+                        {backLabel}
                     </Link>
 
                     {/* Header */}
@@ -78,53 +84,10 @@ export function ToolDetailPage() {
 
                             {/* Quick Specs (Comparison Data) */}
                             {tool.comparisonData && (
-                                <section className="bg-white/5 rounded-2xl border border-white/10 p-6">
-                                    <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                                        <ArrowRightLeft className="h-4 w-4 text-indigo-400" />
-                                        Quick Specs
-                                    </h3>
-                                    <div className="grid sm:grid-cols-2 gap-6">
-                                        <div className="space-y-4">
-                                            <div>
-                                                <div className="text-xs font-medium text-neutral-500 uppercase tracking-wider mb-2">Best For</div>
-                                                <div className="flex flex-wrap gap-2">
-                                                    {tool.comparisonData.bestFor.map((item, i) => (
-                                                        <span key={i} className="text-xs bg-indigo-500/10 text-indigo-400 px-2 py-1 rounded-md border border-indigo-500/20">{item}</span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div className="text-xs font-medium text-neutral-500 uppercase tracking-wider mb-2">Pricing</div>
-                                                <span className="text-sm text-neutral-200">{tool.comparisonData.priceModel}</span>
-                                            </div>
-                                        </div>
-                                        <div className="space-y-4">
-                                            <div>
-                                                <div className="text-xs font-medium text-neutral-500 uppercase tracking-wider mb-2">Pros</div>
-                                                <ul className="space-y-1">
-                                                    {tool.comparisonData.pros.slice(0, 3).map((pro, i) => (
-                                                        <li key={i} className="flex gap-2 text-sm text-neutral-300">
-                                                            <Check className="w-3.5 h-3.5 text-green-500 mt-0.5 flex-shrink-0" />
-                                                            {pro}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <div className="text-xs font-medium text-neutral-500 uppercase tracking-wider mb-2">Cons</div>
-                                                <ul className="space-y-1">
-                                                    {tool.comparisonData.cons.slice(0, 3).map((con, i) => (
-                                                        <li key={i} className="flex gap-2 text-sm text-neutral-300">
-                                                            <X className="w-3.5 h-3.5 text-red-500 mt-0.5 flex-shrink-0" />
-                                                            {con}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
+                                <QuickSpecsSection tool={tool} />
                             )}
+
+
 
                             {/* Description */}
                             <section>

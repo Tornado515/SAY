@@ -101,11 +101,11 @@ export function CategoriesPage() {
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="mb-12">
                         <Link
-                            to="/"
+                            to="/tools"
                             className="group mb-8 inline-flex items-center gap-2 text-sm font-medium text-neutral-400 transition-colors hover:text-white"
                         >
                             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-                            Back to Home
+                            Back to Tools
                         </Link>
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
