@@ -56,7 +56,7 @@ export const tools: Tool[] = [
         link: 'https://code.visualstudio.com',
         tags: ['Editor', 'Microsoft', 'Open Source'],
         features: ['IntelliSense', 'Debugging', 'Extensions', 'Git Integration'],
-        youtubeVideoId: 'B-s71n0dHVk', // VS Code intro
+        youtubeVideoId: 'KMxo3T_MTvY', // VS Code intro
         setupVideoId: 'VqCgcpAypFQ', // VS Code crash course setup
         additionalInfo: [
             {
@@ -109,8 +109,8 @@ export const tools: Tool[] = [
         link: 'https://www.jetbrains.com/idea/',
         tags: ['Java', 'JetBrains', 'Enterprise'],
         features: ['Deep Code Analysis', 'Smart Refactoring', 'Debugger', 'Test Runner'],
-        youtubeVideoId: '9oTFn_yX400', // IntelliJ intro placeholder
-        setupVideoId: '5V3p196yX2k', // IntelliJ IDEA Setup (Amigoscode)
+        youtubeVideoId: '70_B2DyM8mU', // IntelliJ intro placeholder
+        setupVideoId: 'LPgiUILsZqQ', // IntelliJ IDEA Setup (Amigoscode)
         steps: [
             {
                 title: 'Download',
@@ -152,8 +152,7 @@ export const tools: Tool[] = [
         link: 'https://www.jetbrains.com/pycharm/',
         tags: ['Python', 'JetBrains', 'Data Science'],
         features: ['Code Insight', 'Debugger', 'Test Runner', 'Django Support'],
-        youtubeVideoId: 'moJzQ8uXn-M', // PyCharm intro
-        setupVideoId: '56d6O73s30M', // Python Tutorial for Beginners (includes PyCharm setup)
+        youtubeVideoId: 'FboZJIz8LRs', // PyCharm intro
         steps: [
             {
                 title: 'Download',
@@ -191,8 +190,7 @@ export const tools: Tool[] = [
         link: 'https://www.eclipse.org/ide/',
         tags: ['Java', 'Open Source', 'Legacy'],
         features: ['Plugin Ecosystem', 'Workspace Management', 'Git', 'Debugging'],
-        youtubeVideoId: 'S-7bO5j5oZw', // Eclipse intro
-        setupVideoId: 'I22WcM4i50U', // Eclipse Installation
+        setupVideoId: 'RvksS-Acffw', // Eclipse Installation
         steps: [
             {
                 title: 'Download Installer',
@@ -233,8 +231,8 @@ export const tools: Tool[] = [
         link: 'https://cursor.com',
         tags: ['Editor', 'AI', 'VS Code Fork'],
         features: ['Chat with Codebase', 'Tab Autocomplete', 'Natural Language Edit', 'Docs Integration'],
-        youtubeVideoId: 'o5t7s9t3g6w',
-        setupVideoId: 'jk59_o8T8bs', // Cursor Deep Dive
+        youtubeVideoId: 'LR04bU_yV5k',
+        setupVideoId: '3289vhOUdKA', // Cursor Deep Dive
         steps: [
             {
                 title: 'Download and Install',
@@ -276,12 +274,12 @@ export const tools: Tool[] = [
         link: 'https://github.com/features/copilot',
         tags: ['Extension', 'AI', 'Autocomplete'],
         features: ['Multi-line Suggestions', 'Chat in IDE', 'CLI Integration', 'Pull Request Summaries'],
-        youtubeVideoId: 'Fi3AJZZQqGk',
-        setupVideoId: 'ImWfIDfHhkW8', // Copilot in VSCode
+        youtubeVideoId: 'IqXNhakuwVc',
+        setupVideoId: 'wxaxlIlN7BA', // Copilot in VSCode
         steps: [
             {
                 title: 'Get Subscription',
-                content: 'Sign up for GitHub Copilot (free for students/OS maintainers).',
+                content: 'Sign up for GitHub Copilot (free plan available for individuals).',
                 links: [{ text: 'Sign Up', url: 'https://github.com/features/copilot', primary: true }]
             },
             {
@@ -307,7 +305,7 @@ export const tools: Tool[] = [
             cons: ['Not as autonomous as Cursor', 'Paid only (mostly)'],
             bestFor: ['Boilerplate reduction', 'Autocomplete'],
             communitySupport: 'Massive',
-            priceModel: 'Paid'
+            priceModel: 'Freemium'
         }
     },
     {
@@ -319,7 +317,7 @@ export const tools: Tool[] = [
         link: 'https://bolt.new',
         tags: ['Web IDE', 'AI', 'Full Stack'],
         features: ['Browser-based Environment', 'Full Stack Generation', 'Live Preview', 'One-click Deploy'],
-        youtubeVideoId: 'qJ0rR2y5CgU',
+        youtubeVideoId: 'iFcc7FZH-xs',
         setupVideoId: '', // Browser based, no setup needed implies we can keep it simple or find a demo
         steps: [
             {
@@ -362,7 +360,7 @@ export const tools: Tool[] = [
         link: 'https://antigravity.google/',
         tags: ['Agent', 'AI', 'Advanced'],
         features: ['Context Awareness', 'Autonomous Execution', 'Planning', 'Project Management'],
-        youtubeVideoId: 'yFqvJ1p3_yw',
+        youtubeVideoId: 'nTOVIGsqCuY',
         setupVideoId: '', // Experimental/Meta
         additionalInfo: [
             {
@@ -1296,18 +1294,22 @@ export const tools: Tool[] = [
         steps: [
             {
                 title: 'Create Account',
-                content: 'Go to github.com and sign up.',
+                content: 'Go to github.com and create your account. This is your identity in the coding world.',
                 links: [{ text: 'Join GitHub', url: 'https://github.com', primary: true }]
             },
             {
-                title: 'Create Repository',
-                content: 'Click the "+" icon in the top right -> "New repository". Name it and initialize with a README if you want.',
+                title: 'Install GitHub Desktop',
+                content: 'To avoid complex command line setups, download the official GitHub Desktop app. It handles authentication and syncing for you.',
+                links: [{ text: 'Download GitHub Desktop', url: 'https://desktop.github.com/', primary: true }]
             },
             {
-                title: 'Connect Local Git',
-                content: 'Push your local code to the new repository commands provided by GitHub.',
-                code: 'git remote add origin https://github.com/USER/REPO.git\ngit branch -M main\ngit push -u origin main',
-                language: 'bash'
+                title: 'Create Repository',
+                content: 'In GitHub Desktop (or on the website), click "New Repository". This creates a safe home for your project code.',
+            },
+            {
+                title: 'Sync Code',
+                content: 'Use the "Publish repository" or "Push origin" buttons in GitHub Desktop to save your local changes to the cloud.',
+                links: [{ text: 'Prefer the Command Line?', url: '/tool/git', primary: false }]
             },
         ],
         comparisonData: {
