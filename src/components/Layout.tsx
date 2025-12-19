@@ -63,6 +63,14 @@ export function Layout({ children }: LayoutProps) {
                                 Getting Started
                             </Link>
 
+                            <Link
+                                to="/tech-stacks"
+                                className={`text-sm font-medium transition-colors hover:text-white ${location.pathname.startsWith('/tech-stacks') ? 'text-white' : 'text-neutral-400'
+                                    }`}
+                            >
+                                Tech Stacks
+                            </Link>
+
                             {/* Tools Dropdown */}
                             <div className="relative group h-16 flex items-center">
                                 <Link
@@ -146,6 +154,15 @@ export function Layout({ children }: LayoutProps) {
                                 }`}
                         >
                             Home
+                        </Link>
+
+                        <Link
+                            to="/tech-stacks"
+                            onClick={closeMenu}
+                            className={`font-medium transition-colors hover:text-white ${location.pathname.startsWith('/tech-stacks') ? 'text-white' : 'text-neutral-400'
+                                }`}
+                        >
+                            Tech Stacks
                         </Link>
 
                         <Link

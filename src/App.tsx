@@ -6,6 +6,8 @@ import { CategoriesPage } from './pages/CategoriesPage';
 import { ToolsPage } from './pages/ToolsPage';
 import { ComparisonPage } from './pages/ComparisonPage';
 import { GettingStartedPage } from './pages/GettingStartedPage';
+import { TechStacksPage } from './pages/TechStacksPage';
+import { TechStackDetailPage } from './pages/TechStackDetailPage';
 import { ScrollToTop } from './components/ScrollToTop';
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
         <Route path="/category/:slug" element={<CategoryPage />} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/getting-started" element={<GettingStartedPage />} />
+        <Route path="/tech-stacks" element={<TechStacksPage />} />
+        <Route path="/tech-stacks/:slug" element={<TechStackDetailPage />} />
       </Routes>
     </BrowserRouter>
   );

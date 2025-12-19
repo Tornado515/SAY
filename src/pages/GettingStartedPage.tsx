@@ -233,7 +233,7 @@ export function GettingStartedPage() {
                             <h3 className="text-2xl font-semibold text-indigo-400 mb-3">You did it! 🎉</h3>
                             <p className="text-neutral-300 mb-6">You now have a real development environment set up. This is how the pros do it.</p>
                             <a
-                                href="/categories"
+                                href="/tools"
                                 className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
                             >
                                 Explore Tools & Technologies

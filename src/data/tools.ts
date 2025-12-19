@@ -1,3 +1,4 @@
+// HMR Trigger
 export interface DetailedLink {
     text: string;
     url: string;
@@ -412,7 +413,7 @@ export const tools: Tool[] = [
         link: 'https://v0.dev',
         tags: ['UI', 'Generative', 'React'],
         features: ['Tailwind CSS Compatible', 'Shadcn/ui Integration', 'Iterative Refinement', 'React Code Export'],
-        youtubeVideoId: 'wO61dDe7XyY',
+        youtubeVideoId: '41SR07p243Q',
         setupVideoId: '', // Browser based
         steps: [
             {
@@ -455,7 +456,7 @@ export const tools: Tool[] = [
         link: 'https://lovable.dev',
         tags: ['No Code', 'AI', 'Full App'],
         features: ['Full App Generation', 'Visual Editing', 'GitHub Export', 'Supabase Integration'],
-        youtubeVideoId: 'j2q03_qe-O4',
+        youtubeVideoId: 'kcOrTOT7Kko',
         setupVideoId: '', // Browser based
         steps: [
             {
@@ -498,7 +499,7 @@ export const tools: Tool[] = [
         link: 'https://uxpilot.ai',
         tags: ['Design', 'Wireframe', 'AI'],
         features: ['Wireframe Generation', 'UI Mockups', 'Design Iteration', 'Export Options'],
-        youtubeVideoId: '3K2Zp0t2qk8',
+        youtubeVideoId: 'PhFkgMQtJW0',
         setupVideoId: '',
         steps: [
             {
@@ -537,7 +538,7 @@ export const tools: Tool[] = [
         tags: ['Design', 'Prototyping', 'Collaboration'],
         features: ['Real-time Collaboration', 'Auto Layout', 'Prototyping', 'Dev Mode'],
         youtubeVideoId: 'Cx2dkpBxst8',
-        setupVideoId: 'jqxmIK4uhyo', // Figma 101
+        setupVideoId: 'jQ1sfKIl50E', // Figma 101
         additionalInfo: [
             {
                 title: 'Community Files',
@@ -585,7 +586,7 @@ export const tools: Tool[] = [
         tags: ['Build Tool', 'Fast'],
         features: ['Instant Server Start', 'Lightning Fast HMR', 'Optimized Build', 'Universal Plugin Interface'],
         youtubeVideoId: 'KCrXgy8qtjM',
-        setupVideoId: 'mCWAXKflB60', // Vite Crash Course
+        setupVideoId: 'do62-z3z6FM', // Vite Crash Course
         relatedTools: [
             { slug: 'react', name: 'React', relation: 'complementary' },
             { slug: 'vue', name: 'Vue', relation: 'complementary' }
@@ -771,27 +772,27 @@ export const tools: Tool[] = [
         steps: [
             {
                 title: 'Install',
-                content: 'If you are using Vite, install Tailwind via npm and initialize the config file.',
-                code: 'npm install -D tailwindcss postcss autoprefixer\nnpx tailwindcss init -p',
+                content: 'Install Tailwind CSS and the Vite plugin via npm.',
+                code: 'npm install tailwindcss @tailwindcss/vite',
                 language: 'bash'
             },
             {
-                title: 'Configure Paths',
-                content: 'Add the paths to all of your template files in `tailwind.config.js`.',
-                code: 'export default {\n  content: [\n    "./index.html",\n    "./src/**/*.{js,ts,jsx,tsx}",\n  ],\n  theme: {\n    extend: {},\n  },\n  plugins: [],\n}',
-                language: 'javascript'
+                title: 'Configure Vite',
+                content: 'Add the Tailwind CSS plugin to your Vite configuration in `vite.config.ts`.',
+                code: 'import { defineConfig } from \'vite\'\nimport tailwindcss from \'@tailwindcss/vite\'\n\nexport default defineConfig({\n  plugins: [\n    tailwindcss(),\n  ],\n})',
+                language: 'typescript'
             },
             {
-                title: 'Add Directives',
-                content: 'Add the Tailwind directives to your main CSS file (e.g. `src/index.css`).',
-                code: '@tailwind base;\n@tailwind components;\n@tailwind utilities;',
+                title: 'Import CSS',
+                content: 'Import Tailwind CSS in your main CSS file (e.g. `src/index.css`).',
+                code: '@import "tailwindcss";',
                 language: 'css'
             },
             {
                 title: 'Start Styling',
-                content: 'Use utility classes directly in your markup.',
-                code: '<h1 className="text-3xl font-bold underline">\n  Hello world!\n</h1>',
-                language: 'jsx'
+                content: 'Use utility classes directly in your markup. Here is an example of a card component.',
+                code: '<div className="flex min-h-[200px] items-center justify-center bg-zinc-950 p-4">\n  <div className="w-full max-w-sm rounded-xl bg-zinc-900 p-6 shadow-xl border border-zinc-800">\n    <h2 className="text-2xl font-bold text-white mb-2">\n      Tailwind v4\n    </h2>\n    <p className="text-zinc-400 mb-4">\n      Styling is faster and cleaner than ever.\n    </p>\n    <button className="w-full rounded-lg bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-500 transition-colors">\n      Get Started\n    </button>\n  </div>\n</div>',
+                language: 'tsx'
             }
         ],
         comparisonData: {
@@ -804,6 +805,39 @@ export const tools: Tool[] = [
         }
     },
     // Backend
+    {
+        name: 'Node.js',
+        slug: 'nodejs',
+        description: 'JavaScript runtime built on Chrome\'s V8 JavaScript engine.',
+        longDescription: 'Node.js is an open-source, cross-platform JavaScript runtime environment that executes JavaScript code outside a web browser. It allows developers to use JavaScript to write command line tools and for server-side scripting.',
+        category: 'Backend',
+        link: 'https://nodejs.org',
+        tags: ['Runtime', 'JavaScript', 'Backend'],
+        features: ['Asynchronous', 'Event-driven', 'NPM', 'Cross-platform'],
+        youtubeVideoId: 'ENrzD9HAZK4', // Node.js in 100s
+        setupVideoId: 'Oe421EPjeBE', // Node.js Full Course
+        steps: [
+            {
+                title: 'Download',
+                content: 'Download the LTS (Long Term Support) version from the official website.',
+                links: [{ text: 'Download Node.js', url: 'https://nodejs.org', primary: true }]
+            },
+            {
+                title: 'Verify Install',
+                content: 'Check that node and npm are installed correctly in your terminal.',
+                code: 'node -v\nnpm -v',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['JavaScript everywhere', 'Huge package ecosystem (NPM)', 'High performance'],
+            cons: ['Single threaded (cpu bound)', 'Callback complexity'],
+            bestFor: ['Realtime apps', 'API Servers', 'Single Page Apps'],
+            communitySupport: 'Massive',
+            priceModel: 'Free'
+        }
+    },
     {
         name: 'Express.js',
         slug: 'express',
@@ -854,7 +888,7 @@ export const tools: Tool[] = [
         link: 'https://spring.io/projects/spring-boot',
         tags: ['Java', 'Backend', 'Enterprise'],
         features: ['Auto-configuration', 'Standalone', 'Production-ready', 'Microservices'],
-        youtubeVideoId: '5lXQu8l75aQ',
+        youtubeVideoId: 'v73-ps01c5w',
         setupVideoId: '9SGDpanrc8U', // Spring Boot Tutorial for Beginners
 
         steps: [
@@ -892,8 +926,8 @@ export const tools: Tool[] = [
         link: 'https://djangoproject.com',
         tags: ['Python', 'Backend', 'Full Stack'],
         features: ['Admin Interface', 'ORM', 'Security', 'Batteries Included'],
-        youtubeVideoId: 'rHux0gMz3Eg', // Django in 100s
-        setupVideoId: 'PTZiDnuC86g', // Django Tutorial (Mosh)
+        youtubeVideoId: '0sMtoedWaf0', // Django in 100s
+        setupVideoId: 'rHux0gMZ3Eg', // Django Tutorial (Mosh)
 
         steps: [
             {
@@ -934,8 +968,8 @@ export const tools: Tool[] = [
         link: 'https://fastapi.tiangolo.com',
         tags: ['Python', 'Backend', 'API'],
         features: ['High Performance', 'Easy to Learn', 'Auto Documentation', 'Type Safety'],
-        youtubeVideoId: 'GN6ICac3OXY', // FastAPI in 100s (actual ID)
-        setupVideoId: 'tLKKmouU5m4', // FastAPI full course
+        youtubeVideoId: '8SdR5i3ZoqE', // FastAPI in 100s (actual ID)
+        setupVideoId: 'GN6ICac3OXY', // FastAPI full course
 
         steps: [
             {
@@ -964,6 +998,129 @@ export const tools: Tool[] = [
             cons: ['Newer ecosystem', 'Requires Python 3.6+'],
             bestFor: ['High Performance APIs', 'ML Model Serving'],
             communitySupport: 'Growing',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'PHP',
+        slug: 'php',
+        description: 'A popular general-purpose scripting language that is especially suited to web development.',
+        longDescription: 'PHP is a widely-used open source general-purpose scripting language that is especially suited for web development and can be embedded into HTML.',
+        category: 'Backend',
+        link: 'https://www.php.net',
+        tags: ['Language', 'Server-side', 'Web'],
+        features: ['Easy Deployment', 'Database Integration', 'Wide Hosting Support'],
+        youtubeVideoId: 'OK_JCtrrv-c',
+        steps: [
+            {
+                title: 'Download XAMPP',
+                content: 'Go to the Apache Friends website and download the XAMPP installer for your operating system (Windows, Linux, or macOS).',
+                links: [{ text: 'Download XAMPP', url: 'https://www.apachefriends.org/index.html', primary: true }]
+            },
+            {
+                title: 'Install XAMPP',
+                content: 'Run the installer. You can leave the default components selected (Apache, MySQL, PHP, MyAdmin). Choose a folder (e.g., C:\\xampp) and complete the installation.',
+            },
+            {
+                title: 'Start Server',
+                content: 'Open the "XAMPP Control Panel". Click "Start" next to Apache (Web Server) and MySQL (Database). They should turn green.',
+            },
+            {
+                title: 'Verify Setup',
+                content: 'Navigate to your XAMPP installation folder, then open the `htdocs` folder. Create a new file named `test.php` with the following content:',
+                code: '<?php\n  phpinfo();\n?>',
+                language: 'php'
+            },
+            {
+                title: 'Run in Browser',
+                content: 'Open your web browser and go to `http://localhost/test.php`. You should see the PHP configuration page.',
+                links: [{ text: 'Open Localhost', url: 'http://localhost/test.php', primary: true }]
+            },
+            {
+                title: 'Add to PATH (Optional)',
+                content: 'To use PHP in your terminal (e.g., for Laravel), add the PHP folder (C:\\xampp\\php) to your System Environment Variables "Path".',
+                code: 'php -v',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Run anywhere', 'Cheap hosting', 'Huge ecosystem (WordPress, Laravel)'],
+            cons: ['Inconsistent API', 'Legacy baggage'],
+            bestFor: ['Freelancing', 'Content sites', 'Laravel'],
+            communitySupport: 'Massive',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Laravel',
+        slug: 'laravel',
+        description: 'The PHP Framework for Web Artisans.',
+        longDescription: 'Laravel is a web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.',
+        category: 'Backend',
+        link: 'https://laravel.com',
+        tags: ['Framework', 'PHP', 'MVC'],
+        features: ['Eloquent ORM', 'Blade Templating', 'Migrations', 'Queues'],
+        youtubeVideoId: 'ImtZ5yENzgE', // Laravel in 100s
+        setupVideoId: '3CNjnZ1F6iQ', // Laravel 11 Tutorial
+        steps: [
+            {
+                title: 'Install Installer',
+                content: 'Install the Laravel Installer globally via Composer.',
+                code: 'composer global require laravel/installer',
+                language: 'bash'
+            },
+            {
+                title: 'New Project',
+                content: 'Create a new Laravel project.',
+                code: 'laravel new my-app',
+                language: 'bash'
+            },
+            {
+                title: 'Serve',
+                content: 'Run the local development server.',
+                code: 'php artisan serve',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Elegant syntax', 'Best-in-class documentation', 'Huge ecosystem'],
+            cons: ['PHP (if you dislike it)', 'Performance vs Go/Node'],
+            bestFor: ['SaaS', 'Monoliths', 'Rapid Dev'],
+            communitySupport: 'Massive',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'MySQL',
+        slug: 'mysql',
+        description: 'The world\'s most popular open source database.',
+        longDescription: 'MySQL is a widely used relational database management system (RDBMS).',
+        category: 'Database',
+        link: 'https://www.mysql.com',
+        tags: ['SQL', 'Relational', 'Database'],
+        features: ['ACID', 'Replication', 'Stored Procedures'],
+        youtubeVideoId: '7S_tz1z_5bA',
+        steps: [
+            {
+                title: 'Install',
+                content: 'Install via MySQL Installer (Windows) or Homebrew (Mac). often included with XAMPP.',
+                links: [{ text: 'Download MySQL', url: 'https://dev.mysql.com/downloads/installer/', primary: true }]
+            },
+            {
+                title: 'Connect',
+                content: 'Use MySQL Workbench or CLI.',
+                code: 'mysql -u root -p',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Ubiquitous', 'Standard SQL', 'Mature'],
+            cons: ['Oracle owned (concern for some)', 'Scaling writes'],
+            bestFor: ['General Web Apps', 'WordPress', 'Laravel'],
+            communitySupport: 'Massive',
             priceModel: 'Free'
         }
     },
@@ -1098,6 +1255,73 @@ export const tools: Tool[] = [
         }
     },
     // Database
+    {
+        name: 'MongoDB',
+        slug: 'mongodb',
+        description: 'The most popular database for modern apps.',
+        longDescription: 'MongoDB is a source-available cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas.',
+        category: 'Database',
+        link: 'https://www.mongodb.com',
+        tags: ['NoSQL', 'Database', 'JSON'],
+        features: ['Flexible Schema', 'Scalability', 'High Performance', 'Atlas Cloud'],
+        youtubeVideoId: '-bt_y4Loofg', // MongoDB in 100s
+        setupVideoId: 'ofme2o29ngu', // MongoDB Crash Course
+        steps: [
+            {
+                title: 'MongoDB Atlas',
+                content: 'The easiest way to start is with MongoDB Atlas (Cloud). Create a free account.',
+                links: [{ text: 'Try MongoDB Atlas', url: 'https://www.mongodb.com/cloud/atlas', primary: true }]
+            },
+            {
+                title: 'Connect',
+                content: 'Get your connection string from the Atlas dashboard and use it in your app.',
+                code: 'mongodb+srv://<username>:<password>@cluster0.mongodb.net/?retryWrites=true&w=majority',
+                language: 'text'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Flexible schema', 'JSON native', 'Horizontal scaling'],
+            cons: ['No joins (traditionally)', 'High memory usage'],
+            bestFor: ['Content management', 'Rapid prototyping', 'Big Data'],
+            communitySupport: 'Massive',
+            priceModel: 'Freemium'
+        }
+    },
+    {
+        name: 'Prisma',
+        slug: 'prisma',
+        description: 'Next-generation Node.js and TypeScript ORM.',
+        longDescription: 'Prisma is a server-side library that helps your app read and write data to the database in an intuitive, efficient, and safe way. It includes a strongly typed client, a migration system, and a GUI to view your data.',
+        category: 'Database', // OR Backend? Database fits best as it is an ORM
+        link: 'https://www.prisma.io',
+        tags: ['ORM', 'TypeScript', 'Database'],
+        features: ['Type Safety', 'Auto-completion', 'Migrations', 'Prisma Studio'],
+        youtubeVideoId: 'rLRIB6AF2Dg',
+        setupVideoId: 'RebA5J-rlwg', // Prisma Crash Course
+        steps: [
+            {
+                title: 'Install',
+                content: 'Install Prisma as a dev dependency.',
+                code: 'npm install prisma --save-dev',
+                language: 'bash'
+            },
+            {
+                title: 'Init',
+                content: 'Initialize Prisma with your database provider.',
+                code: 'npx prisma init --datasource-provider postgresql',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Best TypeScript support', 'Great developer experience', 'Introspection'],
+            cons: ['Another layer of abstraction', 'Performance overhead in edge'],
+            bestFor: ['TypeScript Backends', 'Next.js', 'Node.js'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        }
+    },
     {
         name: 'Firebase',
         slug: 'firebase',
