@@ -27,7 +27,7 @@ export interface Tool {
     slug: string;
     description: string;
     longDescription: string;
-    category: 'Frontend' | 'Mobile' | 'AI Coding' | 'AI Mockup' | 'Deployment' | 'Testing' | 'Design' | 'Database' | 'Backend' | 'Version Control' | 'IDE' | 'AI Chatbots';
+    category: 'Frontend' | 'Mobile' | 'AI Coding' | 'AI Mockup' | 'Deployment' | 'Testing' | 'Design' | 'Database' | 'Backend' | 'Version Control' | 'IDE' | 'AI Chatbots' | 'Productivity';
     link: string;
     tags: string[];
     steps: Step[];
@@ -35,6 +35,10 @@ export interface Tool {
     youtubeVideoId?: string;
     setupVideoId?: string;
     additionalInfo?: {
+        title: string;
+        content: string;
+    }[];
+    aiFeatures?: {
         title: string;
         content: string;
     }[];
@@ -142,7 +146,16 @@ export const tools: Tool[] = [
             bestFor: ['Java/Kotlin Development', 'Enterprise Applications'],
             communitySupport: 'Massive',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'java', name: 'Java', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Plugins',
+                content: 'IntelliJ has a rich plugin ecosystem. Install "Key Promoter X" to learn keyboard shortcuts while you work.'
+            }
+        ]
     },
     {
         name: 'PyCharm',
@@ -180,7 +193,16 @@ export const tools: Tool[] = [
             bestFor: ['Python Web Dev', 'Data Science'],
             communitySupport: 'Large',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'python', name: 'Python', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Virtual Environments',
+                content: 'PyCharm handles venv creation automatically. Always check the bottom right corner to see which interpreter is active.'
+            }
+        ]
     },
     {
         name: 'Eclipse',
@@ -220,7 +242,16 @@ export const tools: Tool[] = [
             bestFor: ['Legacy Java Apps', 'Open Source purists'],
             communitySupport: 'Large but declining',
             priceModel: 'Free'
-        }
+        },
+        relatedTools: [
+            { slug: 'java', name: 'Java', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Workspace',
+                content: 'Eclipse uses a unique "Workspace" concept. You can switch workspaces to completely change your set of open projects and settings.'
+            }
+        ]
     },
     // AI Coding
     {
@@ -264,7 +295,16 @@ export const tools: Tool[] = [
             bestFor: ['AI Pair Programming', 'Refactoring'],
             communitySupport: 'Growing fast',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'vscode', name: 'Visual Studio Code', relation: 'alternative' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Privacy Mode',
+                content: 'Enable "Privacy Mode" in settings if you do not want your code to be stored on Cursor servers (though AI features may be limited).'
+            }
+        ]
     },
     {
         name: 'GitHub Copilot',
@@ -307,7 +347,16 @@ export const tools: Tool[] = [
             bestFor: ['Boilerplate reduction', 'Autocomplete'],
             communitySupport: 'Massive',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'vscode', name: 'Visual Studio Code', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Context Awareness',
+                content: 'Open related files (tabs) to give Copilot more context. It reads your open tabs to give better suggestions.'
+            }
+        ]
     },
     {
         name: 'Bolt',
@@ -350,7 +399,17 @@ export const tools: Tool[] = [
             bestFor: ['Rapid Prototyping', 'MVPs'],
             communitySupport: 'New/Growing',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'react', name: 'React', relation: 'complementary' },
+            { slug: 'tailwindcss', name: 'Tailwind CSS', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Token Usage',
+                content: 'Bolt runs on LLMs with token limits. If your app gets too large, you might hit context limits. It is best for starting projects.'
+            }
+        ]
     },
     {
         name: 'Antigravity',
@@ -401,7 +460,10 @@ export const tools: Tool[] = [
             bestFor: ['Complex refactoring', 'Greenfield projects', 'Architecture changes'],
             communitySupport: 'Niche/Alpha',
             priceModel: 'Enterprise'
-        }
+        },
+        relatedTools: [
+            { slug: 'gemini', name: 'Gemini', relation: 'complementary' }
+        ]
     },
     // AI Mockup
     {
@@ -445,7 +507,17 @@ export const tools: Tool[] = [
             bestFor: ['Component generation', 'UI Polish'],
             communitySupport: 'Large',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'react', name: 'React', relation: 'complementary' },
+            { slug: 'tailwindcss', name: 'Tailwind CSS', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Iterative Prompting',
+                content: 'Don\'t expect perfection in one go. Highlight parts of the UI and refine them with specific follow-up prompts.'
+            }
+        ]
     },
     {
         name: 'Lovable',
@@ -488,7 +560,16 @@ export const tools: Tool[] = [
             bestFor: ['Startups', 'MVPs', 'CRUD Apps'],
             communitySupport: 'Growing',
             priceModel: 'Paid'
-        }
+        },
+        relatedTools: [
+            { slug: 'supabase', name: 'Supabase', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Exporting',
+                content: 'Always sync to GitHub frequently. If you hit Lovable limits, you can continue developing your exported code manually.'
+            }
+        ]
     },
     {
         name: 'UXPilot',
@@ -525,7 +606,16 @@ export const tools: Tool[] = [
             bestFor: ['Initial Concepts', 'Wireframes'],
             communitySupport: 'Small',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'figma', name: 'Figma', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Figma Export',
+                content: 'Use the export features to move your wireframes into Figma for high-fidelity polishing.'
+            }
+        ]
     },
     // Design
     {
@@ -573,7 +663,53 @@ export const tools: Tool[] = [
             bestFor: ['UI/UX Design', 'Prototyping'],
             communitySupport: 'Massive',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'mobbin', name: 'Mobbin', relation: 'complementary' }
+        ]
+    },
+    {
+        name: 'Mobbin',
+        slug: 'mobbin',
+        description: 'The world\'s largest mobile & web design reference library.',
+        longDescription: 'Mobbin is a comprehensive library of real-world design patterns from successful mobile and web apps. It allows designers to search and filter by app categories, UI elements, and user flows to find inspiration and validate design decisions.',
+        category: 'Design',
+        link: 'https://mobbin.com',
+        tags: ['Design', 'Inspiration', 'UI Patterns'],
+        features: ['Real-world Screens', 'User Flows', 'Advanced Filtering', 'iOS & Android & Web'],
+        youtubeVideoId: 'a1DBwxKuioA',
+        steps: [
+            {
+                title: 'Sign Up',
+                content: 'Create an account at Mobbin.com to access the full library.',
+                links: [{ text: 'Go to Mobbin', url: 'https://mobbin.com', primary: true }]
+            },
+            {
+                title: 'Search & Filter',
+                content: 'Use filters to find specific UI patterns (e.g. "Onboarding") or apps (e.g. "Fintech").',
+            },
+            {
+                title: 'Save Collections',
+                content: 'Save screens and flows to your personal collections for future reference.',
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Real validated designs', 'Huge library', 'Flow visualization'],
+            cons: ['Premium for full access', 'Static screenshots'],
+            bestFor: ['UI Research', 'Competitor Analysis', 'Inspiration'],
+            communitySupport: 'Large',
+            priceModel: 'Freemium'
+        },
+        relatedTools: [
+            { slug: 'figma', name: 'Figma', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Flows',
+                content: 'Don\'t just look at single screens. Use the "Flows" view to understand the user journey (e.g., Sign up -> Onboarding -> Home).'
+            }
+        ]
     },
     // Frontend
     {
@@ -619,7 +755,13 @@ export const tools: Tool[] = [
             bestFor: ['SPAs', 'Modern Frontend Apps'],
             communitySupport: 'Large',
             priceModel: 'Free'
-        }
+        },
+        additionalInfo: [
+            {
+                title: 'Environment Variables',
+                content: 'Vite exposes env variables on the special `import.meta.env` object. Prefix them with `VITE_` to expose them to the client.'
+            }
+        ]
     },
     {
         name: 'Angular',
@@ -664,7 +806,13 @@ export const tools: Tool[] = [
             bestFor: ['Large Enterprise Apps', 'Teams'],
             communitySupport: 'Large',
             priceModel: 'Free'
-        }
+        },
+        additionalInfo: [
+            {
+                title: 'RxJS',
+                content: 'Angular relies heavily on RxJS for handling asynchronous data. Learning "Observables" is key to mastering Angular.'
+            }
+        ]
     },
     {
         name: 'React',
@@ -756,7 +904,17 @@ export const tools: Tool[] = [
             bestFor: ['SEO heavy sites', 'E-commerce', 'Fullstack React'],
             communitySupport: 'Massive',
             priceModel: 'Free'
-        }
+        },
+        relatedTools: [
+            { slug: 'react', name: 'React', relation: 'prerequisite' },
+            { slug: 'vercel', name: 'Vercel', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Server Components',
+                content: 'By default, components in the `app` directory are Server Components. They render on the server and send zero JS to the client.'
+            }
+        ]
     },
     {
         name: 'Tailwind CSS',
@@ -802,7 +960,16 @@ export const tools: Tool[] = [
             bestFor: ['Modern Web Design', 'Design Systems'],
             communitySupport: 'Massive',
             priceModel: 'Free'
-        }
+        },
+        relatedTools: [
+            { slug: 'react', name: 'React', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Arbitrary Values',
+                content: 'Need a specific pixel value? Use square brackets like `w-[500px]` or `bg-[#1da1f2]` to escape the design system constraints.'
+            }
+        ]
     },
     // Backend
     {
@@ -836,7 +1003,16 @@ export const tools: Tool[] = [
             bestFor: ['Realtime apps', 'API Servers', 'Single Page Apps'],
             communitySupport: 'Massive',
             priceModel: 'Free'
-        }
+        },
+        relatedTools: [
+            { slug: 'express', name: 'Express.js', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'The Event Loop',
+                content: 'Node.js is single-threaded but non-blocking. Heavy computation (CPU loops) generally blocks the entire server, so be careful.'
+            }
+        ]
     },
     {
         name: 'Express.js',
@@ -877,7 +1053,16 @@ export const tools: Tool[] = [
             bestFor: ['REST APIs', 'Microservices', 'Node.js Backends'],
             communitySupport: 'Solid',
             priceModel: 'Free'
-        }
+        },
+        relatedTools: [
+            { slug: 'nodejs', name: 'Node.js', relation: 'prerequisite' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Middleware Order',
+                content: 'The order you define `app.use()` matters! Middleware functions are executed sequentially. Always put global middleware (like logging) at the top.'
+            }
+        ]
     },
     {
         name: 'Spring Boot',
@@ -915,7 +1100,16 @@ export const tools: Tool[] = [
             bestFor: ['Enterprise Microservices', 'Java Shops'],
             communitySupport: 'Large',
             priceModel: 'Free'
-        }
+        },
+        relatedTools: [
+            { slug: 'java', name: 'Java', relation: 'prerequisite' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Annotations',
+                content: 'Spring Boot relies heavily on annotations (e.g., `@RestController`, `@Autowired`). Understanding what each annotation does is 80% of learning Spring.'
+            }
+        ]
     },
     {
         name: 'Django',
@@ -957,7 +1151,16 @@ export const tools: Tool[] = [
             bestFor: ['CMS', 'Rapid Development', 'Complex Data Models'],
             communitySupport: 'Large',
             priceModel: 'Free'
-        }
+        },
+        relatedTools: [
+            { slug: 'python', name: 'Python', relation: 'prerequisite' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Admin Panel',
+                content: 'Django comes with a free, production-ready Admin interface. It is one of its biggest selling points for CMS-like apps.'
+            }
+        ]
     },
     {
         name: 'FastAPI',
@@ -999,7 +1202,16 @@ export const tools: Tool[] = [
             bestFor: ['High Performance APIs', 'ML Model Serving'],
             communitySupport: 'Growing',
             priceModel: 'Free'
-        }
+        },
+        relatedTools: [
+            { slug: 'python', name: 'Python', relation: 'prerequisite' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Pydantic Models',
+                content: 'FastAPI uses Pydantic for data validation. You define your data shape as a class, and FastAPI ensures the incoming JSON matches it.'
+            }
+        ]
     },
     {
         name: 'PHP',
@@ -1010,7 +1222,23 @@ export const tools: Tool[] = [
         link: 'https://www.php.net',
         tags: ['Language', 'Server-side', 'Web'],
         features: ['Easy Deployment', 'Database Integration', 'Wide Hosting Support'],
-        youtubeVideoId: 'OK_JCtrrv-c',
+        youtubeVideoId: 'a7_WFUlFS94',
+        setupVideoId: 'zZ6vybT1HQs',
+        relatedTools: [
+            { slug: 'composer', name: 'Composer', relation: 'complementary' },
+            { slug: 'laravel', name: 'Laravel', relation: 'next-step' },
+            { slug: 'mysql', name: 'MySQL', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'The php.ini File',
+                content: 'This file controls how PHP behaves. If you need to increase upload limits or enable extensions, this is where you look.'
+            },
+            {
+                title: 'Superglobals',
+                content: '`$_GET`, `$_POST` are always available variables that handle form data. Be careful with security!'
+            }
+        ],
         steps: [
             {
                 title: 'Download XAMPP',
@@ -1053,6 +1281,56 @@ export const tools: Tool[] = [
         }
     },
     {
+        name: 'Composer',
+        slug: 'composer',
+        description: 'A Dependency Manager for PHP.',
+        longDescription: 'Composer is a tool for dependency management in PHP. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you.',
+        category: 'Backend',
+        link: 'https://getcomposer.org',
+        tags: ['PHP', 'Tool', 'Dependency Manager'],
+        features: ['Dependency Management', 'Autoloading', 'Scripts', 'Plugins'],
+        youtubeVideoId: 'FNa5heI6BD8', // What Is Composer In PHP?
+        additionalInfo: [
+            {
+                title: 'The vendor folder',
+                content: 'This folder is where Composer puts all your downloaded libraries. **Never edit files inside here**, as they will be overwritten.'
+            },
+            {
+                title: 'The .lock file',
+                content: '`composer.lock` freezes your installed versions. Always commit this file to Git so your team uses the exact same versions.'
+            }
+        ],
+        relatedTools: [
+            { slug: 'php', name: 'PHP', relation: 'prerequisite' },
+            { slug: 'laravel', name: 'Laravel', relation: 'next-step' }
+        ],
+        steps: [
+            {
+                title: 'Download',
+                content: 'Download the installer from the official website.',
+                links: [{ text: 'Get Composer', url: 'https://getcomposer.org/download/', primary: true }]
+            },
+            {
+                title: 'Install',
+                content: 'Run the installer. Ensure "Add to Path" is selected during installation so you can use Composer globally in your terminal.',
+            },
+            {
+                title: 'Verify',
+                content: 'Open your terminal (Command Prompt or PowerShell) and run the following command to verify the installation.',
+                code: 'composer -v',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Standard for PHP', 'Huge package library', 'Autoloading magic'],
+            cons: ['Memory hungry', 'Can be slow'],
+            bestFor: ['All PHP Projects', 'Laravel', 'Dependency Management'],
+            communitySupport: 'Massive',
+            priceModel: 'Free'
+        }
+    },
+    {
         name: 'Laravel',
         slug: 'laravel',
         description: 'The PHP Framework for Web Artisans.',
@@ -1061,24 +1339,47 @@ export const tools: Tool[] = [
         link: 'https://laravel.com',
         tags: ['Framework', 'PHP', 'MVC'],
         features: ['Eloquent ORM', 'Blade Templating', 'Migrations', 'Queues'],
-        youtubeVideoId: 'ImtZ5yENzgE', // Laravel in 100s
-        setupVideoId: '3CNjnZ1F6iQ', // Laravel 11 Tutorial
+        youtubeVideoId: 'rIfdg_Ot-LI', // Laravel in 100s
+        setupVideoId: 'ImtZ5yENzgE', // Laravel 11 Tutorial
+        additionalInfo: [
+            {
+                title: 'The .env file',
+                content: 'This file holds your secrets (DB passwords, API keys). **Never commit this to Git**.'
+            },
+            {
+                title: 'Artisan CLI',
+                content: '`php artisan` is your best friend. It can make files, run database migrations, and clear caches.'
+            }
+        ],
+        relatedTools: [
+            { slug: 'composer', name: 'Composer', relation: 'prerequisite' },
+            { slug: 'php', name: 'PHP', relation: 'prerequisite' }
+        ],
         steps: [
             {
-                title: 'Install Installer',
-                content: 'Install the Laravel Installer globally via Composer.',
-                code: 'composer global require laravel/installer',
+                title: 'Check Prerequisites',
+                content: 'Ensure you have **Composer** installed. It is required to create a new Laravel project.',
+                links: [{ text: 'View Composer Guide', url: '/tools/composer', primary: true }]
+            },
+            {
+                title: 'Open Terminal',
+                content: 'Launch your preferred terminal (system command line tool).',
+            },
+            {
+                title: 'Initialize Project',
+                content: 'Run the following command to download the Laravel framework and set up your new project directory structure.',
+                code: 'composer create-project laravel/laravel my-website',
                 language: 'bash'
             },
             {
-                title: 'New Project',
-                content: 'Create a new Laravel project.',
-                code: 'laravel new my-app',
+                title: 'Navigate to Project',
+                content: 'Move into the newly created project directory.',
+                code: 'cd my-website',
                 language: 'bash'
             },
             {
-                title: 'Serve',
-                content: 'Run the local development server.',
+                title: 'Start Server',
+                content: 'Start the local development server to view your application.',
                 code: 'php artisan serve',
                 language: 'bash'
             }
@@ -1101,18 +1402,49 @@ export const tools: Tool[] = [
         link: 'https://www.mysql.com',
         tags: ['SQL', 'Relational', 'Database'],
         features: ['ACID', 'Replication', 'Stored Procedures'],
-        youtubeVideoId: '7S_tz1z_5bA',
+        youtubeVideoId: 'zsjvFFKOm3c',
+        setupVideoId: '7S_tz1z_5bA',
+        relatedTools: [
+            { slug: 'php', name: 'PHP', relation: 'complementary' },
+            { slug: 'laravel', name: 'Laravel', relation: 'next-step' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Root User',
+                content: 'The `root` user has full power (like Administrator). In production, you should create specific users with limited permissions.'
+            },
+            {
+                title: 'Localhost vs Production',
+                content: 'On your own PC (localhost), `root` often has no password. In the real world, this is a huge security risk!'
+            }
+        ],
         steps: [
             {
                 title: 'Install',
-                content: 'Install via MySQL Installer (Windows) or Homebrew (Mac). often included with XAMPP.',
-                links: [{ text: 'Download MySQL', url: 'https://dev.mysql.com/downloads/installer/', primary: true }]
+                content: 'You can install MySQL directly using the installer (Windows) or Homebrew (Mac). Alternatively, if you installed XAMPP for PHP, MySQL is already included!',
+                links: [{ text: 'Download Installer', url: 'https://dev.mysql.com/downloads/installer/', primary: true }]
             },
             {
-                title: 'Connect',
-                content: 'Use MySQL Workbench or CLI.',
+                title: 'Verify Service',
+                content: 'Ensure the MySQL server is actually running. On Windows, check "Services.msc" or the XAMPP Control Panel. On Mac, use `brew services list`.',
+            },
+            {
+                title: 'Secure Installation (Optional)',
+                content: 'It is best practice to run this command to improve security (set root password, remove test users).',
+                code: 'mysql_secure_installation',
+                language: 'bash'
+            },
+            {
+                title: 'Connect via CLI',
+                content: 'Open your terminal/command prompt. Use this command to log in as the root user. Enter your password when prompted (or press Enter if none).',
                 code: 'mysql -u root -p',
                 language: 'bash'
+            },
+            {
+                title: 'Create Database',
+                content: 'Once logged in (you will see the `mysql>` prompt), you can create a database for your app.',
+                code: 'CREATE DATABASE my_website;',
+                language: 'sql'
             }
         ],
         comparisonData: {
@@ -1135,15 +1467,35 @@ export const tools: Tool[] = [
         tags: ['Mobile', 'Cross-platform'],
         features: ['Native Components', 'Fast Refresh', 'Cross-Platform', 'Hermes Engine'],
         youtubeVideoId: 'gvkqT_Uoahw',
+        setupVideoId: '0-S5a0eXPoc',
+        relatedTools: [
+            { slug: 'expo', name: 'Expo', relation: 'complementary' },
+            { slug: 'react', name: 'React', relation: 'prerequisite' },
+            { slug: 'nodejs', name: 'Node.js', relation: 'prerequisite' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Why Expo?',
+                content: 'Expo is now the recommended way to start. Use the CLI only if you need very specific native code control that Expo doesn\'t support (which is rare nowadays).'
+            },
+            {
+                title: 'Metro Bundler',
+                content: 'Metro is the JavaScript bundler that packages your code. You\'ll see it running in your terminal window.'
+            },
+            {
+                title: 'Hermes Engine',
+                content: 'A JavaScript engine optimized for running React Native on Android. It makes apps start faster and use less memory.'
+            }
+        ],
         steps: [
             {
                 title: 'Prerequisites',
-                content: 'You need Node.js installed. For iOS development, you need a Mac with Xcode. For Android, you need Android Studio.',
+                content: 'You need Node.js installed. For iOS development (CLI), you need a Mac with Xcode. For Android, you need Android Studio.',
                 links: [{ text: 'Environment Setup Guide', url: 'https://reactnative.dev/docs/environment-setup', primary: true }]
             },
             {
                 title: 'Initialize CLI Project',
-                content: 'Create a new React Native project using the community CLI.',
+                content: 'Create a new React Native project using the community CLI. (Recommendation: Use Expo unless you have a specific reason not to).',
                 code: 'npx @react-native-community/cli@latest init AwesomeProject',
                 language: 'bash'
             },
@@ -1157,7 +1509,7 @@ export const tools: Tool[] = [
         comparisonData: {
             learningCurve: 'Medium',
             pros: ['Real native components', 'Mature ecosystem', 'Shared code with web'],
-            cons: ['Complex upgrade process', 'Bridge performance bottlenecks'],
+            cons: ['Complex upgrade process (CLI)', 'Building native code takes time'],
             bestFor: ['Cross-platform Mobile Apps', 'React Developers'],
             communitySupport: 'Huge',
             priceModel: 'Free'
@@ -1172,31 +1524,65 @@ export const tools: Tool[] = [
         link: 'https://expo.dev',
         tags: ['Framework', 'Mobile', 'Tools'],
         features: ['EAS Build', 'Over-the-air Updates', 'Push Notifications', 'Universal Modules'],
-        youtubeVideoId: 'FDRyk0Wcpo8',
+        youtubeVideoId: 'vFW_TxKLyrE',
+        setupVideoId: 'J2j1yk-34OY',
+        relatedTools: [
+            { slug: 'react-native', name: 'React Native', relation: 'complementary' },
+            { slug: 'typescript', name: 'TypeScript', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'EAS Build',
+                content: 'Expo Application Services (EAS) allows you to build your app in the cloud, so you don\'t need a Mac to build for iOS.'
+            },
+            {
+                title: 'Expo Go',
+                content: 'The fastest way to test. Just scan a QR code from your terminal to run your app on your real phone instantly.'
+            },
+            {
+                title: 'Development Builds (Pro)',
+                content: 'When you need custom native libraries, you create a "Development Build". It\'s like your own custom version of Expo Go.'
+            },
+            {
+                title: 'Prebuild / CNG',
+                content: 'Expo "Prebuild" generates your android/ios folders on demand. You usually don\'t commit them to Git (CNG concept).'
+            }
+        ],
         steps: [
             {
-                title: 'Install CLI',
-                content: 'Create a new Expo project. This is the easiest way to start with React Native.',
+                title: 'Prerequisites',
+                content: 'Ensure you have Node.js and Git installed. These are the foundations for any JS-based development.',
+            },
+            {
+                title: 'Create Project',
+                content: 'Create a new Expo project. This is the official recommended way to start.',
                 code: 'npx create-expo-app@latest my-app',
                 language: 'bash'
             },
             {
-                title: 'Run on Device',
-                content: 'Start the development server.',
+                title: 'Run (Beginner)',
+                content: 'Start the server and scan the QR code with the "Expo Go" app on your phone. No native setup required!',
                 code: 'npx expo start',
                 language: 'bash'
             },
             {
-                title: 'Preview',
-                content: 'Download the "Expo Go" app on your iOS or Android phone and scan the QR code from the terminal to run your app instantly.',
-                links: [{ text: 'Get Expo Go', url: 'https://expo.dev/client', primary: true }]
+                title: 'Prebuild (Pro)',
+                content: 'If you need custom native code, run this command to generate the android/ios folders (CNG).',
+                code: 'npx expo prebuild',
+                language: 'bash'
             },
+            {
+                title: 'Run Native (Pro)',
+                content: 'Run your app locally on a simulator/emulator. This compiles your custom native code.',
+                code: 'npx expo run:ios',
+                language: 'bash'
+            }
         ],
         comparisonData: {
             learningCurve: 'Low',
-            pros: ['Easiest way to build React Native', 'Over-the-air updates (EAS)', 'No native code linking'],
-            cons: ['Limited native module support (historically)', 'EAS Build can cost money'],
-            bestFor: ['Rapid Mobile Dev', 'Startups'],
+            pros: ['Easiest way to build React Native', 'Over-the-air updates (EAS)', 'Cloud Builds'],
+            cons: ['EAS Build can cost money (Free tier exists)', 'Slightly larger app size'],
+            bestFor: ['Rapid Mobile Dev', 'Startups', 'Beginners'],
             communitySupport: 'Large',
             priceModel: 'Freemium'
         }
@@ -1265,7 +1651,7 @@ export const tools: Tool[] = [
         tags: ['NoSQL', 'Database', 'JSON'],
         features: ['Flexible Schema', 'Scalability', 'High Performance', 'Atlas Cloud'],
         youtubeVideoId: '-bt_y4Loofg', // MongoDB in 100s
-        setupVideoId: 'ofme2o29ngu', // MongoDB Crash Course
+        setupVideoId: 'c2M-rlkkT5o', // MongoDB Crash Course
         steps: [
             {
                 title: 'MongoDB Atlas',
@@ -1286,7 +1672,17 @@ export const tools: Tool[] = [
             bestFor: ['Content management', 'Rapid prototyping', 'Big Data'],
             communitySupport: 'Massive',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'nodejs', name: 'Node.js', relation: 'complementary' },
+            { slug: 'express', name: 'Express.js', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'NoSQL vs SQL',
+                content: 'MongoDB is a NoSQL database. This means no fixed table structure. You can store different fields in every document if you want (but you probably shouldn\'t).'
+            }
+        ]
     },
     {
         name: 'Prisma',
@@ -1320,7 +1716,17 @@ export const tools: Tool[] = [
             bestFor: ['TypeScript Backends', 'Next.js', 'Node.js'],
             communitySupport: 'Large',
             priceModel: 'Free'
-        }
+        },
+        relatedTools: [
+            { slug: 'typescript', name: 'TypeScript', relation: 'prerequisite' },
+            { slug: 'postgresql', name: 'PostgreSQL', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Prisma Studio',
+                content: 'Run `npx prisma studio` to open a visual database editor in your browser. It is amazing for quick edits and viewing data.'
+            }
+        ]
     },
     {
         name: 'Firebase',
@@ -1331,8 +1737,8 @@ export const tools: Tool[] = [
         link: 'https://firebase.google.com',
         tags: ['BaaS', 'Google', 'Database', 'Auth'],
         features: ['Authentication', 'Firestore NoSQL', 'Cloud Functions', 'Analytics'],
-        youtubeVideoId: 'sKFLI5FOOHs',
-        setupVideoId: '9zdvmgGSww0', // Firebase setup
+        youtubeVideoId: 'vAoB4VbhRzM',
+        setupVideoId: '9kRgVxULbag', // Firebase setup
 
         steps: [
             {
@@ -1364,7 +1770,17 @@ export const tools: Tool[] = [
             bestFor: ['Mobile Apps', 'Realtime Apps', 'MVPs'],
             communitySupport: 'Massive',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'react', name: 'React', relation: 'complementary' },
+            { slug: 'flutter', name: 'Flutter', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Security Rules',
+                content: 'Firebase Database Rules determine who can read/write what. Do not leave them as "read: true, write: true" in production!'
+            }
+        ]
     },
     {
         name: 'Supabase',
@@ -1375,8 +1791,8 @@ export const tools: Tool[] = [
         link: 'https://supabase.com',
         tags: ['Postgres', 'Open Source', 'BaaS'],
         features: ['Postgres Database', 'Auth', 'Auto-generated API', 'Realtime'],
-        youtubeVideoId: 'zZ2CqYUavKc',
-        setupVideoId: 'I7h5a73L21E', // Supabase Crash Course
+        youtubeVideoId: 'zBZgdTb-dns',
+        setupVideoId: 'Q7P20fHJlm4', // Supabase Crash Course
 
         steps: [
             {
@@ -1404,7 +1820,16 @@ export const tools: Tool[] = [
             bestFor: ['SaaS', 'Modern Web Apps', 'Postgres Lovers'],
             communitySupport: 'Fast Growing',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'postgresql', name: 'PostgreSQL', relation: 'prerequisite' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Row Level Security (RLS)',
+                content: 'Supabase relies on Postgres RLS. You write SQL policies to determine who can access which rows. It enables secure access directly from the frontend.'
+            }
+        ]
     },
     {
         name: 'PostgreSQL',
@@ -1415,7 +1840,7 @@ export const tools: Tool[] = [
         link: 'https://www.postgresql.org',
         tags: ['SQL', 'Relational', 'Open Source'],
         features: ['ACID Compliance', 'JSON Support', 'Extensions (PostGIS)', 'Concurrency'],
-        youtubeVideoId: 'zw4s3Ey8yoU',
+        youtubeVideoId: 'n2Fluyr3lbc',
         setupVideoId: 'BLH3s5eTL4Y', // Postgres Setup
 
         steps: [
@@ -1446,7 +1871,17 @@ export const tools: Tool[] = [
             bestFor: ['Primary Database', 'Relational Data'],
             communitySupport: 'Massive',
             priceModel: 'Free'
-        }
+        },
+        relatedTools: [
+            { slug: 'prisma', name: 'Prisma', relation: 'complementary' },
+            { slug: 'supabase', name: 'Supabase', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'JSONB',
+                content: 'Postgres has excellent support for JSON data with the JSONB type. You can have the structure of SQL with the flexibility of NoSQL when needed.'
+            }
+        ]
     },
     // Version Control
     {
@@ -1543,7 +1978,17 @@ export const tools: Tool[] = [
             bestFor: ['Hosting Git Repos', 'Open Source'],
             communitySupport: 'Universal',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'git', name: 'Git', relation: 'prerequisite' },
+            { slug: 'vscode', name: 'Visual Studio Code', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Pull Requests (PRs)',
+                content: 'PRs are the heart of collaboration. They allow you to propose changes, discuss them, and review code before it merges into the main codebase.'
+            }
+        ]
     },
     // Deployment
     {
@@ -1555,7 +2000,7 @@ export const tools: Tool[] = [
         link: 'https://vercel.com',
         tags: ['Hosting', 'Serverless', 'Git'],
         features: ['Global Edge Network', 'Serverless Functions', 'Preview Deployments', 'Analytics'],
-        youtubeVideoId: 'DyqjD7kcdR0',
+        youtubeVideoId: 'sPmat30SE4k',
         steps: [
             {
                 title: 'Connect Git',
@@ -1578,7 +2023,16 @@ export const tools: Tool[] = [
             bestFor: ['Frontend Apps', 'Next.js'],
             communitySupport: 'Large',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'nextjs', name: 'Next.js', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Vercel Analytics',
+                content: 'Enable Analytics to see real-time traffic and performance scores (Web Vitals) for your deployed site.'
+            }
+        ]
     },
     {
         name: 'Netlify',
@@ -1589,7 +2043,7 @@ export const tools: Tool[] = [
         link: 'https://netlify.com',
         tags: ['Hosting', 'Jamstack'],
         features: ['Edge Functions', 'Form Handling', 'Identity/Auth', 'Split Testing'],
-        youtubeVideoId: '4iH5t1gC30M',
+        youtubeVideoId: 'XG8nJDWu3a0',
         steps: [
             {
                 title: 'Drag & Drop',
@@ -1614,7 +2068,16 @@ export const tools: Tool[] = [
             bestFor: ['Static Sites', 'Jamstack'],
             communitySupport: 'Large',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'react', name: 'React', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Netlify Forms',
+                content: 'Add a `netlify` attribute to any HTML form, and Netlify will automatically capture submissions without needing a backend.'
+            }
+        ]
     },
     {
         name: 'Railway',
@@ -1625,7 +2088,7 @@ export const tools: Tool[] = [
         link: 'https://railway.app',
         tags: ['Infrastructure', 'Backend'],
         features: ['Docker Support', 'Database Provisioning', 'One-click Starter Kits', 'Variable Management'],
-        youtubeVideoId: 'p28O00y68eA',
+        youtubeVideoId: 'DyQz2DgSToU',
         setupVideoId: '',
         steps: [
             {
@@ -1655,7 +2118,17 @@ export const tools: Tool[] = [
             bestFor: ['Full Stack Apps', 'Databases', 'Docker'],
             communitySupport: 'Growing',
             priceModel: 'Paid'
-        }
+        },
+        relatedTools: [
+            { slug: 'postgresql', name: 'PostgreSQL', relation: 'complementary' },
+            { slug: 'docker', name: 'Docker', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Variables',
+                content: 'Railway allows you to reference variables from other services (e.g. `${{Postgres.DATABASE_URL}}`) making connections seamless.'
+            }
+        ]
     },
     // AI Chatbots
     {
@@ -1667,14 +2140,24 @@ export const tools: Tool[] = [
         link: 'https://chat.openai.com',
         tags: ['AI', 'Chatbot', 'OpenAI', 'Coding Assistant'],
         features: ['Natural Language Processing', 'Code Generation', 'Debugging', 'Explanation'],
+        youtubeVideoId: '3ao7Z8duDXc',
+        setupVideoId: 'n7gxTAwQ634',
         steps: [
             {
                 title: 'Sign Up',
-                content: 'Create an account at OpenAI.'
+                content: 'Create an account at OpenAI or download the mobile app.'
             },
             {
                 title: 'Start Chatting',
-                content: 'Type your question or prompt in the input box.'
+                content: 'Type your question or prompt. Use the "Canvas" mode for writing code or long documents.'
+            },
+            {
+                title: 'Voice Mode',
+                content: 'On mobile, tap the headphones icon to talk to ChatGPT comfortably in real-time.'
+            },
+            {
+                title: 'Custom Instructions',
+                content: 'Go to Settings > Custom Instructions to tell ChatGPT how you want it to behave (e.g., "Always answer in Python").'
             }
         ],
         comparisonData: {
@@ -1684,7 +2167,30 @@ export const tools: Tool[] = [
             bestFor: ['General coding help', 'Brainstorming', 'Writing'],
             communitySupport: 'Massive global user base',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'claude', name: 'Claude', relation: 'alternative' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Context Window',
+                content: 'ChatGPT remembers your conversation, but has a limit. If it starts forgetting things, start a new chat.'
+            }
+        ],
+        aiFeatures: [
+            {
+                title: 'Canvas',
+                content: 'A dedicated workspace for writing and coding that allows you to highlight and edit specific sections of text or code.'
+            },
+            {
+                title: 'Voice Mode',
+                content: 'Advanced speech-to-speech capabilities that feel like a real natural conversation, with emotional tone awareness.'
+            },
+            {
+                title: 'Custom GPTs',
+                content: 'Create your own version of ChatGPT tailored for specific tasks (e.g., a "Code Reviewer" or "Creative Writer") with unique instructions and knowledge.'
+            }
+        ]
     },
     {
         name: 'Claude',
@@ -1695,10 +2201,20 @@ export const tools: Tool[] = [
         link: 'https://claude.ai',
         tags: ['AI', 'Chatbot', 'Anthropic', 'Large Context'],
         features: ['Large Context Window', 'Safe AI', 'Code Analysis'],
+        youtubeVideoId: 'AJpK3YTTKZ4',
+        setupVideoId: '',
         steps: [
             {
                 title: 'Sign Up',
                 content: 'Create an account at Anthropic.'
+            },
+            {
+                title: 'Create a Project',
+                content: 'Use "Projects" to upload your own docs/codebase. Claude will use them as context for every chat in that project.'
+            },
+            {
+                title: 'Enable Artifacts',
+                content: 'Turn on "Artifacts" in settings. Claude can then generate separate windows for code, React apps, and diagrams.'
             }
         ],
         comparisonData: {
@@ -1708,7 +2224,30 @@ export const tools: Tool[] = [
             bestFor: ['Analyzing large files', 'Creative writing', 'Complex reasoning'],
             communitySupport: 'Growing rapidly',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'chatgpt', name: 'ChatGPT', relation: 'alternative' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Project Knowledge',
+                content: 'You can upload PDF documents or multiple text files to Claude to have it analyze and summarize them.'
+            }
+        ],
+        aiFeatures: [
+            {
+                title: 'Artifacts',
+                content: 'When Claude writes code or creates content, it can open a dedicated window to render it (like a React component or SVG), keeping the chat clean.'
+            },
+            {
+                title: 'Projects',
+                content: 'Create focused workspaces with their own knowledge bases. Upload your styling guidelines or API docs once, and reuse them.'
+            },
+            {
+                title: 'Massive Context',
+                content: 'Claude accepts up to 200K tokens (approx. 500 pages of text), making it perfect for analyzing entire books or large codebases.'
+            }
+        ]
     },
     {
         name: 'Gemini',
@@ -1719,10 +2258,20 @@ export const tools: Tool[] = [
         link: 'https://gemini.google.com',
         tags: ['AI', 'Google', 'Multimodal'],
         features: ['Multimodal', 'Google Integration', 'Fast Inference'],
+        youtubeVideoId: 'WQ47Ued6Q4c',
+        setupVideoId: '',
         steps: [
             {
                 title: 'Login',
                 content: 'Use your Google account to access Gemini.'
+            },
+            {
+                title: 'Connect Extensions',
+                content: 'Enable extensions for Google Maps, YouTube, and Drive to let Gemini access real-time info.'
+            },
+            {
+                title: 'Multimodal Prompting',
+                content: 'Don\'t just type. Drag and drop images or even video files to ask questions about them.'
             }
         ],
         comparisonData: {
@@ -1732,7 +2281,30 @@ export const tools: Tool[] = [
             bestFor: ['Multimodal tasks', 'Google Workspace users'],
             communitySupport: 'Large (Google ecosystem)',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'chatgpt', name: 'ChatGPT', relation: 'alternative' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Multimodal',
+                content: 'Gemini can understand images and video inherently. Try uploading a screenshot of a UI bug and ask it how to fix it.'
+            }
+        ],
+        aiFeatures: [
+            {
+                title: 'Deep Integration',
+                content: 'Gemini connects directly with Google Docs, Drive, Gmail, Maps, and YouTube to fetch and summarize your personal data.'
+            },
+            {
+                title: 'Native Multimodal',
+                content: 'It was trained on images, audio, and video from the start, so its understanding of non-text inputs is best-in-class.'
+            },
+            {
+                title: '2 Million Context (Pro)',
+                content: 'The 1.5 Pro model has a staggering 2 million token context window, allowing you to process hours of video or massive code repos.'
+            }
+        ]
     },
     {
         name: 'Perplexity',
@@ -1743,10 +2315,20 @@ export const tools: Tool[] = [
         link: 'https://www.perplexity.ai',
         tags: ['AI', 'Search', 'Research'],
         features: ['Real-time Search', 'Citations', 'Focus Modes'],
+        youtubeVideoId: 'qpN-pjev-vM',
+        setupVideoId: '',
         steps: [
             {
                 title: 'Ask a Question',
                 content: 'Type your query to get a sourced answer.'
+            },
+            {
+                title: 'Use Focus Modes',
+                content: 'Click "Focus" to narrow your search to "Academic", "Reddit", "YouTube", or "Wolfram Alpha".'
+            },
+            {
+                title: 'Organize with Collections',
+                content: 'Save your threads into "Collections" to keep your research organized by topic.'
             }
         ],
         comparisonData: {
@@ -1756,6 +2338,542 @@ export const tools: Tool[] = [
             bestFor: ['Research', 'Finding specific information', 'Fact checking'],
             communitySupport: 'Growing',
             priceModel: 'Freemium'
-        }
+        },
+        relatedTools: [
+            { slug: 'chatgpt', name: 'ChatGPT', relation: 'alternative' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Sources',
+                content: 'Always check the citations. Perplexity is great at finding info, but verify the source link if it\'s critical.'
+            }
+        ],
+        aiFeatures: [
+            {
+                title: 'Pro Search',
+                content: 'A multi-step reasoning engine that breaks down complex queries into sub-searches to find the most accurate answer.'
+            },
+            {
+                title: 'Focus Modes',
+                content: 'Tell the AI exactly where to look: The entire web, just academic papers, social discussions (Reddit), or computational data.'
+            },
+            {
+                title: 'Pages',
+                content: 'Turn your search results into a shareable, beautifully formatted article with a single click.'
+            }
+        ]
+    },
+    // Missing tools added by request
+    {
+        name: 'Python',
+        slug: 'python',
+        description: 'A programming language that lets you work quickly and integrate systems more effectively.',
+        longDescription: 'Python is a high-level, interpreted programming language known for its easy readability and vast ecosystem of libraries for web development, data analysis, AI, and more.',
+        category: 'Backend',
+        link: 'https://www.python.org',
+        tags: ['Language', 'Backend', 'Data Science'],
+        features: ['Simple Syntax', 'Huge Ecosystem', 'Cross-platform'],
+        youtubeVideoId: 'x7X9w_GIm1s',
+        setupVideoId: 'ix9cRaBkVe0',
+        steps: [
+            {
+                title: 'Install',
+                content: 'Download the latest version from python.org.',
+                links: [{ text: 'Download Python', url: 'https://www.python.org/downloads/', primary: true }]
+            },
+            {
+                title: 'Verify Install',
+                content: 'Open your terminal and type `python --version`. If it prints a version number, you are good to go.',
+                code: 'python --version',
+                language: 'bash'
+            },
+            {
+                title: 'Create Project',
+                content: 'Create a folder for your project and a **Virtual Environment**. This keeps your project dependencies isolated from the system.',
+                code: 'mkdir my_project\ncd my_project\npython -m venv venv',
+                language: 'bash'
+            },
+            {
+                title: 'Activate Environment',
+                content: 'Activate the virtual environment. You will see `(venv)` appear in your terminal prompt.',
+                code: '# Windows\n.\\venv\\Scripts\\activate\n\n# Mac/Linux\nsource venv/bin/activate',
+                language: 'bash'
+            },
+            {
+                title: 'Hello World',
+                content: 'Create a file named `main.py` with `print("Hello World")` inside it, then run it.',
+                code: 'python main.py',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Easy to learn', 'Versatile', 'Great community'],
+            cons: ['Slow execution speed (GIL)', 'Whitespace sensitive'],
+            bestFor: ['Backend', 'AI/ML', 'Scripting'],
+            communitySupport: 'Massive',
+            priceModel: 'Free'
+        },
+        relatedTools: [
+            { slug: 'django', name: 'Django', relation: 'complementary' },
+            { slug: 'fastapi', name: 'FastAPI', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Indentation',
+                content: 'Python uses indentation to define code blocks, not curly braces `{}`. Be careful with tabs vs spaces!'
+            }
+        ]
+    },
+    {
+        name: 'Java',
+        slug: 'java',
+        description: 'A high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.',
+        longDescription: 'Java is a robust, secure, and portable language used by millions of developers to build apps for everything from mobile phones to enterprise servers and supercomputers.',
+        category: 'Backend',
+        link: 'https://www.java.com',
+        tags: ['Language', 'Enterprise', 'Backend'],
+        features: ['Platform Independent', 'Strongly Typed', 'Multithreaded'],
+        youtubeVideoId: 'l9AzO1FMgM8',
+        setupVideoId: 'xTtL8E4LzTQ',
+        steps: [
+            {
+                title: 'Download JDK',
+                content: 'Install the Java Development Kit (JDK) to start building apps.',
+                links: [{ text: 'Download JDK', url: 'https://www.oracle.com/java/technologies/downloads/', primary: true }]
+            },
+            {
+                title: 'Verify Install',
+                content: 'Check if Java is installed and added to your PATH.',
+                code: 'java -version',
+                language: 'bash'
+            },
+            {
+                title: 'Write Code',
+                content: 'Create a file named `HelloWorld.java`. The class name **must** match the filename.',
+                code: 'public class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n    }\n}',
+                language: 'java'
+            },
+            {
+                title: 'Compile',
+                content: 'Turn your human-readable code into bytecode that the JVM can understand.',
+                code: 'javac HelloWorld.java',
+                language: 'bash'
+            },
+            {
+                title: 'Run',
+                content: 'Run the compiled bytecode. Notice you do NOT include `.class` extension here.',
+                code: 'java HelloWorld',
+                language: 'bash'
+            },
+            {
+                title: 'Pro Tip: Use an IDE',
+                content: 'For real projects, use IntelliJ IDEA or VS Code. They handle compiling, classpaths, and running for you automatically.'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Robust', 'Scalable', 'Maintainable'],
+            cons: ['Verbose', 'Complex setup'],
+            bestFor: ['Enterprise', 'Android', 'Large Systems'],
+            communitySupport: 'Massive',
+            priceModel: 'Free'
+        },
+        relatedTools: [
+            { slug: 'spring-boot', name: 'Spring Boot', relation: 'complementary' },
+            { slug: 'intellij-idea', name: 'IntelliJ IDEA', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'JVM',
+                content: 'Java runs on the Java Virtual Machine. This means your compiled code (bytecode) can run on any device that has a JVM.'
+            }
+        ]
+    },
+    {
+        name: 'Docker',
+        slug: 'docker',
+        description: 'OS-level virtualization to deliver software in packages called containers.',
+        longDescription: 'Docker takes away repetitive, mundane configuration tasks and is used throughout the development lifecycle for fast, easy and portable application development - desktop and cloud.',
+        category: 'Deployment',
+        link: 'https://www.docker.com',
+        tags: ['DevOps', 'Containers', 'Virtualization'],
+        features: ['Containers', 'Portability', 'Isolation'],
+        youtubeVideoId: 'Gjnup-PuquQ',
+        setupVideoId: 'gAkwW2tuIqE',
+        steps: [
+            {
+                title: 'Install Docker Desktop',
+                content: 'Download and install Docker Desktop for your OS.',
+                links: [{ text: 'Download Docker', url: 'https://www.docker.com/products/docker-desktop/', primary: true }]
+            },
+            {
+                title: 'Verify Install',
+                content: 'Open your terminal and check the version to ensure Docker is running.',
+                code: 'docker --version',
+                language: 'bash'
+            },
+            {
+                title: 'Run First Container',
+                content: 'Run the standard "Hello World" image to test that your daemon can pull images from the cloud and run them.',
+                code: 'docker run hello-world',
+                language: 'bash'
+            },
+            {
+                title: 'Run a Web Server',
+                content: 'Run Nginx in detached mode (`-d`) and map port 8080 on your machine to port 80 in the container (`-p`). Visit `http://localhost:8080`.',
+                code: 'docker run -d -p 8080:80 nginx',
+                language: 'bash'
+            },
+            {
+                title: 'Interactive Mode',
+                content: 'Need to go inside a container? Use `-it` to get an interactive shell.',
+                code: 'docker run -it ubuntu bash',
+                language: 'bash'
+            },
+            {
+                title: 'Docker Compose',
+                content: 'For multi-container apps (e.g. App + Database), define them in a `docker-compose.yml` file and run them all at once.',
+                code: 'docker-compose up',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Works on my machine', 'Isolation', 'Industry Standard'],
+            cons: ['Resource heavy (on some OS)', 'Learning curve'],
+            bestFor: ['Microservices', 'Deployment', 'Dev Environments'],
+            communitySupport: 'Massive',
+            priceModel: 'Freemium'
+        },
+        relatedTools: [
+            { slug: 'railway', name: 'Railway', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Volumes',
+                content: 'Docker containers are ephemeral (data is lost when stopped). Use "Volumes" to persist data like database files.'
+            },
+            {
+                title: 'Cleaning Up',
+                content: 'Images and stopped containers take up space. Run `docker system prune` occasionally to clean up unused resources.'
+            }
+        ]
+    },
+    {
+        name: 'Vue.js',
+        slug: 'vue',
+        description: 'The Progressive JavaScript Framework.',
+        longDescription: 'Vue is a JavaScript framework for building user interfaces. It builds on top of standard HTML, CSS, and JavaScript and provides a declarative and component-based programming model.',
+        category: 'Frontend',
+        link: 'https://vuejs.org',
+        tags: ['Framework', 'JavaScript', 'Frontend'],
+        features: ['declarative rendering', 'reactivity', 'component-based'],
+        youtubeVideoId: 'nhBVL41-_Cw',
+        setupVideoId: 'Kt2E8nblvXU',
+        steps: [
+            {
+                title: 'Prerequisites',
+                content: 'Ensure you have Node.js installed. It includes npm (Node Package Manager).',
+                links: [{ text: 'Install Node.js', url: '/tool/nodejs', primary: false }]
+            },
+            {
+                title: 'Install & Create Project',
+                content: 'Run the official Vue creator to install and scaffold a new Vue project. It uses Vite under the hood.',
+                code: 'npm create vue@latest',
+                language: 'bash'
+            },
+            {
+                title: 'Install Dependencies',
+                content: 'Navigate into your new project folder and install the necessary packages.',
+                code: 'cd <project-name>\nnpm install',
+                language: 'bash'
+            },
+            {
+                title: 'Run Dev Server',
+                content: 'Start the development server. It will give you a local URL (usually `http://localhost:5173`) to open in your browser.',
+                code: 'npm run dev',
+                language: 'bash'
+            },
+            {
+                title: 'Start Coding',
+                content: 'Open `src/App.vue` in your editor. Make a change and save to see it update instantly (Hot Module Replacement).',
+                code: '<template>\n  <h1>Hello Vue!</h1>\n</template>',
+                language: 'html'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Easy to learn', 'Versatile', 'Great docs'],
+            cons: ['Smaller ecosystem than React', 'Flexibility can be confusing'],
+            bestFor: ['SPAs', 'Progressive enhancement'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        },
+        relatedTools: [
+            { slug: 'vite', name: 'Vite', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Vue DevTools',
+                content: 'Just like React, install the Vue DevTools extension to inspect components and events.'
+            }
+        ]
+    },
+    // Productivity
+    {
+        name: 'ClickUp',
+        slug: 'clickup',
+        description: 'One app to replace them all. Tasks, Docs, and Goals.',
+        longDescription: 'ClickUp is an all-in-one productivity platform that flexibly allows you to manage tasks, documents, goals, and chat in one place. It is highly customizable and scales from personal use to large enterprise teams.',
+        category: 'Productivity',
+        link: 'https://clickup.com',
+        tags: ['Productivity', 'Project Management', 'Collaboration'],
+        features: ['Task Management', 'Docs', 'Whiteboards', 'Automations'],
+        youtubeVideoId: 'nU41rM7zZns',
+        setupVideoId: '',
+        steps: [
+            {
+                title: 'Create Workspace',
+                content: 'Sign up and create your first workspace. This is the home for your entire organization.',
+                links: [{ text: 'Sign Up', url: 'https://clickup.com', primary: true }]
+            },
+            {
+                title: 'Define Hierarchy',
+                content: 'Set up your Space, Folders, and Lists to organize your work.',
+                code: 'Space: Engineering\nFolder: Frontend\nList: Sprint 1',
+                language: 'text'
+            },
+            {
+                title: 'Create Tasks',
+                content: 'Add tasks to your lists. You can add assignees, due dates, and priorities.',
+            },
+            {
+                title: 'Views',
+                content: 'Visualize your work with different views like Board, Calendar, or Gantt.',
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['One app for everything', 'Highly customizable', 'Generous free tier'],
+            cons: ['Overwhelming features', 'Can be slow'],
+            bestFor: ['Team Management', 'Agile Projects', 'All-in-one workflows'],
+            communitySupport: 'Massive',
+            priceModel: 'Freemium'
+        },
+        additionalInfo: [
+            {
+                title: 'The Hierarchy',
+                content: 'Space > Folder > List > Task. Understanding this hierarchy is the most important part of setting up ClickUp correctly.'
+            }
+        ]
+    },
+    // Testing
+    {
+        name: 'Postman',
+        slug: 'postman',
+        description: 'The platform for API development.',
+        longDescription: 'Postman simplifies each step of the API lifecycle and streamlines collaboration so you can create better APIs—faster. It is the industry standard for testing and documenting APIs.',
+        category: 'Testing',
+        link: 'https://www.postman.com',
+        tags: ['API', 'Testing', 'Development'],
+        features: ['API Client', 'Automated Testing', 'Mock Servers', 'Documentation'],
+        youtubeVideoId: 'ypKHnRmPOUk',
+        steps: [
+            {
+                title: 'Download',
+                content: 'Download the Postman desktop app for the best experience.',
+                links: [{ text: 'Download Postman', url: 'https://www.postman.com/downloads/', primary: true }]
+            },
+            {
+                title: 'Create Collection',
+                content: 'Create a new collection to organize your API requests (e.g., "My App API").'
+            },
+            {
+                title: 'Make Request',
+                content: 'Create a "GET" request to an API endpoint and click "Send" to see the response.',
+                code: 'GET https://jsonplaceholder.typicode.com/todos/1',
+                language: 'text'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['User friendly UI', 'Powerful scripting', 'Great for collaboration'],
+            cons: ['Heavy resource usage', 'Cloud features can be complex'],
+            bestFor: ['API Testing', 'Backend Development'],
+            communitySupport: 'Massive',
+            priceModel: 'Freemium'
+        },
+        relatedTools: [
+            { slug: 'nodejs', name: 'Node.js', relation: 'complementary' },
+            { slug: 'express', name: 'Express.js', relation: 'complementary' },
+            { slug: 'fastapi', name: 'FastAPI', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Environment Variables',
+                content: 'Use environments to switch between localhost (Development) and production URLs without changing your request setup.'
+            }
+        ]
+    },
+    {
+        name: 'TypeScript',
+        slug: 'typescript',
+        description: 'JavaScript with syntax for types.',
+        longDescription: 'TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale. It catches errors early in your editor, before you even run your code.',
+        category: 'Frontend',
+        link: 'https://www.typescriptlang.org',
+        tags: ['Language', 'Microsoft', 'Type Safety'],
+        features: ['Static Typing', 'Interfaces', 'Modern JavaScript Features', 'Great Tooling'],
+        youtubeVideoId: 'zQnBQ4tB3ZA', // TypeScript in 100s
+        setupVideoId: 'd56mG7DezGs', // TypeScript Course
+        steps: [
+            {
+                title: 'Install',
+                content: 'Install TypeScript globally or in your project via npm.',
+                code: 'npm install -g typescript',
+                language: 'bash',
+                links: [{ text: 'TypeScript Docs', url: 'https://www.typescriptlang.org', primary: true }]
+            },
+            {
+                title: 'Initialize',
+                content: 'Create a `tsconfig.json` file to configure compiler options.',
+                code: 'tsc --init',
+                language: 'bash'
+            },
+            {
+                title: 'Usage',
+                content: 'Create a `.ts` file. You can now use types!',
+                code: 'function greet(name: string) {\n  return "Hello, " + name;\n}',
+                language: 'typescript'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Catches bugs early', 'Better refactoring', 'Self-documenting code'],
+            cons: ['Setup configuration', 'Compilation step required'],
+            bestFor: ['Large Projects', 'Teams', 'React/Node.js'],
+            communitySupport: 'Massive',
+            priceModel: 'Free'
+        },
+        relatedTools: [
+            { slug: 'vscode', name: 'Visual Studio Code', relation: 'complementary' },
+            { slug: 'react', name: 'React', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'The "any" type',
+                content: 'Avoid using `any` as much as possible. It defeats the purpose of TypeScript. Use specific types or `unknown` instead.'
+            }
+        ]
+    },
+    // Productivity
+    {
+        name: 'Trello',
+        slug: 'trello',
+        description: 'Visual collaboration tool that creates a shared perspective on any project.',
+        longDescription: 'Trello is a productivity powerhouse that uses boards, lists, and cards to help you organize and prioritize your projects in a fun, flexible, and rewarding way. Whether for work, a side project, or even the next family vacation, Trello helps your team stay organized.',
+        category: 'Productivity',
+        link: 'https://trello.com',
+        tags: ['Productivity', 'Kanban', 'Management'],
+        features: ['Kanban Boards', 'built-in automation (Butler)', 'Power-Ups', 'Checklists'],
+        youtubeVideoId: '7dzILe6HlRM',
+        setupVideoId: '',
+        steps: [
+            {
+                title: 'Sign Up',
+                content: 'Create a free account at Trello.com (owned by Atlassian).',
+                links: [{ text: 'Go to Trello', url: 'https://trello.com', primary: true }]
+            },
+            {
+                title: 'Create Board',
+                content: 'Create a new Board. Give it a title (e.g., "Project Alpha") and a background color.',
+            },
+            {
+                title: 'Add Lists',
+                content: 'Create standard lists to track progress. The classic workflow is: To Do, Doing, Done.',
+                code: 'To Do\nDoing\nDone',
+                language: 'text'
+            },
+            {
+                title: 'Add Cards',
+                content: 'Add cards for tasks inside the "To Do" list. Click a card to add details, due dates, and members.',
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Extremely intuitive', 'Visual and fun', 'Great free tier'],
+            cons: ['Can get cluttered', 'Limited reporting in free version'],
+            bestFor: ['Small Teams', 'Personal Projects', 'Lightweight Agile'],
+            communitySupport: 'Large',
+            priceModel: 'Freemium'
+        },
+        relatedTools: [
+            { slug: 'jira', name: 'Jira', relation: 'alternative' },
+            { slug: 'slack', name: 'Slack', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'Power-Ups',
+                content: 'Trello "Power-Ups" let you integrate with other tools like Google Drive, Slack, or add features like Calendars. You get unlimited Power-Ups even on the free plan now.'
+            },
+            {
+                title: 'Keyboard Shortcuts',
+                content: 'Hover over a card and press "Space" to assign yourself, or "d" to set a due date. Press "?" to see all shortcuts.'
+            }
+        ]
+    },
+    {
+        name: 'Jira Software',
+        slug: 'jira',
+        description: 'The #1 software development tool used by agile teams.',
+        longDescription: 'Jira Software is built for every member of your software team to plan, track, and release great software. It supports Scrum, Kanban, and mixed methodologies, providing deep visibility into your development pipeline.',
+        category: 'Productivity',
+        link: 'https://www.atlassian.com/software/jira',
+        tags: ['Agile', 'Scrum', 'Enterprise', 'Issue Tracking'],
+        features: ['Scrum Boards', 'Kanban Boards', 'Roadmaps', 'Agile Reporting'],
+        youtubeVideoId: 'fiWaMGCMyk8',
+        setupVideoId: '',
+        steps: [
+            {
+                title: 'Create Account',
+                content: 'Sign up for Atlassian Cloud. Jira is free for up to 10 users.',
+                links: [{ text: 'Get Jira Free', url: 'https://www.atlassian.com/software/jira', primary: true }]
+            },
+            {
+                title: 'Create Project',
+                content: 'Choose a project template. For software teams, "Kanban" or "Scrum" are the standard choices.',
+            },
+            {
+                title: 'Create Issues',
+                content: 'Click "Create" to add tasks, bugs, or stories. Assign them to team members and set priorities.',
+            },
+            {
+                title: 'Start Sprint',
+                content: 'If using Scrum, move issues from the Backlog to the current Sprint and click "Start Sprint".',
+            },
+        ],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['Industry standard', 'Extremely powerful reporting', 'Deep integration with Bitbucket/GitHub'],
+            cons: ['Can be slow/complex', 'Steep learning curve', 'Configuration hell'],
+            bestFor: ['Agile Software Teams', 'Enterprise', 'Complex Workflows'],
+            communitySupport: 'Massive',
+            priceModel: 'Freemium'
+        },
+        relatedTools: [
+            { slug: 'trello', name: 'Trello', relation: 'alternative' },
+            { slug: 'github', name: 'GitHub', relation: 'complementary' }
+        ],
+        additionalInfo: [
+            {
+                title: 'JQL',
+                content: 'Jira Query Language (JQL) allows you to filter issues with SQL-like precision. E.g., `assignee = currentUser() AND resolution is EMPTY`.'
+            },
+            {
+                title: 'Automations',
+                content: 'Use the Automation tab to create rules like "When all subtasks are done, move parent to Done". It saves hours of manual updating.'
+            }
+        ]
     }
 ];

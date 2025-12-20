@@ -3,6 +3,7 @@ import { Layout } from '../components/Layout';
 import { techStacks } from '../data/techStacks';
 import { tools } from '../data/tools';
 import { CheckCircle2, XCircle, ChevronRight, Terminal, BookOpen, ArrowLeft } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 
 export function TechStackDetailPage() {
     const { slug } = useParams();
@@ -23,6 +24,9 @@ export function TechStackDetailPage() {
 
     // Resolve tool objects
     const stackTools = stack.tools.map(toolSlug => tools.find(t => t.slug === toolSlug)).filter(Boolean);
+
+
+
 
     return (
         <Layout>
@@ -103,7 +107,16 @@ export function TechStackDetailPage() {
                                             <div className="bg-neutral-900/50 rounded-2xl p-6 sm:p-8 border border-white/5 hover:border-white/10 transition-colors max-w-full">
                                                 <h3 className="text-xl font-semibold text-white mb-2">{step.title}</h3>
                                                 <div className="text-neutral-400 mb-6 leading-relaxed whitespace-pre-line break-words">
-                                                    {step.content}
+                                                    <ReactMarkdown
+                                                        components={{
+                                                            strong: ({ node, ...props }) => <strong className="font-semibold text-white" {...props} />,
+                                                            code: ({ node, ...props }) => <code className="bg-white/10 text-indigo-300 rounded px-1 py-0.5 text-sm font-mono" {...props} />,
+                                                            a: ({ node, ...props }) => <a className="text-indigo-400 hover:text-indigo-300 underline" target="_blank" rel="noopener noreferrer" {...props} />,
+                                                            p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />
+                                                        }}
+                                                    >
+                                                        {step.content}
+                                                    </ReactMarkdown>
                                                 </div>
                                                 {step.code && (
                                                     <div className="mt-4 bg-black/50 rounded-lg border border-white/5 overflow-hidden">
@@ -166,3 +179,4 @@ export function TechStackDetailPage() {
         </Layout>
     );
 }
+

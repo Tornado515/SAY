@@ -4,6 +4,7 @@ import { ExternalLink, ArrowLeft, CheckCircle, ArrowRightLeft } from 'lucide-rea
 import { Layout } from '../components/Layout';
 import { motion } from 'framer-motion';
 import { QuickSpecsSection } from '../components/QuickSpecsSection';
+import ReactMarkdown from 'react-markdown';
 
 export function ToolDetailPage() {
     const { slug } = useParams();
@@ -139,6 +140,21 @@ export function ToolDetailPage() {
                                 )}
                             </div>
 
+                            {/* AI Features Section */}
+                            {tool.aiFeatures && tool.aiFeatures.length > 0 && (
+                                <section>
+                                    <h2 className="text-2xl font-bold text-white mb-6">Key Capabilities</h2>
+                                    <div className="grid grid-cols-1 gap-6">
+                                        {tool.aiFeatures.map((feature, idx) => (
+                                            <div key={idx} className="rounded-2xl bg-indigo-500/5 p-6 ring-1 ring-indigo-500/20 hover:bg-indigo-500/10 transition-colors">
+                                                <h3 className="text-lg font-semibold text-indigo-400 mb-2">{feature.title}</h3>
+                                                <p className="text-neutral-300 leading-relaxed text-sm">{feature.content}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </section>
+                            )}
+
                             {/* How to use */}
                             <section>
                                 <h2 className="text-2xl font-bold text-white mb-6">How to get started</h2>
@@ -153,7 +169,18 @@ export function ToolDetailPage() {
                                             {/* Content */}
                                             <div className="bg-neutral-900/50 rounded-2xl p-6 border border-white/5 hover:border-white/10 transition-colors">
                                                 <h3 className="text-lg font-semibold text-white mb-3">{step.title}</h3>
-                                                <p className="text-neutral-300 leading-relaxed mb-4">{step.content}</p>
+                                                <div className="text-neutral-300 leading-relaxed mb-4">
+                                                    <ReactMarkdown
+                                                        components={{
+                                                            strong: ({ node, ...props }) => <strong className="font-semibold text-white" {...props} />,
+                                                            code: ({ node, ...props }) => <code className="bg-white/10 text-indigo-300 rounded px-1 py-0.5 text-sm font-mono" {...props} />,
+                                                            a: ({ node, ...props }) => <a className="text-indigo-400 hover:text-indigo-300 underline" target="_blank" rel="noopener noreferrer" {...props} />,
+                                                            p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />
+                                                        }}
+                                                    >
+                                                        {step.content}
+                                                    </ReactMarkdown>
+                                                </div>
 
                                                 {/* Optional Code Block */}
                                                 {step.code && (

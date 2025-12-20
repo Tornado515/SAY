@@ -1,10 +1,32 @@
 import { Link } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Code, Smartphone, Brain, Palette, Database, Server, GitBranch, Layers, MessageSquare } from 'lucide-react';
+import {
+    ArrowLeft,
+    Code,
+    Smartphone,
+    Brain,
+    Palette,
+    Database,
+    Server,
+    GitBranch,
+    Layers,
+    MessageSquare,
+    TestTube,
+    CheckSquare
+} from 'lucide-react';
+import { tools } from '../data/tools';
 
-const categories = [
-    {
+// Map category names (from tools.ts) to slugs and display metadata
+const categoryMetadata: Record<string, {
+    title: string;
+    description: string;
+    icon: any;
+    color: string;
+    bg: string;
+    slug: string;
+}> = {
+    'Frontend': {
         title: 'Frontend Frameworks',
         slug: 'frontend',
         icon: Code,
@@ -12,7 +34,7 @@ const categories = [
         color: 'text-blue-400',
         bg: 'bg-blue-400/10'
     },
-    {
+    'Mobile': {
         title: 'Mobile Development',
         slug: 'mobile',
         icon: Smartphone,
@@ -20,7 +42,7 @@ const categories = [
         color: 'text-green-400',
         bg: 'bg-green-400/10'
     },
-    {
+    'AI Coding': {
         title: 'AI Coding Tools',
         slug: 'ai-coding',
         icon: Brain,
@@ -28,7 +50,7 @@ const categories = [
         color: 'text-purple-400',
         bg: 'bg-purple-400/10'
     },
-    {
+    'AI Chatbots': {
         title: 'AI Chatbots',
         slug: 'ai-chatbots',
         icon: MessageSquare,
@@ -36,7 +58,7 @@ const categories = [
         color: 'text-teal-400',
         bg: 'bg-teal-400/10'
     },
-    {
+    'AI Mockup': {
         title: 'AI Mockup & UI',
         slug: 'ai-mockup',
         icon: Palette,
@@ -44,7 +66,7 @@ const categories = [
         color: 'text-pink-400',
         bg: 'bg-pink-400/10'
     },
-    {
+    'Backend': {
         title: 'Backend Frameworks',
         slug: 'backend',
         icon: Server,
@@ -52,7 +74,7 @@ const categories = [
         color: 'text-orange-400',
         bg: 'bg-orange-400/10'
     },
-    {
+    'Database': {
         title: 'Databases',
         slug: 'database',
         icon: Database,
@@ -60,7 +82,7 @@ const categories = [
         color: 'text-yellow-400',
         bg: 'bg-yellow-400/10'
     },
-    {
+    'Version Control': {
         title: 'Version Control',
         slug: 'version-control',
         icon: GitBranch,
@@ -68,7 +90,7 @@ const categories = [
         color: 'text-red-400',
         bg: 'bg-red-400/10'
     },
-    {
+    'Deployment': {
         title: 'Deployment & DevOps',
         slug: 'deployment',
         icon: Layers,
@@ -76,7 +98,7 @@ const categories = [
         color: 'text-cyan-400',
         bg: 'bg-cyan-400/10'
     },
-    {
+    'IDE': {
         title: 'Text Editors & IDEs',
         slug: 'ide',
         icon: Code,
@@ -84,7 +106,7 @@ const categories = [
         color: 'text-indigo-400',
         bg: 'bg-indigo-400/10'
     },
-    {
+    'Design': {
         title: 'Design & Prototyping',
         slug: 'design',
         icon: Palette,
@@ -92,9 +114,53 @@ const categories = [
         color: 'text-pink-400',
         bg: 'bg-pink-400/10'
     },
-];
+    'Testing': {
+        title: 'Testing & QA',
+        slug: 'testing',
+        icon: TestTube,
+        description: 'Frameworks and utilities for ensuring code quality, running unit tests, and preventing bugs before deployment.',
+        color: 'text-rose-400',
+        bg: 'bg-rose-400/10'
+    },
+    'Productivity': {
+        title: 'Productivity & Planning',
+        slug: 'productivity',
+        icon: CheckSquare,
+        description: 'Tools to manage tasks, track progress, and organize your development workflow effectively.',
+        color: 'text-sky-400',
+        bg: 'bg-sky-400/10'
+    }
+};
 
 export function CategoriesPage() {
+    // Dynamically extract unique categories from tools, but also ensure all defined metadata categories are shown
+    const definedCategories = Object.keys(categoryMetadata);
+    const toolCategories = tools.map(tool => tool.category);
+    const uniqueCategories = Array.from(new Set([...definedCategories, ...toolCategories]));
+
+    // Process categories to get display data
+    const categoriesToDisplay = uniqueCategories.map(catKey => {
+        // Direct match in metadata
+        if (categoryMetadata[catKey]) {
+            return categoryMetadata[catKey];
+        }
+
+        // Fallback for new/unknown categories
+        const slug = catKey.toLowerCase().replace(/\s+/g, '-');
+        return {
+            title: catKey,
+            slug: slug,
+            icon: Layers, // Generic icon
+            description: `Explore tools in the ${catKey} category.`,
+            color: 'text-gray-400',
+            bg: 'bg-gray-400/10'
+        };
+    }).sort((a, b) => {
+        // Optional: define a specific sort order, or just sort alphabetically
+        // For now, let's keep the order roughly as they appear or just alphabetically by title
+        return a.title.localeCompare(b.title);
+    });
+
     return (
         <Layout>
             <div className="py-24 sm:py-32">
@@ -121,7 +187,7 @@ export function CategoriesPage() {
                     </div>
 
                     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                        {categories.map((category, index) => (
+                        {categoriesToDisplay.map((category, index) => (
                             <motion.div
                                 key={category.slug}
                                 initial={{ opacity: 0, y: 20 }}

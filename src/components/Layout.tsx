@@ -34,6 +34,8 @@ export function Layout({ children }: LayoutProps) {
         { name: 'Design', path: '/category/design' },
         { name: 'IDE', path: '/category/ide' },
         { name: 'Deployment', path: '/category/deployment' },
+        { name: 'Testing', path: '/category/testing' },
+        { name: 'Productivity', path: '/category/productivity' },
     ];
 
     return (
@@ -157,21 +159,21 @@ export function Layout({ children }: LayoutProps) {
                         </Link>
 
                         <Link
-                            to="/tech-stacks"
-                            onClick={closeMenu}
-                            className={`font-medium transition-colors hover:text-white ${location.pathname.startsWith('/tech-stacks') ? 'text-white' : 'text-neutral-400'
-                                }`}
-                        >
-                            Tech Stacks
-                        </Link>
-
-                        <Link
                             to="/getting-started"
                             onClick={closeMenu}
                             className={`font-medium transition-colors hover:text-white ${location.pathname === '/getting-started' ? 'text-white' : 'text-neutral-400'
                                 }`}
                         >
                             Getting Started
+                        </Link>
+
+                        <Link
+                            to="/tech-stacks"
+                            onClick={closeMenu}
+                            className={`font-medium transition-colors hover:text-white ${location.pathname.startsWith('/tech-stacks') ? 'text-white' : 'text-neutral-400'
+                                }`}
+                        >
+                            Tech Stacks
                         </Link>
 
                         <div className="space-y-3">
