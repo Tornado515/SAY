@@ -115,10 +115,27 @@ Since the backend is not fully connected, here is a sample plan structure for yo
                         </div>
 
                         {generatedPlan ? (
-                             <div className="mt-8 text-left bg-black/30 p-6 rounded-xl border border-white/10 max-h-[600px] overflow-y-auto prose prose-invert max-w-none">
-                                <div className="flex justify-between items-center mb-4">
+                            <div className="mt-8 text-left bg-black/30 p-6 rounded-xl border border-white/10 max-h-[600px] overflow-y-auto prose prose-invert max-w-none relative">
+                                <div className="flex justify-between items-center mb-4 sticky top-0 bg-[#1a1a1a] z-10 py-2 border-b border-white/10">
                                     <h3 className="text-xl font-bold text-white m-0">Implementation Plan</h3>
-                                    <button onClick={() => setGeneratedPlan(null)} className="text-neutral-400 hover:text-white text-sm">Close</button>
+                                    <div className="flex items-center gap-3">
+                                        <button 
+                                            onClick={() => {
+                                                const scaffoldingSection = generatedPlan.split('# Section 2: AI Scaffolding Plan')[1];
+                                                const textToCopy = scaffoldingSection ? scaffoldingSection.trim() : generatedPlan;
+                                                navigator.clipboard.writeText(textToCopy);
+                                                // Simple feedback could be added here, e.g., changing icon
+                                                alert("Scaffolding plan copied to clipboard!");
+                                            }} 
+                                            className="flex items-center gap-2 text-indigo-400 hover:text-indigo-300 text-sm font-medium transition-colors"
+                                        >
+                                           <div className="p-1.5 rounded-md bg-indigo-500/10 hover:bg-indigo-500/20">
+                                                <Layers className="w-4 h-4" />
+                                           </div>
+                                           Copy Scaffolding
+                                        </button>
+                                        <button onClick={() => setGeneratedPlan(null)} className="text-neutral-400 hover:text-white text-sm">Close</button>
+                                    </div>
                                 </div>
                                 <div className="whitespace-pre-wrap font-mono text-sm text-neutral-300">
                                     {generatedPlan}
