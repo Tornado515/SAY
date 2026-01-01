@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+functions/.env
+package-lock.json
+package-lock.json
+src/lib/firebase.ts

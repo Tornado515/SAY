@@ -32,9 +32,54 @@ export function CreateStackPage() {
         { title: 'Deployment', icon: Layers, tools: deploymentTools, selected: selectedDeployment, setSelected: setSelectedDeployment },
     ];
 
+    const [isGenerating, setIsGenerating] = useState(false);
+    const [generatedPlan, setGeneratedPlan] = useState<string | null>(null);
+
     const handleCreateStack = () => {
         setIsStackCreated(true);
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleGeneratePlan = async () => {
+        setIsGenerating(true);
+        try {
+            // Dynamically import to avoid load issues if firebase isn't set up
+            const { functions } = await import('../lib/firebase');
+            const { httpsCallable } = await import('firebase/functions');
+            
+            const generateStackPlan = httpsCallable(functions, 'generateStackPlan');
+            
+            const result = await generateStackPlan({
+                stack: {
+                    frontend: selectedFrontend,
+                    backend: selectedBackend,
+                    database: selectedDatabase,
+                    deployment: selectedDeployment
+                }
+            });
+
+            // @ts-ignore
+            setGeneratedPlan(result.data.plan);
+        } catch (error) {
+            console.error("Error generating plan:", error);
+            // Fallback for demo/if firebase fails
+            setGeneratedPlan(`
+# Implementation Plan (Demo Mode)
+
+Since the backend is not fully connected, here is a sample plan structure for your stack:
+
+- **Frontend**: ${selectedFrontend}
+- **Backend**: ${selectedBackend}
+- **Database**: ${selectedDatabase}
+- **Deployment**: ${selectedDeployment}
+
+## Next Steps
+1. Configure your Firebase project keys in \`src/lib/firebase.ts\`.
+2. Deploy the cloud function in \`functions/index.js\`.
+            `);
+        } finally {
+            setIsGenerating(false);
+        }
     };
 
     if (isStackCreated) {
@@ -44,7 +89,7 @@ export function CreateStackPage() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-neutral-900 border border-white/10 rounded-3xl p-8 max-w-2xl w-full text-center"
+                        className="bg-neutral-900 border border-white/10 rounded-3xl p-8 max-w-4xl w-full text-center"
                     >
                         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-500/10 mb-6">
                             <Check className="w-10 h-10 text-green-500" />
@@ -52,7 +97,7 @@ export function CreateStackPage() {
                         <h2 className="text-3xl font-bold text-white mb-4">Your Stack is Ready!</h2>
                         <p className="text-neutral-400 mb-8">Here is the technology stack you've selected.</p>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 text-left">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 text-left max-w-2xl mx-auto">
                             {[
                                 { label: 'Frontend', value: selectedFrontend },
                                 { label: 'Backend', value: selectedBackend },
@@ -69,20 +114,54 @@ export function CreateStackPage() {
                             })}
                         </div>
 
-                        <div className="flex justify-center gap-4">
-                            <button
-                                onClick={() => setIsStackCreated(false)}
-                                className="px-6 py-3 rounded-full bg-white/5 text-white font-medium hover:bg-white/10 transition-colors"
-                            >
-                                Edit Stack
-                            </button>
-                            <Link
-                                to="/tech-stacks"
-                                className="px-6 py-3 rounded-full bg-indigo-600 text-white font-medium hover:bg-indigo-500 transition-colors"
-                            >
-                                Explore More Stacks
-                            </Link>
-                        </div>
+                        {generatedPlan ? (
+                             <div className="mt-8 text-left bg-black/30 p-6 rounded-xl border border-white/10 max-h-[600px] overflow-y-auto prose prose-invert max-w-none">
+                                <div className="flex justify-between items-center mb-4">
+                                    <h3 className="text-xl font-bold text-white m-0">Implementation Plan</h3>
+                                    <button onClick={() => setGeneratedPlan(null)} className="text-neutral-400 hover:text-white text-sm">Close</button>
+                                </div>
+                                <div className="whitespace-pre-wrap font-mono text-sm text-neutral-300">
+                                    {generatedPlan}
+                                </div>
+                             </div>
+                        ) : (
+                            <div className="flex justify-center gap-4">
+                                <button
+                                    onClick={() => setIsStackCreated(false)}
+                                    className="px-6 py-3 rounded-full bg-white/5 text-white font-medium hover:bg-white/10 transition-colors"
+                                >
+                                    Edit Stack
+                                </button>
+                                <button
+                                    onClick={handleGeneratePlan}
+                                    disabled={isGenerating}
+                                    className="px-6 py-3 rounded-full bg-indigo-600 text-white font-medium hover:bg-indigo-500 transition-colors disabled:opacity-50 flex items-center gap-2"
+                                >
+                                    {isGenerating ? (
+                                        <>
+                                            <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                                            Generating...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Layers className="w-4 h-4" />
+                                            Generate Plan
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                        )}
+                        
+                        {!generatedPlan && (
+                            <div className="mt-6">
+                                <Link
+                                    to="/tech-stacks"
+                                    className="text-neutral-500 hover:text-white transition-colors text-sm"
+                                >
+                                    Explore More Stacks
+                                </Link>
+                            </div>
+                        )}
                     </motion.div>
                 </div>
             </Layout>
