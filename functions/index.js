@@ -27,39 +27,35 @@ exports.generateStackPlan = onCall({
 
         // 3. Construct Prompt
         const prompt = `
-        You are an expert Senior Solution Architect.
-        Create a detailed implementation plan for a new web application with the following tech stack:
+        You are an expert Senior Solution Architect and Prompt Engineer.
         
+        GOAL: Create a structured guide to build a new web application with this stack:
         - Frontend: ${stack.frontend}
         - Backend: ${stack.backend}
         - Database: ${stack.database}
         - Deployment: ${stack.deployment}
         
-        Please structure the response in Markdown format with the following sections:
+        OUTPUT FORMAT:
+        Please provide the response in Markdown with exactly TWO main sections.
         
-        # Implementation Plan: [Project Name Idea]
+        # Section 1: Prerequisites & Preparation (For the User)
+        List ONLY the manual steps the user must complete before they can start coding.
+        - Required CLI tools to install (Node.js, Python, etc.)
+        - Account setup (e.g. "Create Firebase Project", "Get API Keys")
+        - Setup commands (e.g. "firebase login", "npm login")
+        - Deployment target details (e.g. "Enable Billing", "Create Database Instance")
         
-        ## 1. Architecture Overview
-        Briefly explain how these specific tools work together.
+        # Section 2: AI Scaffolding Plan (Copy & Paste this to your AI Assistant)
+        Write a highly detailed, technical PROMPT that the user should copy and paste into an AI coding tool (like Cursor, Windsurf, or Antigravity).
         
-        ## 2. Prerequisites
-        What needs to be installed locally (CLI tools, languages).
+        This inner prompt should:
+        - Tell the AI agent it is an expert developer.
+        - instruct it to initialize the project structure for ${stack.frontend} and ${stack.backend}.
+        - instruct it to install specific dependencies.
+        - instruct it to create configuration files (tsconfig, etc).
+        - instruct it to build a "Hello World" proof-of-concept connecting frontend to backend.
         
-        ## 3. Step-by-Step Implementation
-        
-        ### Phase 1: Setup & Configuration
-        - Exact commands to initialize the project for ${stack.frontend} and ${stack.backend}.
-        - How to connect ${stack.database}.
-        
-        ### Phase 2: Development Steps
-        - Key components to build.
-        - API structure recommendations.
-        
-        ### Phase 3: Deployment
-        - How to deploy the app to ${stack.deployment}.
-        
-        ## 4. Best Practices
-        Specific tips for this combination of tools.
+        Do not execute the code yourself, but provide the *prompt* that will make another AI execute it perfectly.
         `;
 
         // 4. Generate Content
