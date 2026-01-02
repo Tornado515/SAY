@@ -617,6 +617,55 @@ export const tools: Tool[] = [
             }
         ]
     },
+    // Deployment
+    {
+        name: 'Firebase',
+        slug: 'firebase',
+        description: 'Google\'s mobile and web application development platform.',
+        longDescription: 'Firebase is a platform developed by Google for creating mobile and web applications. It provides a variety of tools and services to help developers build high-quality apps, grow their user base, and earn profit.',
+        category: 'Deployment',
+        link: 'https://firebase.google.com/',
+        tags: ['Deployment', 'Database', 'Auth', 'Serverless'],
+        features: ['Hosting', 'Authentication', 'Firestore', 'Cloud Functions'],
+        youtubeVideoId: 'sIORx28PLrc',
+        setupVideoId: '9kRgVxULbag',
+        steps: [
+            {
+                title: 'Create Project',
+                content: 'Go to the Firebase Console and create a new project.',
+                links: [{ text: 'Firebase Console', url: 'https://console.firebase.google.com/', primary: true }]
+            },
+            {
+                title: 'Install CLI',
+                content: 'Install the Firebase CLI globally.',
+                code: 'npm install -g firebase-tools',
+                language: 'bash'
+            },
+            {
+                title: 'Login & Init',
+                content: 'Login to Firebase and initialize your project.',
+                code: 'firebase login\nfirebase init',
+                language: 'bash'
+            },
+            {
+                title: 'Deploy',
+                content: 'Deploy your app to Firebase Hosting.',
+                code: 'firebase deploy',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['All-in-one platform', 'Great free tier', 'Easy to use'],
+            cons: ['Vendor lock-in', 'Can get expensive at scale'],
+            bestFor: ['MVPs', 'Mobile Apps', 'SPAs'],
+            communitySupport: 'Massive',
+            priceModel: 'Freemium'
+        },
+        relatedTools: [
+            { slug: 'react', name: 'React', relation: 'complementary' }
+        ]
+    },
     // Design
     {
         name: 'Figma',

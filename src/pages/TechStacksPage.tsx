@@ -4,7 +4,7 @@ import { Layout } from '../components/Layout';
 import { techStacks, type StackCategory } from '../data/techStacks';
 import { tools } from '../data/tools';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Layers, CheckCircle2, XCircle, Search, Filter, X } from 'lucide-react';
+import { ArrowRight, Layers, CheckCircle2, XCircle, Search, Filter, X, Plus } from 'lucide-react';
 
 export function TechStacksPage() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -73,6 +73,16 @@ export function TechStacksPage() {
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     className="w-full h-12 rounded-full bg-white/5 border border-white/10 pl-12 pr-4 text-white placeholder:text-neutral-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                                 />
+                            </div>
+                            
+                            <div className="flex justify-center pt-2">
+                                <Link
+                                    to="/create-stack"
+                                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold hover:from-indigo-500 hover:to-purple-500 transition-all shadow-lg hover:shadow-indigo-500/25 active:scale-95 text-sm"
+                                >
+                                    <Plus className="w-4 h-4" />
+                                    Create Your Own Stack
+                                </Link>
                             </div>
                         </div>
                     </div>
