@@ -27,7 +27,8 @@ export interface Tool {
     slug: string;
     description: string;
     longDescription: string;
-    category: 'Frontend' | 'Mobile' | 'AI Coding' | 'AI Mockup' | 'Deployment' | 'Testing' | 'Design' | 'Database' | 'Backend' | 'Version Control' | 'IDE' | 'AI Chatbots' | 'Productivity';
+    category: 'Frontend' | 'Mobile' | 'AI Coding' | 'AI Mockup' | 'Deployment' | 'Testing' | 'Design' | 'Database' | 'Backend' | 'Version Control' | 'IDE' | 'AI Chatbots' | 'Productivity' | 'Full Stack';
+    additionalCategories?: string[];
     link: string;
     tags: string[];
     steps: Step[];
@@ -1169,7 +1170,8 @@ export const tools: Tool[] = [
         slug: 'nextjs',
         description: 'The React Framework for the Web. Hybrid static & server rendering.',
         longDescription: 'Next.js enables you to create full-stack Web applications by extending React with the latest features like Server Components, and integrating powerful Rust-based tooling for the fastest builds. It handles routing, optimized rendering (SSR/SSG), and API routes out of the box.',
-        category: 'Frontend',
+        category: 'Full Stack',
+        additionalCategories: ['Frontend', 'Backend'],
         link: 'https://nextjs.org',
         tags: ['Framework', 'SSR', 'React'],
         features: ['App Router', 'Server Components', 'Image Optimization', 'Edge Runtime'],
@@ -1213,6 +1215,178 @@ export const tools: Tool[] = [
                 title: 'Server Components',
                 content: 'By default, components in the `app` directory are Server Components. They render on the server and send zero JS to the client.'
             }
+        ]
+    },
+    {
+        name: 'Remix',
+        slug: 'remix',
+        description: 'Focused on web standards and modern web app UX.',
+        longDescription: 'Remix is a full stack web framework that lets you focus on the user interface and work back through web standards to deliver a fast, slick, and resilient user experience. It creates a seamless server/client runtime.',
+        category: 'Full Stack',
+        additionalCategories: ['Frontend', 'Backend'],
+        link: 'https://remix.run',
+        tags: ['Framework', 'React', 'Full Stack'],
+        features: ['Nested Routes', 'Data Loading', 'Error Handling', 'Web Standards'],
+        youtubeVideoId: 'RTq46xZqjfw', // Remix in 100s
+        setupVideoId: 'HS8d8eY2f_4', // Remix Tutorial
+        steps: [
+            {
+                title: 'Create Project',
+                content: 'Initialize a new Remix project.',
+                code: 'npx create-remix@latest',
+                language: 'bash'
+            },
+            {
+                title: 'Select Configuration',
+                content: 'Choose "Remix App Server" or another adapter during setup.',
+            },
+            {
+                title: 'Start Dev',
+                content: 'Run the development server.',
+                code: 'npm run dev',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Great performance', 'Eliminates loading states', 'Web standards based'],
+            cons: ['Smaller ecosystem than Next.js', 'Different mental model'],
+            bestFor: ['SaaS', 'Dashboards'],
+            communitySupport: 'Growing',
+            priceModel: 'Free'
+        },
+        relatedTools: [
+            { slug: 'react', name: 'React', relation: 'prerequisite' },
+            { slug: 'react-router', name: 'React Router', relation: 'complementary' }
+        ]
+    },
+    {
+        name: 'Nuxt',
+        slug: 'nuxt',
+        description: 'The Intuitive Vue Framework.',
+        longDescription: 'Nuxt is an open source framework that makes web development intuitive and powerful. It is to Vue what Next.js is to React, offering full-stack capabilities, server-side rendering, and static site generation.',
+        category: 'Full Stack',
+        additionalCategories: ['Frontend', 'Backend'],
+        link: 'https://nuxt.com',
+        tags: ['Framework', 'Vue', 'Full Stack'],
+        features: ['Auto-imports', 'File-system Routing', 'Server Side Rendering', 'Modules'],
+        youtubeVideoId: 'dCxSsr5xu-U', // Nuxt in 100s
+        setupVideoId: 'GBdO5myZNsQ', // Nuxt 3 Crash Course
+        steps: [
+            {
+                title: 'Initialize',
+                content: 'Create a new Nuxt project.',
+                code: 'npx nuxi@latest init my-app',
+                language: 'bash'
+            },
+            {
+                title: 'Install',
+                content: 'Install dependencies.',
+                code: 'cd my-app\nnpm install',
+                language: 'bash'
+            },
+            {
+                title: 'Run',
+                content: 'Start the development server.',
+                code: 'npm run dev',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Excellent developer experience', 'Powerful module system', 'Auto-imports'],
+            cons: ['Vue specific', 'Major version changes can be painful'],
+            bestFor: ['Vue developers', 'SEO Friendly Apps'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        },
+        relatedTools: [
+            { slug: 'vue', name: 'Vue', relation: 'prerequisite' }
+        ]
+    },
+    {
+        name: 'SvelteKit',
+        slug: 'sveltekit',
+        description: 'Web development, streamlined.',
+        longDescription: 'SvelteKit is a framework for building web applications of all sizes, with a beautiful development experience and flexible filesystem-based routing. It is built on Svelte, which compiles your code to tiny, framework-less vanilla JS.',
+        category: 'Full Stack',
+        additionalCategories: ['Frontend', 'Backend'],
+        link: 'https://kit.svelte.dev',
+        tags: ['Framework', 'Svelte', 'Full Stack'],
+        features: ['Compiler', 'No Virtual DOM', 'Scoped CSS', 'Server Routes'],
+        youtubeVideoId: 'rv3Yq-B8qp4', // Svelte in 100s
+        setupVideoId: 'MoGkX4t9adA', // SvelteKit Crash Course
+        steps: [
+            {
+                title: 'Create',
+                content: 'Create a new SvelteKit app.',
+                code: 'npm create svelte@latest my-app',
+                language: 'bash'
+            },
+            {
+                title: 'Setup',
+                content: 'Follow the prompts to configure TypeScript, ESLint, etc.',
+            },
+            {
+                title: 'Run',
+                content: 'Start coding.',
+                code: 'npm run dev',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Tiny bundles', 'No virtual DOM overhead', 'Simple reactivity'],
+            cons: ['Smaller ecosystem', 'Not React'],
+            bestFor: ['High performance apps', 'Interactive UIs'],
+            communitySupport: 'Passionate',
+            priceModel: 'Free'
+        },
+        relatedTools: [
+            { slug: 'vite', name: 'Vite', relation: 'complementary' }
+        ]
+    },
+    {
+        name: 'Astro',
+        slug: 'astro',
+        description: 'The web framework for content-driven websites.',
+        longDescription: 'Astro is an all-in-one web framework for building fast, content-focused websites. It defaults to shipping zero JavaScript to the client (Islands Architecture) but lets you hydrate interactive components when needed.',
+        category: 'Full Stack',
+        additionalCategories: ['Frontend', 'Backend'],
+        link: 'https://astro.build',
+        tags: ['Framework', 'Static Site', 'MPA'],
+        features: ['Zero JS by default', 'Islands Architecture', 'Content Collections', 'UI Agnostic'],
+        youtubeVideoId: 'dsTXcSeAZq8', // Astro in 100s
+        setupVideoId: 'M55mQ6a9784', // Astro Crash Course
+        steps: [
+            {
+                title: 'Launch',
+                content: 'Create a new Astro project.',
+                code: 'npm create astro@latest',
+                language: 'bash'
+            },
+            {
+                title: 'Configure',
+                content: 'Follow the wizard. It is very friendly.',
+            },
+            {
+                title: 'Integrations',
+                content: 'Add integrations like React, Tailwind, or Vue with a single command.',
+                code: 'npx astro add react tailwind',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Fastest by default', 'Bring your own UI framework', 'Great for content'],
+            cons: ['Not optimized for complex SPAs', 'Unique mental model (Islands)'],
+            bestFor: ['Blogs', 'Marketing Sites', 'Docs'],
+            communitySupport: 'Growing fast',
+            priceModel: 'Free'
+        },
+        relatedTools: [
+            { slug: 'react', name: 'React', relation: 'complementary' },
+            { slug: 'tailwindcss', name: 'Tailwind CSS', relation: 'complementary' }
         ]
     },
     {

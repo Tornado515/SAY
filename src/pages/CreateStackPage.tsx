@@ -6,6 +6,7 @@ import { Check, Layers, Save, Database, Server, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export function CreateStackPage() {
+    const [selectedFullStack, setSelectedFullStack] = useState<string | null>(null);
     const [selectedFrontend, setSelectedFrontend] = useState<string | null>(null);
     const [selectedBackend, setSelectedBackend] = useState<string | null>(null);
     const [selectedDatabase, setSelectedDatabase] = useState<string | null>(null);
@@ -18,14 +19,27 @@ export function CreateStackPage() {
     const [isStackCreated, setIsStackCreated] = useState(false);
     const [frontendType, setFrontendType] = useState<'Web' | 'Mobile'>('Web');
 
-    const frontendTools = tools.filter(t => t.category === (frontendType === 'Web' ? 'Frontend' : 'Mobile'));
-    const backendTools = tools.filter(t => t.category === 'Backend');
+    // Tool Filtering considering additionalCategories
+    const fullStackTools = tools.filter(t => t.category === 'Full Stack' || t.additionalCategories?.includes('Full Stack'));
+    const frontendTools = tools.filter(t => 
+        (t.category === (frontendType === 'Web' ? 'Frontend' : 'Mobile')) || 
+        (frontendType === 'Web' ? t.additionalCategories?.includes('Frontend') : t.additionalCategories?.includes('Mobile'))
+    );
+    const backendTools = tools.filter(t => t.category === 'Backend' || t.additionalCategories?.includes('Backend'));
     const databaseTools = tools.filter(t => t.category === 'Database');
 
     // Filter Deployment Tools
     const fullDeploymentTools = tools.filter(t => t.deploymentTypes?.includes('full'));
     const frontendDeploymentTools = tools.filter(t => t.deploymentTypes?.includes('frontend'));
     const backendDeploymentTools = tools.filter(t => t.deploymentTypes?.includes('backend'));
+
+    const handleFullStackSelect = (slug: string | null) => {
+        setSelectedFullStack(slug);
+        if (slug) {
+            setSelectedFrontend(null);
+            setSelectedBackend(null);
+        }
+    };
 
     const handleFullDeploymentSelect = (slug: string | null) => {
         setSelectedFullDeployment(slug);
@@ -46,14 +60,30 @@ export function CreateStackPage() {
 
     const sections = [
         {
+            title: 'Full-Stack Framework',
+            icon: Layers,
+            tools: fullStackTools,
+            selected: selectedFullStack,
+            setSelected: handleFullStackSelect,
+            disabled: !!(selectedFrontend || selectedBackend) // Just for visual feedback, though user requested opposite behavior mostly
+        },
+        {
             title: 'Frontend Framework',
             icon: Globe,
             tools: frontendTools,
             selected: selectedFrontend,
             setSelected: setSelectedFrontend,
-            hasFilter: true
+            hasFilter: true,
+            disabled: !!selectedFullStack
         },
-        { title: 'Backend Framework', icon: Server, tools: backendTools, selected: selectedBackend, setSelected: setSelectedBackend },
+        { 
+            title: 'Backend Framework', 
+            icon: Server, 
+            tools: backendTools, 
+            selected: selectedBackend, 
+            setSelected: setSelectedBackend,
+            disabled: !!selectedFullStack
+        },
         { title: 'Database', icon: Database, tools: databaseTools, selected: selectedDatabase, setSelected: setSelectedDatabase },
         
         // Deployment Sections
@@ -102,6 +132,7 @@ export function CreateStackPage() {
                 },
                 body: JSON.stringify({
                     stack: {
+                        fullStack: selectedFullStack,
                         frontend: selectedFrontend,
                         backend: selectedBackend,
                         database: selectedDatabase,
@@ -129,8 +160,8 @@ export function CreateStackPage() {
 
 Since the backend is not fully connected, here is a sample plan structure for your stack:
 
-- **Frontend**: ${selectedFrontend}
-- **Backend**: ${selectedBackend}
+- **Stack Type**: ${selectedFullStack ? 'Full Stack Framework' : 'Separate Frontend & Backend'}
+${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**: ${selectedFrontend}\n- **Backend**: ${selectedBackend}`}
 - **Database**: ${selectedDatabase}
 - **Deployment**: ${selectedFullDeployment || `${selectedFrontendDeployment} (Frontend) + ${selectedBackendDeployment} (Backend)`}
 
@@ -159,8 +190,13 @@ Since the backend is not fully connected, here is a sample plan structure for yo
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 text-left max-w-2xl mx-auto">
                             {[
-                                { label: 'Frontend', value: selectedFrontend },
-                                { label: 'Backend', value: selectedBackend },
+                                ...(selectedFullStack 
+                                    ? [{ label: 'Full Stack', value: selectedFullStack }]
+                                    : [
+                                        { label: 'Frontend', value: selectedFrontend },
+                                        { label: 'Backend', value: selectedBackend }
+                                    ]
+                                ),
                                 { label: 'Database', value: selectedDatabase },
                                 ...(selectedFullDeployment 
                                     ? [{ label: 'Deployment', value: selectedFullDeployment }]
@@ -180,7 +216,8 @@ Since the backend is not fully connected, here is a sample plan structure for yo
                                 );
                             })}
                         </div>
-
+                        
+                        {/* generatedPlan section remains similar, just closed properly */}
                         {generatedPlan ? (
                             <div className="mt-8 text-left bg-black/30 p-6 rounded-xl border border-white/10 max-h-[600px] overflow-y-auto prose prose-invert max-w-none relative">
                                 <div className="flex justify-between items-center mb-4 sticky top-0 bg-[#1a1a1a] z-10 py-2 border-b border-white/10">
@@ -191,7 +228,6 @@ Since the backend is not fully connected, here is a sample plan structure for yo
                                                 const scaffoldingSection = generatedPlan.split('# Section 2: AI Scaffolding Plan')[1];
                                                 const textToCopy = scaffoldingSection ? scaffoldingSection.trim() : generatedPlan;
                                                 navigator.clipboard.writeText(textToCopy);
-                                                // Simple feedback could be added here, e.g., changing icon
                                                 alert("Scaffolding plan copied to clipboard!");
                                             }}
                                             className="flex items-center gap-2 text-indigo-400 hover:text-indigo-300 text-sm font-medium transition-colors"
@@ -331,7 +367,7 @@ Since the backend is not fully connected, here is a sample plan structure for yo
                         <div className="mt-12 flex justify-end">
                             <button
                                 onClick={handleCreateStack}
-                                disabled={!selectedFrontend || !selectedBackend || !selectedDatabase || !(selectedFullDeployment || (selectedFrontendDeployment && selectedBackendDeployment))}
+                                disabled={!(selectedFullStack || (selectedFrontend && selectedBackend)) || !selectedDatabase || !(selectedFullDeployment || (selectedFrontendDeployment && selectedBackendDeployment))}
                                 className="flex items-center gap-2 px-8 py-4 rounded-full bg-indigo-600 text-white font-bold text-lg hover:bg-indigo-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-indigo-500/20"
                             >
                                 <Save className="w-5 h-5" />

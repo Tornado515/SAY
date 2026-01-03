@@ -11,6 +11,7 @@ app.use(express.json());
 
 // Initialize Gemini
 const apiKey = process.env.GEMINI_API_KEY;
+console.log(`[DEBUG] GEMINI_API_KEY loaded: ${apiKey ? 'Yes (length: ' + apiKey.length + ')' : 'NO - KEY IS MISSING!'}`);
 const genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null;
 const model = genAI ? genAI.getGenerativeModel({ model: "gemini-2.5-flash" }) : null;
 
@@ -23,7 +24,10 @@ app.post('/api/generateStackPlan', async (req, res) => {
         const hasFullDeployment = !!deployment.full;
         const hasSplitDeployment = !!(deployment.frontend && deployment.backend);
 
-        if (!stack || !stack.frontend || !stack.backend || !stack.database || (!hasFullDeployment && !hasSplitDeployment)) {
+        const hasFullStack = !!stack.fullStack;
+        const hasSplitStack = !!(stack.frontend && stack.backend);
+
+        if (!stack || (!hasFullStack && !hasSplitStack) || !stack.database || (!hasFullDeployment && !hasSplitDeployment)) {
             res.status(400).json({
                 error: 'invalid-argument',
                 message: 'Missing stack components. Please select tools for all categories, including deployment.'
@@ -45,13 +49,16 @@ app.post('/api/generateStackPlan', async (req, res) => {
             ? `Deployment: ${deployment.full}`
             : `Frontend Deployment: ${deployment.frontend}, Backend Deployment: ${deployment.backend}`;
 
+        const stackText = hasFullStack
+            ? `Full Stack Framework: ${stack.fullStack}`
+            : `Frontend: ${stack.frontend}, Backend: ${stack.backend}`;
+
         // 3. Construct Prompt
         const prompt = `
         You are an expert Senior Solution Architect and Prompt Engineer.
         
         GOAL: Create a structured guide to build a new web application with this stack:
-        - Frontend: ${stack.frontend}
-        - Backend: ${stack.backend}
+        - ${stackText}
         - Database: ${stack.database}
         - ${deploymentText}
         
@@ -70,10 +77,10 @@ app.post('/api/generateStackPlan', async (req, res) => {
         
         This inner prompt should:
         - Tell the AI agent it is an expert developer.
-        - instruct it to initialize the project structure for ${stack.frontend} and ${stack.backend}.
+        - instruct it to initialize the project structure for the selected stack (${hasFullStack ? stack.fullStack : `${stack.frontend} and ${stack.backend}`}).
         - instruct it to install specific dependencies.
         - instruct it to create configuration files (tsconfig, etc).
-        - instruct it to build a "Hello World" proof-of-concept connecting frontend to backend.
+        - instruct it to build a "Hello World" proof-of-concept connecting everything together.
         
         Do not execute the code yourself, but provide the *prompt* that will make another AI execute it perfectly.
         `;
