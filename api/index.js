@@ -19,10 +19,14 @@ app.post('/api/generateStackPlan', async (req, res) => {
         const { stack } = req.body;
 
         // 1. Validate Input
-        if (!stack || !stack.frontend || !stack.backend || !stack.database || !stack.deployment) {
+        const deployment = stack?.deployment || {};
+        const hasFullDeployment = !!deployment.full;
+        const hasSplitDeployment = !!(deployment.frontend && deployment.backend);
+
+        if (!stack || !stack.frontend || !stack.backend || !stack.database || (!hasFullDeployment && !hasSplitDeployment)) {
             res.status(400).json({
                 error: 'invalid-argument',
-                message: 'Missing stack components. Please select tools for all categories.'
+                message: 'Missing stack components. Please select tools for all categories, including deployment.'
             });
             return;
         }
@@ -37,6 +41,10 @@ app.post('/api/generateStackPlan', async (req, res) => {
             return;
         }
 
+        const deploymentText = hasFullDeployment
+            ? `Deployment: ${deployment.full}`
+            : `Frontend Deployment: ${deployment.frontend}, Backend Deployment: ${deployment.backend}`;
+
         // 3. Construct Prompt
         const prompt = `
         You are an expert Senior Solution Architect and Prompt Engineer.
@@ -45,7 +53,7 @@ app.post('/api/generateStackPlan', async (req, res) => {
         - Frontend: ${stack.frontend}
         - Backend: ${stack.backend}
         - Database: ${stack.database}
-        - Deployment: ${stack.deployment}
+        - ${deploymentText}
         
         OUTPUT FORMAT:
         Please provide the response in Markdown with exactly TWO main sections.
@@ -53,7 +61,7 @@ app.post('/api/generateStackPlan', async (req, res) => {
         # Section 1: Prerequisites & Preparation (For the User)
         List ONLY the manual steps the user must complete before they can start coding.
         - Required CLI tools to install (Node.js, Python, etc.)
-        - Account setup (e.g. "Create Firebase Project", "Get API Keys")
+        - Account setup (e.g. "Create ${hasFullDeployment ? deployment.full : 'Cloud Provider'} Project", "Get API Keys")
         - Setup commands (e.g. "firebase login", "npm login")
         - Deployment target details (e.g. "Enable Billing", "Create Database Instance")
         
@@ -82,7 +90,7 @@ app.post('/api/generateStackPlan', async (req, res) => {
         console.error("Error generating plan:", error);
         res.status(500).json({
             error: 'internal',
-            message: 'Failed to generate plan. Please try again later.'
+            message: error.message || 'Failed to generate plan. Please try again later.'
         });
     }
 });

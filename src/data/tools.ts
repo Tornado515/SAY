@@ -47,6 +47,7 @@ export interface Tool {
         name: string;
         relation: 'alternative' | 'prerequisite' | 'next-step' | 'complementary';
     }[];
+    deploymentTypes?: ('full' | 'frontend' | 'backend')[];
     comparisonData?: ComparisonData;
 }
 
@@ -629,6 +630,7 @@ export const tools: Tool[] = [
         features: ['Hosting', 'Authentication', 'Firestore', 'Cloud Functions'],
         youtubeVideoId: 'sIORx28PLrc',
         setupVideoId: '9kRgVxULbag',
+        deploymentTypes: ['full', 'frontend', 'backend'], // Firebase can do it all
         steps: [
             {
                 title: 'Create Project',
@@ -665,6 +667,254 @@ export const tools: Tool[] = [
         relatedTools: [
             { slug: 'react', name: 'React', relation: 'complementary' }
         ]
+    },
+    {
+        name: 'Vercel',
+        slug: 'vercel',
+        description: 'Develop. Preview. Ship. The best place to deploy frontend & fullstack apps.',
+        longDescription: 'Vercel is the platform for frontend developers, providing the speed and reliability innovators need to create at the moment of inspiration. It enables you to deploy static sites and Serverless Functions with zero configuration.',
+        category: 'Deployment',
+        link: 'https://vercel.com',
+        tags: ['Deployment', 'Frontend', 'Serverless', 'Next.js'],
+        features: ['Global CDN', 'Serverless Functions', 'Preview Deployments', 'Analytics'],
+        deploymentTypes: ['full', 'frontend'],
+        youtubeVideoId: 'Vz7Q_T2Gf-U',
+        setupVideoId: 'b7VpU7a-V1o', // Deploying React to Vercel
+        steps: [
+            {
+                title: 'Sign Up',
+                content: 'Create an account on Vercel using GitHub, GitLab, or Bitbucket.',
+                links: [{ text: 'Sign Up', url: 'https://vercel.com/signup', primary: true }]
+            },
+            {
+                title: 'Import Project',
+                content: 'Click "Add New..." > "Project" and select your Git repository.',
+            },
+            {
+                title: 'Deploy',
+                content: 'Vercel automatically detects your framework settings. Click "Deploy".',
+            },
+            {
+                title: 'CI/CD',
+                content: 'Every push to your main branch will automatically trigger a new production deployment.',
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Zero config for most frameworks', 'Incredible performance', 'Great DX'],
+            cons: ['Function limits on free tier', 'Pro plan is per seat'],
+            bestFor: ['Next.js', 'React', 'Static Sites'],
+            communitySupport: 'Massive',
+            priceModel: 'Freemium'
+        }
+    },
+    {
+        name: 'Netlify',
+        slug: 'netlify',
+        description: 'The fastest way to build the fastest sites.',
+        longDescription: 'Netlify unites an entire ecosystem of modern tools and services into a single, simple workflow for building high performance sites and apps. It provides continuous deployment, global CDN, and serverless functions.',
+        category: 'Deployment',
+        link: 'https://netlify.com',
+        tags: ['Deployment', 'Frontend', 'Jamstack'],
+        features: ['Continuous Deployment', 'Serverless Functions', 'Forms', 'Edge Handlers'],
+        deploymentTypes: ['full', 'frontend'],
+        setupVideoId: '4M1wK6h3V6w', // Netlify Crash Course
+        steps: [
+            {
+                title: 'Connect Repo',
+                content: 'Log in and drag your build folder or connect a Git repository.',
+                links: [{ text: 'Get Started', url: 'https://app.netlify.com', primary: true }]
+            },
+            {
+                title: 'Build Settings',
+                content: 'Configure your build command (e.g., `npm run build`) and publish directory (e.g., `dist`).',
+            },
+            {
+                title: 'Go Live',
+                content: 'Netlify deploys your site to a global CDN in seconds.',
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Very generous free tier', 'Easy Forms handling', 'Great community'],
+            cons: ['Build minutes limit', 'Complex enterprise pricing'],
+            bestFor: ['Static Sites', 'Jamstack', 'Documentation'],
+            communitySupport: 'Large',
+            priceModel: 'Freemium'
+        }
+    },
+    {
+        name: 'Railway',
+        slug: 'railway',
+        description: 'Made for any language, for projects big and small.',
+        longDescription: 'Railway is an infrastructure platform where you can provision infrastructure, develop with that infrastructure locally, and then deploy to the cloud. It is arguably the easiest way to deploy backend applications and databases.',
+        category: 'Deployment',
+        link: 'https://railway.app',
+        tags: ['Deployment', 'Backend', 'Database', 'PaaS'],
+        features: ['Zero Config', 'Postgres/MySQL/Redis', 'PR Environments', 'Metrics'],
+        deploymentTypes: ['full', 'backend'],
+        youtubeVideoId: 'p3J957x1a_E', // Railway intro
+        steps: [
+            {
+                title: 'Start a Project',
+                content: 'Go to the dashboard and press "New Project". You can start from a template or a repo.',
+                links: [{ text: 'Railway Dashboard', url: 'https://railway.app/dashboard', primary: true }]
+            },
+            {
+                title: 'Provision Database',
+                content: 'Right click to add a PostgreSQL or Redis database instance instantly.',
+            },
+            {
+                title: 'Deploy Code',
+                content: 'Connect your GitHub repo. Railway detects the language and builds it automatically.',
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Extremely easy to use', 'Visual infrastructure graph', 'Pay for what you use'],
+            cons: ['No free tier (trial credits only)', 'Smaller ecosystem than AWS'],
+            bestFor: ['Backends', 'Databases', 'Full Stack Apps'],
+            communitySupport: 'Growing',
+            priceModel: 'Paid'
+        }
+    },
+    {
+        name: 'Render',
+        slug: 'render',
+        description: 'The Unified Cloud to build and run all your apps and websites.',
+        longDescription: 'Render is a unified cloud to build and run all your apps and websites with free SSL, a global CDN, private networks, and auto deploys from Git. It is a strong alternative to Heroku.',
+        category: 'Deployment',
+        link: 'https://render.com',
+        tags: ['Deployment', 'Backend', 'Hosting', 'PaaS'],
+        features: ['Web Services', 'Static Sites', 'Managed Databases', 'Cron Jobs'],
+        deploymentTypes: ['full', 'backend', 'frontend'],
+        setupVideoId: '0zI883Y2d6w', // Deploy Node to Render
+        steps: [
+            {
+                title: 'New Service',
+                content: 'Click "New" and select "Web Service" for backends or "Static Site" for frontends.',
+                links: [{ text: 'Render Dashboard', url: 'https://dashboard.render.com', primary: true }]
+            },
+            {
+                title: 'Connect Git',
+                content: 'Grant access to your repository.',
+            },
+            {
+                title: 'Configure',
+                content: 'Select the runtime (Node, Python, Go, etc.) and build command.',
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Great free tier for web services', 'Cheaper than Heroku', 'Simple UI'],
+            cons: ['Slow builds on free tier', 'Cold starts on free tier'],
+            bestFor: ['Node/Python Backends', 'Postgres DB'],
+            communitySupport: 'Medium',
+            priceModel: 'Freemium'
+        }
+    },
+    {
+        name: 'Heroku',
+        slug: 'heroku',
+        description: 'Platform as a service based on a managed container system.',
+        longDescription: 'Heroku is a platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud. It was one of the first and most popular PaaS providers.',
+        category: 'Deployment',
+        link: 'https://heroku.com',
+        tags: ['Deployment', 'Backend', 'PaaS', 'Legacy'],
+        features: ['Dynos', 'Add-ons market', 'Simple CLI', 'Pipelines'],
+        deploymentTypes: ['full', 'backend'],
+        setupVideoId: '5MChXJ_t9Xk', // Heroku basics
+        steps: [
+            {
+                title: 'Create App',
+                content: 'Use the Heroku CLI or Dashboard to create a new app.',
+                links: [{ text: 'Heroku Dashboard', url: 'https://dashboard.heroku.com', primary: true }]
+            },
+            {
+                title: 'Push to Deploy',
+                content: 'Heroku uses git for deployments. `git push heroku main` is all it takes.',
+                code: 'git push heroku main',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Mature platform', 'Huge addon ecosystem', 'Very stable'],
+            cons: ['No longer free', 'Pricey at scale', 'Sleeps inactive dynos'],
+            bestFor: ['Ruby/Rails', 'Node.js', 'Postgres'],
+            communitySupport: 'Large',
+            priceModel: 'Paid'
+        }
+    },
+    {
+        name: 'Fly.io',
+        slug: 'fly-io',
+        description: 'Deploy your app servers close to your users.',
+        longDescription: 'Fly.io transforms containers into micro-VMs that run on their own hardware in 30+ regions on six continents. It is excellent for running full stack apps or databases close to your users.',
+        category: 'Deployment',
+        link: 'https://fly.io',
+        tags: ['Deployment', 'Backend', 'Edge', 'Containers'],
+        features: ['Global Deployment', 'Docker-based', 'Private Networking', 'Machine API'],
+        deploymentTypes: ['backend', 'full'],
+        setupVideoId: 'i_JpXI6jfkE', // Deploying to Fly.io
+        steps: [
+            {
+                title: 'Install CLI',
+                content: 'Install the flyctl command line tool.',
+                links: [{ text: 'Install Docs', url: 'https://fly.io/docs/hands-on/install-flyctl/', primary: true }]
+            },
+            {
+                title: 'Launch',
+                content: 'Run `fly launch` in your project directory. It detects your Dockerfile or config.',
+                code: 'fly launch',
+                language: 'bash'
+            },
+            {
+                title: 'Deploy',
+                content: 'Run `fly deploy` to push your changes.',
+                code: 'fly deploy',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Run Docker containers anywhere', 'Edge computing', 'Reasonable pricing'],
+            cons: ['More config than PaaS', 'Networking can be complex'],
+            bestFor: ['Dockerized Apps', 'Global Apps', 'Elixir/Phoenix'],
+            communitySupport: 'High (Technichal)',
+            priceModel: 'Freemium'
+        }
+    },
+    {
+        name: 'AWS Amplify',
+        slug: 'aws-amplify',
+        description: 'Complete solution for building mobile and web apps on AWS.',
+        longDescription: 'AWS Amplify is a set of tools and services that can be used together or on their own, to help front-end web and mobile developers build scalable full stack applications, powered by AWS.',
+        category: 'Deployment',
+        link: 'https://aws.amazon.com/amplify/',
+        tags: ['Deployment', 'AWS', 'Full Stack'],
+        features: ['Auth (Cognito)', 'Storage (S3)', 'API (GraphQL/REST)', 'Hosting'],
+        deploymentTypes: ['full', 'frontend'],
+        setupVideoId: '7d-p4xS8-X0',
+        steps: [
+            {
+                title: 'Connect Repo',
+                content: 'Connect your repository to Amplify Hosting.',
+                links: [{ text: 'AWS Amplify Console', url: 'https://console.aws.amazon.com/amplify', primary: true }]
+            },
+            {
+                title: 'Configure Backend',
+                content: 'Use the visual backend builder or CLI to add Auth, Data, and Storage.',
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Deep AWS integration', 'Visual backend builder', 'Scales infinitely'],
+            cons: ['AWS complexity under the hood', 'Vendor lock-in'],
+            bestFor: ['AWS-heavy apps', 'Enterprise'],
+            communitySupport: 'Large',
+            priceModel: 'Freemium'
+        }
     },
     // Design
     {

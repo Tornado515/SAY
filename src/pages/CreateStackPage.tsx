@@ -9,27 +9,78 @@ export function CreateStackPage() {
     const [selectedFrontend, setSelectedFrontend] = useState<string | null>(null);
     const [selectedBackend, setSelectedBackend] = useState<string | null>(null);
     const [selectedDatabase, setSelectedDatabase] = useState<string | null>(null);
-    const [selectedDeployment, setSelectedDeployment] = useState<string | null>(null);
+
+    // Deployment State
+    const [selectedFullDeployment, setSelectedFullDeployment] = useState<string | null>(null);
+    const [selectedFrontendDeployment, setSelectedFrontendDeployment] = useState<string | null>(null);
+    const [selectedBackendDeployment, setSelectedBackendDeployment] = useState<string | null>(null);
+
     const [isStackCreated, setIsStackCreated] = useState(false);
     const [frontendType, setFrontendType] = useState<'Web' | 'Mobile'>('Web');
 
     const frontendTools = tools.filter(t => t.category === (frontendType === 'Web' ? 'Frontend' : 'Mobile'));
     const backendTools = tools.filter(t => t.category === 'Backend');
     const databaseTools = tools.filter(t => t.category === 'Database');
-    const deploymentTools = tools.filter(t => t.category === 'Deployment');
+
+    // Filter Deployment Tools
+    const fullDeploymentTools = tools.filter(t => t.deploymentTypes?.includes('full'));
+    const frontendDeploymentTools = tools.filter(t => t.deploymentTypes?.includes('frontend'));
+    const backendDeploymentTools = tools.filter(t => t.deploymentTypes?.includes('backend'));
+
+    const handleFullDeploymentSelect = (slug: string | null) => {
+        setSelectedFullDeployment(slug);
+        if (slug) {
+            setSelectedFrontendDeployment(null);
+            setSelectedBackendDeployment(null);
+        }
+    };
+
+    const handleSplitDeploymentSelect = (type: 'frontend' | 'backend', slug: string | null) => {
+        if (type === 'frontend') setSelectedFrontendDeployment(slug);
+        if (type === 'backend') setSelectedBackendDeployment(slug);
+        
+        if (slug) {
+            setSelectedFullDeployment(null);
+        }
+    };
 
     const sections = [
         {
-            title: 'Frontend',
+            title: 'Frontend Framework',
             icon: Globe,
             tools: frontendTools,
             selected: selectedFrontend,
             setSelected: setSelectedFrontend,
             hasFilter: true
         },
-        { title: 'Backend', icon: Server, tools: backendTools, selected: selectedBackend, setSelected: setSelectedBackend },
+        { title: 'Backend Framework', icon: Server, tools: backendTools, selected: selectedBackend, setSelected: setSelectedBackend },
         { title: 'Database', icon: Database, tools: databaseTools, selected: selectedDatabase, setSelected: setSelectedDatabase },
-        { title: 'Deployment', icon: Layers, tools: deploymentTools, selected: selectedDeployment, setSelected: setSelectedDeployment },
+        
+        // Deployment Sections
+        { 
+            title: 'Full Stack Deployment', 
+            icon: Layers, 
+            tools: fullDeploymentTools, 
+            selected: selectedFullDeployment, 
+            setSelected: handleFullDeploymentSelect,
+            disabled: !!(selectedFrontendDeployment || selectedBackendDeployment)
+        },
+        { 
+            title: 'Frontend Deployment', 
+            icon: Globe, 
+            tools: frontendDeploymentTools, 
+            selected: selectedFrontendDeployment, 
+            setSelected: (slug: string | null) => handleSplitDeploymentSelect('frontend', slug),
+            disabled: !!selectedFullDeployment
+        },
+        { 
+            title: 'Backend Deployment', 
+            icon: Server, 
+            tools: backendDeploymentTools, 
+            selected: selectedBackendDeployment, 
+            setSelected: (slug: string | null) => handleSplitDeploymentSelect('backend', slug),
+            disabled: !!selectedFullDeployment
+        },
     ];
 
     const [isGenerating, setIsGenerating] = useState(false);
@@ -54,7 +105,11 @@ export function CreateStackPage() {
                         frontend: selectedFrontend,
                         backend: selectedBackend,
                         database: selectedDatabase,
-                        deployment: selectedDeployment
+                        deployment: {
+                            full: selectedFullDeployment,
+                            frontend: selectedFrontendDeployment,
+                            backend: selectedBackendDeployment
+                        }
                     }
                 }),
             });
@@ -77,11 +132,10 @@ Since the backend is not fully connected, here is a sample plan structure for yo
 - **Frontend**: ${selectedFrontend}
 - **Backend**: ${selectedBackend}
 - **Database**: ${selectedDatabase}
-- **Deployment**: ${selectedDeployment}
+- **Deployment**: ${selectedFullDeployment || `${selectedFrontendDeployment} (Frontend) + ${selectedBackendDeployment} (Backend)`}
 
 ## Next Steps
-1. Configure your Firebase project keys in \`src/lib/firebase.ts\`.
-2. Deploy the cloud function in \`functions/index.js\`.
+...
             `);
         } finally {
             setIsGenerating(false);
@@ -108,9 +162,16 @@ Since the backend is not fully connected, here is a sample plan structure for yo
                                 { label: 'Frontend', value: selectedFrontend },
                                 { label: 'Backend', value: selectedBackend },
                                 { label: 'Database', value: selectedDatabase },
-                                { label: 'Deployment', value: selectedDeployment }
+                                ...(selectedFullDeployment 
+                                    ? [{ label: 'Deployment', value: selectedFullDeployment }]
+                                    : [
+                                        { label: 'Frontend Deploy', value: selectedFrontendDeployment },
+                                        { label: 'Backend Deploy', value: selectedBackendDeployment }
+                                    ]
+                                )
                             ].map((item) => {
                                 const tool = tools.find(t => t.slug === item.value);
+                                if (!item.value) return null;
                                 return (
                                     <div key={item.label} className="bg-white/5 rounded-xl p-4 border border-white/5">
                                         <p className="text-xs text-neutral-500 uppercase tracking-wider mb-1">{item.label}</p>
@@ -237,7 +298,8 @@ Since the backend is not fully connected, here is a sample plan structure for yo
                                         )}
                                     </div>
 
-                                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                                    {/* @ts-ignore */}
+                                    <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 ${section.disabled ? 'opacity-50 pointer-events-none grayscale' : ''}`}>
                                         {section.tools.length > 0 ? (
                                             section.tools.map((tool) => (
                                                 <button
@@ -269,7 +331,7 @@ Since the backend is not fully connected, here is a sample plan structure for yo
                         <div className="mt-12 flex justify-end">
                             <button
                                 onClick={handleCreateStack}
-                                disabled={!selectedFrontend && !selectedBackend && !selectedDatabase && !selectedDeployment}
+                                disabled={!selectedFrontend || !selectedBackend || !selectedDatabase || !(selectedFullDeployment || (selectedFrontendDeployment && selectedBackendDeployment))}
                                 className="flex items-center gap-2 px-8 py-4 rounded-full bg-indigo-600 text-white font-bold text-lg hover:bg-indigo-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-indigo-500/20"
                             >
                                 <Save className="w-5 h-5" />
