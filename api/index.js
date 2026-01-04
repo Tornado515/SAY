@@ -29,10 +29,10 @@ app.post('/api/generateStackPlan', async (req, res) => {
         const hasFullStack = !!stack.fullStack;
         const hasSplitStack = !!(stack.frontend && stack.backend);
 
-        if (!stack || (!hasFullStack && !hasSplitStack) || !stack.database || (!hasFullDeployment && !hasSplitDeployment)) {
+        if (!stack || (!hasFullStack && !hasSplitStack) || !stack.database || !stack.architecture || (!hasFullDeployment && !hasSplitDeployment)) {
             res.status(400).json({
                 error: 'invalid-argument',
-                message: 'Missing stack components. Please select tools for all categories, including deployment.'
+                message: 'Missing stack components. Please select tools for all categories, including architecture and deployment.'
             });
             return;
         }
@@ -62,6 +62,7 @@ app.post('/api/generateStackPlan', async (req, res) => {
         GOAL: Create a structured guide to build a new web application with this stack:
         - ${stackText}
         - Database: ${stack.database}
+        - Architecture: ${stack.architecture}
         - ${deploymentText}
         
         OUTPUT FORMAT:
@@ -79,7 +80,7 @@ app.post('/api/generateStackPlan', async (req, res) => {
         
         This inner prompt should:
         - Tell the AI agent it is an expert developer.
-        - instruct it to initialize the project structure for the selected stack (${hasFullStack ? stack.fullStack : `${stack.frontend} and ${stack.backend}`}).
+        - instruct it to initialize the project structure for the selected stack (${hasFullStack ? stack.fullStack : `${stack.frontend} and ${stack.backend}`}) using the ${stack.architecture} architecture.
         - instruct it to install specific dependencies.
         - instruct it to create configuration files (tsconfig, etc).
         - instruct it to build a "Hello World" proof-of-concept connecting everything together.
@@ -139,6 +140,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     console.log(`Starting server on port ${PORT}...`);
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
+        console.log("Server updated with Architecture support.");
     });
 } else {
     console.log("Not starting server directly.");

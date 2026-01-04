@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Layout } from '../components/Layout';
 import { tools } from '../data/tools';
 import { motion } from 'framer-motion';
-import { Check, Layers, Save, Database, Server, Globe } from 'lucide-react';
+import { Check, Layers, Save, Database, Server, Globe, Box } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export function CreateStackPage() {
@@ -10,6 +10,7 @@ export function CreateStackPage() {
     const [selectedFrontend, setSelectedFrontend] = useState<string | null>(null);
     const [selectedBackend, setSelectedBackend] = useState<string | null>(null);
     const [selectedDatabase, setSelectedDatabase] = useState<string | null>(null);
+    const [selectedArchitecture, setSelectedArchitecture] = useState<string | null>(null);
 
     // Deployment State
     const [selectedFullDeployment, setSelectedFullDeployment] = useState<string | null>(null);
@@ -27,6 +28,7 @@ export function CreateStackPage() {
     );
     const backendTools = tools.filter(t => t.category === 'Backend' || t.additionalCategories?.includes('Backend'));
     const databaseTools = tools.filter(t => t.category === 'Database');
+    const architectureTools = tools.filter(t => t.category === 'Architecture');
 
     // Filter Deployment Tools
     const fullDeploymentTools = tools.filter(t => t.deploymentTypes?.includes('full'));
@@ -85,6 +87,7 @@ export function CreateStackPage() {
             disabled: !!selectedFullStack
         },
         { title: 'Database', icon: Database, tools: databaseTools, selected: selectedDatabase, setSelected: setSelectedDatabase },
+        { title: 'Architecture', icon: Box, tools: architectureTools, selected: selectedArchitecture, setSelected: setSelectedArchitecture },
         
         // Deployment Sections
         { 
@@ -136,6 +139,7 @@ export function CreateStackPage() {
                         frontend: selectedFrontend,
                         backend: selectedBackend,
                         database: selectedDatabase,
+                        architecture: selectedArchitecture,
                         deployment: {
                             full: selectedFullDeployment,
                             frontend: selectedFrontendDeployment,
@@ -163,6 +167,7 @@ Since the backend is not fully connected, here is a sample plan structure for yo
 - **Stack Type**: ${selectedFullStack ? 'Full Stack Framework' : 'Separate Frontend & Backend'}
 ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**: ${selectedFrontend}\n- **Backend**: ${selectedBackend}`}
 - **Database**: ${selectedDatabase}
+- **Architecture**: ${selectedArchitecture}
 - **Deployment**: ${selectedFullDeployment || `${selectedFrontendDeployment} (Frontend) + ${selectedBackendDeployment} (Backend)`}
 
 ## Next Steps
@@ -198,6 +203,7 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                                     ]
                                 ),
                                 { label: 'Database', value: selectedDatabase },
+                                { label: 'Architecture', value: selectedArchitecture },
                                 ...(selectedFullDeployment 
                                     ? [{ label: 'Deployment', value: selectedFullDeployment }]
                                     : [
@@ -367,7 +373,7 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                         <div className="mt-12 flex justify-end">
                             <button
                                 onClick={handleCreateStack}
-                                disabled={!(selectedFullStack || (selectedFrontend && selectedBackend)) || !selectedDatabase || !(selectedFullDeployment || (selectedFrontendDeployment && selectedBackendDeployment))}
+                                disabled={!(selectedFullStack || (selectedFrontend && selectedBackend)) || !selectedDatabase || !selectedArchitecture || !(selectedFullDeployment || (selectedFrontendDeployment && selectedBackendDeployment))}
                                 className="flex items-center gap-2 px-8 py-4 rounded-full bg-indigo-600 text-white font-bold text-lg hover:bg-indigo-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-indigo-500/20"
                             >
                                 <Save className="w-5 h-5" />

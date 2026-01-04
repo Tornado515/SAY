@@ -27,7 +27,7 @@ export interface Tool {
     slug: string;
     description: string;
     longDescription: string;
-    category: 'Frontend' | 'Mobile' | 'AI Coding' | 'AI Mockup' | 'Deployment' | 'Testing' | 'Design' | 'Database' | 'Backend' | 'Version Control' | 'IDE' | 'AI Chatbots' | 'Productivity' | 'Full Stack';
+    category: 'Frontend' | 'Mobile' | 'AI Coding' | 'AI Mockup' | 'Deployment' | 'Testing' | 'Design' | 'Database' | 'Backend' | 'Version Control' | 'IDE' | 'AI Chatbots' | 'Productivity' | 'Full Stack' | 'Architecture';
     additionalCategories?: string[];
     link: string;
     tags: string[];
@@ -3348,5 +3348,215 @@ export const tools: Tool[] = [
                 content: 'Use the Automation tab to create rules like "When all subtasks are done, move parent to Done". It saves hours of manual updating.'
             }
         ]
+    },
+    // Architectures
+    {
+        name: 'Monolithic Architecture',
+        slug: 'monolithic',
+        description: 'A traditional unified model where the application is built as a single unit.',
+        longDescription: 'In a monolithic architecture, all components of the application—database operations, business logic, and UI—are bundled together. It is simple to develop, test, and deploy initially but can become unwieldy as the application grows.',
+        category: 'Architecture',
+        link: 'https://en.wikipedia.org/wiki/Monolithic_application',
+        tags: ['Architecture', 'Traditional', 'Unified'],
+        features: ['Simple Deployment', 'Easy Debugging', 'Unified Codebase'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Simple to develop and deploy', 'Easy to debug', 'No network latency between components'],
+            cons: ['Hard to scale', 'Tight coupling', 'Technology lock-in'],
+            bestFor: ['Small to Medium Apps', 'MVPs', 'Simple Teams'],
+            communitySupport: 'Universal',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Microservices Architecture',
+        slug: 'microservices',
+        description: 'An architectural style that structures an application as a collection of services.',
+        longDescription: 'Microservices architecture structures an application as a collection of loosely coupled services, which implement business capabilities. Each service can be developed, deployed, and scaled independently.',
+        category: 'Architecture',
+        link: 'https://microservices.io/',
+        tags: ['Architecture', 'Distributed', 'Scalable'],
+        features: ['Independent Deployment', 'Scalability', 'Technology Agnostic'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['Highly scalable', 'Independent deployment', 'Fault isolation'],
+            cons: ['Complex to manage', 'Network latency', 'Data consistency challenges'],
+            bestFor: ['Large Enterprise Apps', 'Complex Domains', 'Large Teams'],
+            communitySupport: 'Massive',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Serverless Architecture',
+        slug: 'serverless-arch',
+        description: 'Build and run applications without thinking about servers.',
+        longDescription: 'Serverless architecture allows you to build and run applications and services without thinking about servers. Your application is broken into functions that are triggered by events and managed by a cloud provider.',
+        category: 'Architecture',
+        link: 'https://aws.amazon.com/serverless/',
+        tags: ['Architecture', 'Cloud', 'Functions'],
+        features: ['No Server Management', 'Auto-scaling', 'Pay-per-use'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['No infrastructure management', 'Cost effective for low traffic', 'Auto-scaling'],
+            cons: ['Cold starts', 'Vendor lock-in', 'Debugging can be hard'],
+            bestFor: ['Event-driven apps', 'Variable workloads', 'Rapid prototyping'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Event-Driven Architecture',
+        slug: 'event-driven',
+        description: 'A software architecture paradigm promoting the production, detection, consumption of, and reaction to events.',
+        longDescription: 'Event-driven architecture (EDA) uses events to trigger and communicate between decoupled services and is common in modern applications built with microservices.',
+        category: 'Architecture',
+        link: 'https://aws.amazon.com/event-driven-architecture/',
+        tags: ['Architecture', 'Async', 'Decoupled'],
+        features: ['Decoupling', 'Real-time', 'Scalability'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['Loose coupling', 'Scalability', 'Responsiveness'],
+            cons: ['Complex to trace', 'Event consistency', 'Debugging difficulty'],
+            bestFor: ['Real-time apps', 'Complex workflows', 'IoT'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Jamstack',
+        slug: 'jamstack',
+        description: 'An architecture designed to make the web faster, more secure, and easier to scale.',
+        longDescription: 'Jamstack (JavaScript, APIs, and Markup) is a modern web development architecture based on client-side JavaScript, reusable APIs, and prebuilt Markup.',
+        category: 'Architecture',
+        link: 'https://jamstack.org/',
+        tags: ['Architecture', 'Web', 'Static'],
+        features: ['Performance', 'Security', 'Cheap Hosting'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Fast performance', 'High security', 'Low cost'],
+            cons: ['Dynamic features require APIs', 'Build times can be long'],
+            bestFor: ['Content sites', 'E-commerce', 'Landing pages'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Clean Architecture',
+        slug: 'clean-architecture',
+        description: 'A software design philosophy that separates the elements of a design into ring levels.',
+        longDescription: 'Clean Architecture allows for the separation of concerns by organizing code into concentric circles, with the domain logic at the center and external concerns like UI and DB on the outside.',
+        category: 'Architecture',
+        link: 'https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html',
+        tags: ['Architecture', 'Design Pattern', 'Maintainable'],
+        features: ['Testability', 'Independence of UI', 'Independence of DB'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['Highly testable', 'Framework independent', 'Maintainable'],
+            cons: ['Boilerplate code', 'Overkill for simple apps', 'Steep learning curve'],
+            bestFor: ['Long-term projects', 'Enterprise software', 'Complex domains'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Hexagonal Architecture',
+        slug: 'hexagonal',
+        description: 'Also known as Ports and Adapters, it aims to create loosely coupled application components.',
+        longDescription: 'Hexagonal Architecture isolates the core business logic from outside concerns (like databases, UIs, or external APIs) using ports and adapters.',
+        category: 'Architecture',
+        link: 'https://alistair.cockburn.us/hexagonal-architecture/',
+        tags: ['Architecture', 'Ports and Adapters', 'Decoupled'],
+        features: ['Isolation', 'Testability', 'Flexibility'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['Decoupled components', 'Easy testing', 'Flexible adapters'],
+            cons: ['Complexity', 'Many files/interfaces', 'Learning curve'],
+            bestFor: ['Domain-driven design', 'Complex business logic'],
+            communitySupport: 'Medium',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Service-Oriented Architecture (SOA)',
+        slug: 'soa',
+        description: 'An architectural style that supports service orientation.',
+        longDescription: 'SOA is a style of software design where services are provided to the other components by application components, through a communication protocol over a network.',
+        category: 'Architecture',
+        link: 'https://en.wikipedia.org/wiki/Service-oriented_architecture',
+        tags: ['Architecture', 'Enterprise', 'Services'],
+        features: ['Reusability', 'Interoperability', 'Loose Coupling'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['Service reusability', 'Better maintainability', 'Scalability'],
+            cons: ['High overhead', 'Complex management', 'Expensive implementation'],
+            bestFor: ['Large Enterprise Systems', 'Legacy Integration'],
+            communitySupport: 'Stable',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Layered (N-Tier) Architecture',
+        slug: 'layered-n-tier',
+        description: 'Organizes the application into logical layers (e.g., Presentation, Business, Data).',
+        longDescription: 'Layered architecture is a traditional pattern where code is organized into layers, each with a specific responsibility. Common layers include Presentation, Business Logic, and Data Access.',
+        category: 'Architecture',
+        link: 'https://en.wikipedia.org/wiki/Multitier_architecture',
+        tags: ['Architecture', 'Traditional', 'Structured'],
+        features: ['Separation of Concerns', 'Simplicity', 'Standardization'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Easy to understand', 'Standard structure', 'Separation of concerns'],
+            cons: ['Can lead to "sinkhole" anti-pattern', 'Performance overhead'],
+            bestFor: ['Standard Web Apps', 'Enterprise Apps'],
+            communitySupport: 'Universal',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'MVC Architecture',
+        slug: 'mvc',
+        description: 'Model-View-Controller pattern for separating internal representations of information from the ways information is presented.',
+        longDescription: 'MVC is an architectural pattern that separates an application into three main logical components: the model, the view, and the controller. Each of these components are built to handle specific development aspects of an application.',
+        category: 'Architecture',
+        link: 'https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller',
+        tags: ['Architecture', 'Pattern', 'UI'],
+        features: ['Separation of Concerns', 'Parallel Development', 'Testability'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Clean separation', 'Parallel development', 'Easy to maintain'],
+            cons: ['Complexity for small apps', 'Strict structure'],
+            bestFor: ['Web Applications', 'UI Heavy Apps'],
+            communitySupport: 'Universal',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Client-Server Architecture',
+        slug: 'client-server',
+        description: 'A distributed application structure that partitions tasks or workloads between the providers of a resource or service, called servers, and service requesters, called clients.',
+        longDescription: 'Client-server architecture is a distributed application structure that partitions tasks or workloads between the providers of a resource or service, called servers, and service requesters, called clients.',
+        category: 'Architecture',
+        link: 'https://en.wikipedia.org/wiki/Client%E2%80%93server_model',
+        tags: ['Architecture', 'Distributed', 'Network'],
+        features: ['Centralized Control', 'Scalability', 'Accessibility'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Centralized control', 'Easier maintenance', 'Security'],
+            cons: ['Single point of failure (server)', 'Network dependency'],
+            bestFor: ['Email', 'Web', 'Banking'],
+            communitySupport: 'Universal',
+            priceModel: 'Free'
+        }
     }
 ];
