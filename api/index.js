@@ -2,6 +2,8 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { auditPromptWithGemini } from './PromptTester.js';
+import { fileURLToPath } from 'url';
 
 const app = express();
 
@@ -102,15 +104,46 @@ app.post('/api/generateStackPlan', async (req, res) => {
     }
 });
 
+
+
+app.post('/api/auditPrompt', async (req, res) => {
+    try {
+        const { prompt } = req.body;
+
+        if (!prompt) {
+            return res.status(400).json({ error: 'Missing prompt' });
+        }
+
+        if (!process.env.GEMINI_API_KEY) {
+            return res.status(500).json({ error: 'Server configuration error: GEMINI_API_KEY is missing.' });
+        }
+
+        const result = await auditPromptWithGemini(process.env.GEMINI_API_KEY, prompt);
+        res.json(result);
+
+    } catch (error) {
+        console.error("Error auditing prompt:", error);
+        res.status(500).json({
+            error: 'internal',
+            message: error.message || 'Failed to audit prompt.'
+        });
+    }
+});
+
 // For Vercel, we export the app.
 // For local development, we want to listen on a port.
 // In check for direct execution with ESM:
-import { fileURLToPath } from 'url';
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
     const PORT = process.env.PORT || 3001;
+    console.log(`Starting server on port ${PORT}...`);
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
     });
+} else {
+    console.log("Not starting server directly.");
+    console.log("argv[1]:", process.argv[1]);
+    console.log("fileURLToPath:", fileURLToPath(import.meta.url));
 }
 
 export default app;

@@ -1,5 +1,6 @@
 import { Sparkles, Zap, MessageSquare, Code2, Brain, Wind, GitBranch } from 'lucide-react';
 import { Layout } from '../components/Layout';
+import { PromptTester } from '../components/PromptTester';
 
 export function HowToVibeCodePage() {
   return (
@@ -111,6 +112,9 @@ function calculateTotal(items) {
               ))}
             </div>
           </div>
+
+          {/* Prompt Tester */}
+          <PromptTester />
 
           {/* Advanced Techniques */}
           <div className="mb-32">
