@@ -4,6 +4,7 @@ import { tools } from '../data/tools';
 import { motion } from 'framer-motion';
 import { Check, Layers, Save, Database, Server, Globe, Box } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 
 export function CreateStackPage() {
     const [selectedFullStack, setSelectedFullStack] = useState<string | null>(null);
@@ -225,31 +226,94 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                         
                         {/* generatedPlan section remains similar, just closed properly */}
                         {generatedPlan ? (
-                            <div className="mt-8 text-left bg-black/30 p-6 rounded-xl border border-white/10 max-h-[600px] overflow-y-auto prose prose-invert max-w-none relative">
-                                <div className="flex justify-between items-center mb-4 sticky top-0 bg-[#1a1a1a] z-10 py-2 border-b border-white/10">
-                                    <h3 className="text-xl font-bold text-white m-0">Implementation Plan</h3>
-                                    <div className="flex items-center gap-3">
-                                        <button
-                                            onClick={() => {
-                                                const scaffoldingSection = generatedPlan.split('# Section 2: AI Scaffolding Plan')[1];
-                                                const textToCopy = scaffoldingSection ? scaffoldingSection.trim() : generatedPlan;
-                                                navigator.clipboard.writeText(textToCopy);
-                                                alert("Scaffolding plan copied to clipboard!");
-                                            }}
-                                            className="flex items-center gap-2 text-indigo-400 hover:text-indigo-300 text-sm font-medium transition-colors"
-                                        >
-                                            <div className="p-1.5 rounded-md bg-indigo-500/10 hover:bg-indigo-500/20">
-                                                <Layers className="w-4 h-4" />
+                            (() => {
+                                const section2Header = "# Section 2: AI Scaffolding Plan (Copy & Paste this to your AI Assistant)";
+                                const parts = generatedPlan.split(section2Header);
+                                
+                                // If split was successful, we have at least 2 parts (part[0] is before section 2)
+                                if (parts.length > 1) {
+                                    const section1Header = "# Section 1: Prerequisites & Preparation (For the User)";
+                                    const section1Content = parts[0].replace(section1Header, '').trim();
+                                    const section2Content = parts[1].trim();
+
+                                    return (
+                                        <div className="mt-8 space-y-6">
+                                            {/* Section 1: Prerequisites */}
+                                            <div className="bg-neutral-800/50 border border-white/10 rounded-2xl p-6 text-left">
+                                                <div className="flex items-center gap-3 mb-4 border-b border-white/10 pb-4">
+                                                    <div className="p-2 rounded-lg bg-indigo-500/10">
+                                                        <Check className="w-5 h-5 text-indigo-400" />
+                                                    </div>
+                                                    <h3 className="text-xl font-bold text-white">Prerequisites & Preparation</h3>
+                                                </div>
+                                                <div className="prose prose-invert max-w-none prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white prose-headings:text-white">
+                                                    <ReactMarkdown>{section1Content}</ReactMarkdown>
+                                                </div>
                                             </div>
-                                            Copy Scaffolding
-                                        </button>
-                                        <button onClick={() => setGeneratedPlan(null)} className="text-neutral-400 hover:text-white text-sm">Close</button>
+
+                                            {/* Section 2: AI Prompt */}
+                                            <div className="bg-black/30 border border-white/10 rounded-2xl overflow-hidden text-left">
+                                                <div className="flex justify-between items-center p-4 bg-[#1a1a1a] border-b border-white/10">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="p-2 rounded-lg bg-purple-500/10">
+                                                            <Layers className="w-5 h-5 text-purple-400" />
+                                                        </div>
+                                                        <h3 className="text-xl font-bold text-white">AI Scaffolding Plan</h3>
+                                                    </div>
+                                                    <div className="flex items-center gap-2">
+                                                        <button
+                                                            onClick={() => {
+                                                                navigator.clipboard.writeText(section2Content);
+                                                                alert("Scaffolding plan copied to clipboard!");
+                                                            }}
+                                                            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition-colors"
+                                                        >
+                                                            <Layers className="w-4 h-4" />
+                                                            Copy Prompt
+                                                        </button>
+                                                        <button onClick={() => setGeneratedPlan(null)} className="p-2 text-neutral-400 hover:text-white transition-colors">
+                                                            <span className="sr-only">Close</span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x w-5 h-5"><path d="M18 6 6 18"/><path d="m6 6 18 12"/></svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div className="p-6 max-h-[500px] overflow-y-auto bg-black/50">
+                                                    <pre className="whitespace-pre-wrap font-mono text-sm text-neutral-300">
+                                                        {section2Content}
+                                                    </pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                }
+
+                                // Fallback if splitting fails (e.g. format changed)
+                                return (
+                                    <div className="mt-8 text-left bg-black/30 p-6 rounded-xl border border-white/10 max-h-[600px] overflow-y-auto prose prose-invert max-w-none relative">
+                                        <div className="flex justify-between items-center mb-4 sticky top-0 bg-[#1a1a1a] z-10 py-2 border-b border-white/10">
+                                            <h3 className="text-xl font-bold text-white m-0">Implementation Plan</h3>
+                                            <div className="flex items-center gap-3">
+                                                <button
+                                                    onClick={() => {
+                                                        navigator.clipboard.writeText(generatedPlan);
+                                                        alert("Full plan copied to clipboard!");
+                                                    }}
+                                                    className="flex items-center gap-2 text-indigo-400 hover:text-indigo-300 text-sm font-medium transition-colors"
+                                                >
+                                                    <div className="p-1.5 rounded-md bg-indigo-500/10 hover:bg-indigo-500/20">
+                                                        <Layers className="w-4 h-4" />
+                                                    </div>
+                                                    Copy Full Plan
+                                                </button>
+                                                <button onClick={() => setGeneratedPlan(null)} className="text-neutral-400 hover:text-white text-sm">Close</button>
+                                            </div>
+                                        </div>
+                                        <div className="whitespace-pre-wrap font-mono text-sm text-neutral-300">
+                                            {generatedPlan}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="whitespace-pre-wrap font-mono text-sm text-neutral-300">
-                                    {generatedPlan}
-                                </div>
-                            </div>
+                                );
+                            })()
                         ) : (
                             <div className="flex justify-center gap-4">
                                 <button
