@@ -629,7 +629,7 @@ export const tools: Tool[] = [
         link: 'https://firebase.google.com/',
         tags: ['Deployment', 'Database', 'Auth', 'Serverless'],
         features: ['Hosting', 'Authentication', 'Firestore', 'Cloud Functions'],
-        youtubeVideoId: 'sIORx28PLrc',
+        youtubeVideoId: 'vAoB4VbhRzM',
         setupVideoId: '9kRgVxULbag',
         deploymentTypes: ['full', 'frontend', 'backend'], // Firebase can do it all
         steps: [
