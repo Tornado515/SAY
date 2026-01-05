@@ -9,7 +9,22 @@ export function CategoriesPage() {
     const { t } = useTranslation();
 
     // Convert metadata object to array and sort by title
-    const categoriesToDisplay = Object.values(categoryMetadata).sort((a, b) => {
+    const categoriesToDisplay = Object.keys(categoryMetadata).map(catKey => {
+        if (categoryMetadata[catKey]) return categoryMetadata[catKey];
+
+        // Fallback for new/unknown categories
+        const slug = catKey.toLowerCase().replace(/\s+/g, '-');
+        return {
+            title: catKey,
+            slug: slug,
+            icon: Layers, // Generic icon
+            description: `Explore tools in the ${catKey} category.`,
+            color: 'text-neutral-400',
+            bg: 'bg-neutral-100 dark:bg-neutral-400/10'
+        };
+    }).sort((a, b) => {
+        // Optional: define a specific sort order, or just sort alphabetically
+        // For now, let's keep the order roughly as they appear or just alphabetically by title
         return a.title.localeCompare(b.title);
     });
 
@@ -20,7 +35,7 @@ export function CategoriesPage() {
                     <div className="mb-12">
                         <Link
                             to="/tools"
-                            className="group mb-8 inline-flex items-center gap-2 text-sm font-medium text-neutral-400 transition-colors hover:text-white"
+                            className="group mb-8 inline-flex items-center gap-2 text-sm font-medium text-neutral-600 dark:text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-white"
                         >
                             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1 rtl:rotate-180 rtl:group-hover:translate-x-1" />
                             {t('nav.backToTools', { defaultValue: 'Back to Tools' })}
@@ -29,10 +44,10 @@ export function CategoriesPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                         >
-                            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl mb-4">
+                            <h1 className="text-4xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-5xl mb-4">
                                 {t('categoriesPage.title', { defaultValue: 'Explore Categories' })}
                             </h1>
-                            <p className="text-lg text-neutral-400 max-w-2xl">
+                            <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl">
                                 {t('categoriesPage.description', { defaultValue: 'Browse our curated directory by category to find the perfect tools for every part of your stack.' })}
                             </p>
                         </motion.div>
@@ -48,21 +63,21 @@ export function CategoriesPage() {
                             >
                                 <Link
                                     to={`/category/${category.slug}`}
-                                    className="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-white/5 bg-white/5 p-6 transition-all hover:border-white/10 hover:bg-white/10 hover:shadow-2xl hover:shadow-indigo-500/10"
+                                    className="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-neutral-200 dark:border-white/5 bg-white dark:bg-white/5 p-6 transition-all hover:border-neutral-300 dark:hover:border-white/10 hover:shadow-xl dark:hover:shadow-2xl hover:shadow-indigo-500/10"
                                 >
-                                    <div className={`mb-4 inline-flex items-center justify-center rounded-xl p-3 ${category.bg} ${category.color} ring-1 ring-inset ring-white/5`}>
+                                    <div className={`mb-4 inline-flex items-center justify-center rounded-xl p-3 ${category.bg} ${category.color} ring-1 ring-inset ring-neutral-900/5 dark:ring-white/5`}>
                                         <category.icon className="h-6 w-6" />
                                     </div>
 
-                                    <h3 className="mb-2 text-lg font-semibold text-white group-hover:text-indigo-400 transition-colors">
+                                    <h3 className="mb-2 text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                                         {t(`categories.${category.slug}.title`, { defaultValue: category.title })}
                                     </h3>
 
-                                    <p className="text-sm text-neutral-400 leading-relaxed mb-4 flex-grow">
+                                    <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4 flex-grow">
                                         {t(`categories.${category.slug}.description`, { defaultValue: category.description })}
                                     </p>
 
-                                    <div className="flex items-center text-sm font-medium text-neutral-500 group-hover:text-indigo-400 transition-colors mt-auto">
+                                    <div className="flex items-center text-sm font-medium text-neutral-500 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mt-auto">
                                         {t('categoriesPage.browseTools', { defaultValue: 'Browse Tools' })} <span className="ml-1 transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1">&rarr;</span>
                                     </div>
                                 </Link>

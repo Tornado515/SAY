@@ -14,8 +14,8 @@ export function CategorySection({ title, tools, id }: CategorySectionProps) {
     return (
         <section id={id} className="py-16 sm:py-20">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="mb-10 border-b border-white/5 pb-4">
-                    <h2 className="text-2xl font-bold tracking-tight text-white">{title}</h2>
+                <div className="mb-10 border-b border-neutral-200 dark:border-white/5 pb-4">
+                    <h2 className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">{title}</h2>
                 </div>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

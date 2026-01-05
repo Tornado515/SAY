@@ -38,19 +38,23 @@ export function LandingPage() {
                             id={cat.id}
                         />
                         <div className="container mx-auto px-4 sm:px-6 lg:px-8 -mt-8 mb-12">
-                            <a href={`/category/${cat.slug}`} className="text-sm font-medium text-indigo-400 hover:text-indigo-300 flex items-center gap-1">
-                                {t('home.categories.viewAll', { category: cat.title })} <span aria-hidden="true" className="rtl:rotate-180">&rarr;</span>
+                            <a href={`/category/${cat.slug}`} className="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center gap-1">
+                                {t('home.categories.viewAll', { category: cat.title, defaultValue: `View all ${cat.title}` })} <span aria-hidden="true" className="rtl:rotate-180">&rarr;</span>
                             </a>
                         </div>
                     </div>
                 ))}
 
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-20 text-center">
-                    <h2 className="text-2xl font-bold text-white mb-4">{t('home.cta.title')}</h2>
-                    <p className="text-neutral-400 mb-8">{t('home.cta.description')}</p>
+                    <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
+                        {t('home.cta.title', { defaultValue: 'Looking for more?' })}
+                    </h2>
+                    <p className="text-neutral-600 dark:text-neutral-400 mb-8">
+                        {t('home.cta.description', { defaultValue: 'Explore our complete tools directory to find exactly what you need.' })}
+                    </p>
                     <Link
                         to="/tools"
-                        className="inline-flex items-center justify-center rounded-full bg-white/10 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-white/20 ring-1 ring-inset ring-white/10 transition-all"
+                        className="inline-flex items-center justify-center rounded-full bg-neutral-100 dark:bg-white/10 px-6 py-3 text-base font-semibold text-neutral-900 dark:text-white shadow-sm hover:bg-neutral-200 dark:hover:bg-white/20 ring-1 ring-inset ring-neutral-300 dark:ring-white/10 transition-all"
                     >
                         {t('home.cta.button')}
                     </Link>

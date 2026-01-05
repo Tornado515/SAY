@@ -15,15 +15,17 @@ export function Hero() {
                     transition={{ duration: 0.6 }}
                     className="mx-auto max-w-4xl"
                 >
-                    <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-indigo-500/10 px-3 py-1 text-sm font-medium text-indigo-400 ring-1 ring-inset ring-indigo-500/20">
+                    <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-indigo-100 dark:bg-indigo-500/10 px-3 py-1 text-sm font-medium text-indigo-700 dark:text-indigo-400 ring-1 ring-inset ring-indigo-300 dark:ring-indigo-500/20">
                         <Sparkles className="h-4 w-4" />
                         <span>{t('home.hero.badge')}</span>
                     </div>
-                    <h1 className="text-5xl font-bold tracking-tight text-white sm:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-neutral-400 leading-snug rtl:bg-gradient-to-l">
+                    <h1 className="text-5xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 via-neutral-800 to-neutral-600 dark:from-white dark:via-white dark:to-neutral-400 leading-snug rtl:bg-gradient-to-l">
                         {t('home.hero.titlePrefix')}
-                        <span className="block text-indigo-400 mt-2 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent leading-snug rtl:bg-gradient-to-l">{t('home.hero.titleSuffix')}</span>
+                        <span className="block text-indigo-600 dark:text-indigo-400 mt-2 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent leading-snug rtl:bg-gradient-to-l">
+                            {t('home.hero.titleSuffix')}
+                        </span>
                     </h1>
-                    <p className="mt-8 text-xl leading-8 text-neutral-400 max-w-2xl mx-auto">
+                    <p className="mt-8 text-xl leading-8 text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
                         {t('home.hero.description')}
                     </p>
                     <div className="mt-10 flex items-center justify-center gap-x-6">

@@ -34,12 +34,12 @@ export function ToolsPage() {
         <Layout>
             <div className="relative isolate min-h-[50vh]">
                 {/* Header Section */}
-                <div className="bg-neutral-900/50 border-b border-white/5 py-16 sm:py-24">
+                <div className="bg-neutral-50 dark:bg-neutral-900/50 border-b border-neutral-200 dark:border-white/5 py-16 sm:py-24">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl mb-6">
+                        <h1 className="text-4xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-5xl mb-6">
                             {t('toolsPage.title', { defaultValue: 'Explore All Tools' })}
                         </h1>
-                        <p className="text-lg text-neutral-400 max-w-2xl mx-auto mb-10">
+                        <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-10">
                             {t('toolsPage.subtitle', { defaultValue: 'Browse our complete collection of developer tools, frameworks, and AI assistants. Find exactly what you need for your next project.' })}
                         </p>
 
@@ -52,7 +52,7 @@ export function ToolsPage() {
                                     placeholder={t('toolsPage.searchPlaceholder', { defaultValue: 'Search tools, tags, or descriptions...' })}
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full h-12 rounded-full bg-white/5 border border-white/10 pl-12 pr-4 rtl:pl-4 rtl:pr-12 text-white placeholder:text-neutral-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
+                                    className="w-full h-12 rounded-full bg-white dark:bg-white/5 border border-neutral-200 dark:border-white/10 pl-12 pr-4 rtl:pl-4 rtl:pr-12 text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                                 />
                             </div>
                         </div>
@@ -78,7 +78,7 @@ export function ToolsPage() {
                                     onClick={() => setSelectedCategory(category)}
                                     className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${selectedCategory === category
                                         ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/20 ring-1 ring-indigo-400'
-                                        : 'bg-white/5 text-neutral-400 hover:bg-white/10 hover:text-white ring-1 ring-white/10'
+                                        : 'bg-white border border-neutral-200 text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 dark:bg-white/5 dark:border-transparent dark:text-neutral-400 dark:hover:bg-white/10 dark:hover:text-white ring-1 ring-transparent dark:ring-white/10'
                                         }`}
                                 >
                                     {categoryLabel}
@@ -109,8 +109,12 @@ export function ToolsPage() {
                     ) : (
                         <div className="text-center py-20">
                             <Filter className="h-12 w-12 text-neutral-700 mx-auto mb-4" />
-                            <h3 className="text-lg font-medium text-white">{t('toolsPage.noToolsFound', { defaultValue: 'No tools found' })}</h3>
-                            <p className="text-neutral-500 mt-2">{t('toolsPage.tryAdjusting', { defaultValue: 'Try adjusting your search or category filter.' })}</p>
+                            <h3 className="text-lg font-medium text-neutral-900 dark:text-white">
+                                {t('toolsPage.noToolsFound', { defaultValue: 'No tools found' })}
+                            </h3>
+                            <p className="text-neutral-500 mt-2">
+                                {t('toolsPage.tryAdjusting', { defaultValue: 'Try adjusting your search or category filter.' })}
+                            </p>
                             <button
                                 onClick={() => { setSearchQuery(''); setSelectedCategory('All'); }}
                                 className="mt-6 text-indigo-400 hover:text-indigo-300 font-medium"

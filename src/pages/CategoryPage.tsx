@@ -26,7 +26,7 @@ export function CategoryPage() {
         return (
             <Layout>
                 <div className="flex h-[50vh] flex-col items-center justify-center text-center">
-                    <h1 className="text-3xl font-bold text-white">Category Not Found</h1>
+                    <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">Category Not Found</h1>
                     <Link to="/" className="mt-4 text-indigo-400 hover:text-indigo-300">
                         Go back home
                     </Link>
@@ -42,7 +42,7 @@ export function CategoryPage() {
                     <div className="mb-12">
                         <Link
                             to="/categories"
-                            className="group mb-8 inline-flex items-center gap-2 text-sm font-medium text-neutral-400 transition-colors hover:text-white"
+                            className="group mb-8 inline-flex items-center gap-2 text-sm font-medium text-neutral-600 dark:text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-white"
                         >
                             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1 rtl:rotate-180 rtl:group-hover:translate-x-1" />
                             {t('nav.viewAllCategories', { defaultValue: 'Back to Categories' })}
@@ -51,11 +51,12 @@ export function CategoryPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                         >
-                            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl mb-4">
+                            <h1 className="text-4xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-5xl mb-4">
                                 {t(`categories.${categoryInfo.slug}.title`, { defaultValue: categoryInfo.title })}
                             </h1>
-                            <p className="text-lg text-neutral-400 max-w-2xl">
+                            <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl">
                                 {t(`categories.${categoryInfo.slug}.description`, { defaultValue: categoryInfo.description })}
+                            </p>
                             </p>
                         </motion.div>
                     </div>
@@ -72,9 +73,9 @@ export function CategoryPage() {
                             ))}
                         </motion.div>
                     ) : (
-                        <div className="flex flex-col items-center justify-center py-12 text-center border border-dashed border-white/10 rounded-2xl bg-white/5">
-                            <h3 className="text-xl font-semibold text-white mb-2">{t('categoryPage.noToolsTitle', { defaultValue: 'No tools yet' })}</h3>
-                            <p className="text-neutral-400 max-w-md">
+                        <div className="flex flex-col items-center justify-center py-12 text-center border border-dashed border-neutral-200 dark:border-white/10 rounded-2xl bg-neutral-50 dark:bg-white/5">
+                            <h3 className="text-xl font-semibold text-neutral-900 dark:text-white mb-2">{t('categoryPage.noToolsTitle', { defaultValue: 'No tools yet' })}</h3>
+                            <p className="text-neutral-600 dark:text-neutral-400 max-w-md">
                                 {t('categoryPage.noToolsDescription', { category: categoryName, defaultValue: `We haven't added any tools to the ${categoryName} category yet. Check back soon!` })}
                             </p>
                         </div>

@@ -186,13 +186,13 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-neutral-900 border border-white/10 rounded-3xl p-8 max-w-4xl w-full text-center"
+                        className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 rounded-3xl p-8 max-w-4xl w-full text-center shadow-2xl dark:shadow-none"
                     >
                         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-500/10 mb-6">
                             <Check className="w-10 h-10 text-green-500" />
                         </div>
-                        <h2 className="text-3xl font-bold text-white mb-4">Your Stack is Ready!</h2>
-                        <p className="text-neutral-400 mb-8">Here is the technology stack you've selected.</p>
+                        <h2 className="text-3xl font-bold text-neutral-900 dark:text-white mb-4">Your Stack is Ready!</h2>
+                        <p className="text-neutral-600 dark:text-neutral-400 mb-8">Here is the technology stack you've selected.</p>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 text-left max-w-2xl mx-auto">
                             {[
@@ -216,9 +216,9 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                                 const tool = tools.find(t => t.slug === item.value);
                                 if (!item.value) return null;
                                 return (
-                                    <div key={item.label} className="bg-white/5 rounded-xl p-4 border border-white/5">
+                                    <div key={item.label} className="bg-neutral-50 dark:bg-white/5 rounded-xl p-4 border border-neutral-200 dark:border-white/5">
                                         <p className="text-xs text-neutral-500 uppercase tracking-wider mb-1">{item.label}</p>
-                                        <p className="text-lg font-medium text-white">{tool?.name || 'Not selected'}</p>
+                                        <p className="text-lg font-medium text-neutral-900 dark:text-white">{tool?.name || 'Not selected'}</p>
                                     </div>
                                 );
                             })}
@@ -226,7 +226,7 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                         
                         {/* generatedPlan section remains similar, just closed properly */}
                         {generatedPlan ? (
-                            (() => {
+                           (() => {
                                 const section2Header = "# Section 2: AI Scaffolding Plan (Copy & Paste this to your AI Assistant)";
                                 const parts = generatedPlan.split(section2Header);
                                 
@@ -239,26 +239,26 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                                     return (
                                         <div className="mt-8 space-y-6">
                                             {/* Section 1: Prerequisites */}
-                                            <div className="bg-neutral-800/50 border border-white/10 rounded-2xl p-6 text-left">
-                                                <div className="flex items-center gap-3 mb-4 border-b border-white/10 pb-4">
+                                            <div className="bg-neutral-100 dark:bg-neutral-800/50 border border-neutral-200 dark:border-white/10 rounded-2xl p-6 text-left">
+                                                <div className="flex items-center gap-3 mb-4 border-b border-neutral-200 dark:border-white/10 pb-4">
                                                     <div className="p-2 rounded-lg bg-indigo-500/10">
-                                                        <Check className="w-5 h-5 text-indigo-400" />
+                                                        <Check className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                                                     </div>
-                                                    <h3 className="text-xl font-bold text-white">Prerequisites & Preparation</h3>
+                                                    <h3 className="text-xl font-bold text-neutral-900 dark:text-white">Prerequisites & Preparation</h3>
                                                 </div>
-                                                <div className="prose prose-invert max-w-none prose-p:text-neutral-300 prose-li:text-neutral-300 prose-strong:text-white prose-headings:text-white">
+                                                <div className="prose prose-neutral dark:prose-invert max-w-none prose-p:text-neutral-600 dark:prose-p:text-neutral-300 prose-li:text-neutral-600 dark:prose-li:text-neutral-300 prose-strong:text-neutral-900 dark:prose-strong:text-white prose-headings:text-neutral-900 dark:prose-headings:text-white">
                                                     <ReactMarkdown>{section1Content}</ReactMarkdown>
                                                 </div>
                                             </div>
 
                                             {/* Section 2: AI Prompt */}
-                                            <div className="bg-black/30 border border-white/10 rounded-2xl overflow-hidden text-left">
-                                                <div className="flex justify-between items-center p-4 bg-[#1a1a1a] border-b border-white/10">
+                                            <div className="bg-white dark:bg-black/30 border border-neutral-200 dark:border-white/10 rounded-2xl overflow-hidden text-left">
+                                                <div className="flex justify-between items-center p-4 bg-neutral-50 dark:bg-[#1a1a1a] border-b border-neutral-200 dark:border-white/10">
                                                     <div className="flex items-center gap-3">
                                                         <div className="p-2 rounded-lg bg-purple-500/10">
-                                                            <Layers className="w-5 h-5 text-purple-400" />
+                                                            <Layers className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                                                         </div>
-                                                        <h3 className="text-xl font-bold text-white">AI Scaffolding Plan</h3>
+                                                        <h3 className="text-xl font-bold text-neutral-900 dark:text-white">AI Scaffolding Plan</h3>
                                                     </div>
                                                     <div className="flex items-center gap-2">
                                                         <button
@@ -271,14 +271,14 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                                                             <Layers className="w-4 h-4" />
                                                             Copy Prompt
                                                         </button>
-                                                        <button onClick={() => setGeneratedPlan(null)} className="p-2 text-neutral-400 hover:text-white transition-colors">
+                                                        <button onClick={() => setGeneratedPlan(null)} className="p-2 text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
                                                             <span className="sr-only">Close</span>
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x w-5 h-5"><path d="M18 6 6 18"/><path d="m6 6 18 12"/></svg>
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div className="p-6 max-h-[500px] overflow-y-auto bg-black/50">
-                                                    <pre className="whitespace-pre-wrap font-mono text-sm text-neutral-300">
+                                                <div className="p-6 max-h-[500px] overflow-y-auto bg-neutral-50 dark:bg-black/50">
+                                                    <pre className="whitespace-pre-wrap font-mono text-sm text-neutral-600 dark:text-neutral-300">
                                                         {section2Content}
                                                     </pre>
                                                 </div>
@@ -287,28 +287,28 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                                     );
                                 }
 
-                                // Fallback if splitting fails (e.g. format changed)
+                                // Fallback if splitting fails (e.g. format changed) - Keeps Light/Dark support
                                 return (
-                                    <div className="mt-8 text-left bg-black/30 p-6 rounded-xl border border-white/10 max-h-[600px] overflow-y-auto prose prose-invert max-w-none relative">
-                                        <div className="flex justify-between items-center mb-4 sticky top-0 bg-[#1a1a1a] z-10 py-2 border-b border-white/10">
-                                            <h3 className="text-xl font-bold text-white m-0">Implementation Plan</h3>
+                                    <div className="mt-8 text-left bg-neutral-100 dark:bg-black/30 p-6 rounded-xl border border-neutral-200 dark:border-white/10 max-h-[600px] overflow-y-auto prose prose-neutral dark:prose-invert max-w-none relative">
+                                        <div className="flex justify-between items-center mb-4 sticky top-0 bg-neutral-100 dark:bg-[#1a1a1a] z-10 py-2 border-b border-neutral-200 dark:border-white/10">
+                                            <h3 className="text-xl font-bold text-neutral-900 dark:text-white m-0">Implementation Plan</h3>
                                             <div className="flex items-center gap-3">
                                                 <button
                                                     onClick={() => {
                                                         navigator.clipboard.writeText(generatedPlan);
                                                         alert("Full plan copied to clipboard!");
                                                     }}
-                                                    className="flex items-center gap-2 text-indigo-400 hover:text-indigo-300 text-sm font-medium transition-colors"
+                                                    className="flex items-center gap-2 text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-300 text-sm font-medium transition-colors"
                                                 >
                                                     <div className="p-1.5 rounded-md bg-indigo-500/10 hover:bg-indigo-500/20">
                                                         <Layers className="w-4 h-4" />
                                                     </div>
                                                     Copy Full Plan
                                                 </button>
-                                                <button onClick={() => setGeneratedPlan(null)} className="text-neutral-400 hover:text-white text-sm">Close</button>
+                                                <button onClick={() => setGeneratedPlan(null)} className="text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white text-sm">Close</button>
                                             </div>
                                         </div>
-                                        <div className="whitespace-pre-wrap font-mono text-sm text-neutral-300">
+                                        <div className="whitespace-pre-wrap font-mono text-sm text-neutral-600 dark:text-neutral-300">
                                             {generatedPlan}
                                         </div>
                                     </div>
@@ -318,7 +318,7 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                             <div className="flex justify-center gap-4">
                                 <button
                                     onClick={() => setIsStackCreated(false)}
-                                    className="px-6 py-3 rounded-full bg-white/5 text-white font-medium hover:bg-white/10 transition-colors"
+                                    className="px-6 py-3 rounded-full bg-neutral-200 dark:bg-white/5 text-neutral-900 dark:text-white font-medium hover:bg-neutral-300 dark:hover:bg-white/10 transition-colors"
                                 >
                                     Edit Stack
                                 </button>
@@ -346,7 +346,7 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                             <div className="mt-6">
                                 <Link
                                     to="/tech-stacks"
-                                    className="text-neutral-500 hover:text-white transition-colors text-sm"
+                                    className="text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm"
                                 >
                                     Explore More Stacks
                                 </Link>
@@ -360,12 +360,12 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
 
     return (
         <Layout>
-            <div className="min-h-screen pt-24 pb-12">
+            <div className="min-h-screen pt-24 pb-12 bg-white dark:bg-neutral-950">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto">
                         <div className="text-center mb-12">
-                            <h1 className="text-4xl font-bold text-white mb-4">Create Your Own Stack</h1>
-                            <p className="text-gray-400 text-lg">Select your preferred tools to build your perfect development environment.</p>
+                            <h1 className="text-4xl font-bold text-neutral-900 dark:text-white mb-4">Create Your Own Stack</h1>
+                            <p className="text-neutral-600 dark:text-gray-400 text-lg">Select your preferred tools to build your perfect development environment.</p>
                         </div>
 
                         <div className="space-y-12">
@@ -375,26 +375,26 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: idx * 0.1 }}
-                                    className="bg-neutral-900/50 border border-white/5 rounded-2xl p-6 sm:p-8"
+                                    className="bg-white dark:bg-neutral-900/50 border border-neutral-200 dark:border-white/5 rounded-2xl p-6 sm:p-8 shadow-sm dark:shadow-none"
                                 >
                                     <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
                                         <div className="flex items-center gap-4">
                                             <div className="p-3 rounded-xl bg-indigo-500/10">
                                                 <section.icon className="w-6 h-6 text-indigo-400" />
                                             </div>
-                                            <h2 className="text-2xl font-bold text-white">{section.title}</h2>
+                                            <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">{section.title}</h2>
                                         </div>
 
                                         {/* @ts-ignore */}
                                         {section.hasFilter && (
-                                            <div className="bg-white/5 p-1 rounded-lg flex items-center gap-1">
+                                            <div className="bg-neutral-100 dark:bg-white/5 p-1 rounded-lg flex items-center gap-1">
                                                 {(['Web', 'Mobile'] as const).map((type) => (
                                                     <button
                                                         key={type}
                                                         onClick={() => setFrontendType(type)}
                                                         className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${frontendType === type
                                                             ? 'bg-indigo-600 text-white shadow-lg'
-                                                            : 'text-neutral-400 hover:text-white hover:bg-white/5'
+                                                            : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-white dark:hover:bg-white/5'
                                                             }`}
                                                     >
                                                         {type}
@@ -413,10 +413,10 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                                                     onClick={() => section.setSelected(tool.slug === section.selected ? null : tool.slug)}
                                                     className={`relative p-4 rounded-xl border text-left transition-all ${section.selected === tool.slug
                                                         ? 'bg-indigo-600/20 border-indigo-500 ring-1 ring-indigo-500'
-                                                        : 'bg-white/5 border-white/5 hover:bg-white/10 hover:border-white/10'
+                                                        : 'bg-white dark:bg-white/5 border-neutral-200 dark:border-white/5 hover:border-neutral-300 dark:hover:border-white/10 hover:bg-neutral-50 dark:hover:bg-white/10'
                                                         }`}
                                                 >
-                                                    <div className="font-medium text-white mb-1 truncate">{tool.name}</div>
+                                                    <div className="font-medium text-neutral-900 dark:text-white mb-1 truncate">{tool.name}</div>
                                                     {section.selected === tool.slug && (
                                                         <div className="absolute top-2 right-2">
                                                             <Check className="w-4 h-4 text-indigo-400" />
