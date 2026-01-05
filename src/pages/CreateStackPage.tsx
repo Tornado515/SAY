@@ -95,13 +95,13 @@ Since the backend is not fully connected, here is a sample plan structure for yo
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-neutral-900 border border-white/10 rounded-3xl p-8 max-w-4xl w-full text-center"
+                        className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 rounded-3xl p-8 max-w-4xl w-full text-center shadow-2xl dark:shadow-none"
                     >
                         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-500/10 mb-6">
                             <Check className="w-10 h-10 text-green-500" />
                         </div>
-                        <h2 className="text-3xl font-bold text-white mb-4">Your Stack is Ready!</h2>
-                        <p className="text-neutral-400 mb-8">Here is the technology stack you've selected.</p>
+                        <h2 className="text-3xl font-bold text-neutral-900 dark:text-white mb-4">Your Stack is Ready!</h2>
+                        <p className="text-neutral-600 dark:text-neutral-400 mb-8">Here is the technology stack you've selected.</p>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 text-left max-w-2xl mx-auto">
                             {[
@@ -112,18 +112,18 @@ Since the backend is not fully connected, here is a sample plan structure for yo
                             ].map((item) => {
                                 const tool = tools.find(t => t.slug === item.value);
                                 return (
-                                    <div key={item.label} className="bg-white/5 rounded-xl p-4 border border-white/5">
+                                    <div key={item.label} className="bg-neutral-50 dark:bg-white/5 rounded-xl p-4 border border-neutral-200 dark:border-white/5">
                                         <p className="text-xs text-neutral-500 uppercase tracking-wider mb-1">{item.label}</p>
-                                        <p className="text-lg font-medium text-white">{tool?.name || 'Not selected'}</p>
+                                        <p className="text-lg font-medium text-neutral-900 dark:text-white">{tool?.name || 'Not selected'}</p>
                                     </div>
                                 );
                             })}
                         </div>
 
                         {generatedPlan ? (
-                            <div className="mt-8 text-left bg-black/30 p-6 rounded-xl border border-white/10 max-h-[600px] overflow-y-auto prose prose-invert max-w-none relative">
-                                <div className="flex justify-between items-center mb-4 sticky top-0 bg-[#1a1a1a] z-10 py-2 border-b border-white/10">
-                                    <h3 className="text-xl font-bold text-white m-0">Implementation Plan</h3>
+                            <div className="mt-8 text-left bg-neutral-100 dark:bg-black/30 p-6 rounded-xl border border-neutral-200 dark:border-white/10 max-h-[600px] overflow-y-auto prose prose-neutral dark:prose-invert max-w-none relative">
+                                <div className="flex justify-between items-center mb-4 sticky top-0 bg-neutral-100 dark:bg-[#1a1a1a] z-10 py-2 border-b border-neutral-200 dark:border-white/10">
+                                    <h3 className="text-xl font-bold text-neutral-900 dark:text-white m-0">Implementation Plan</h3>
                                     <div className="flex items-center gap-3">
                                         <button
                                             onClick={() => {
@@ -140,10 +140,10 @@ Since the backend is not fully connected, here is a sample plan structure for yo
                                             </div>
                                             Copy Scaffolding
                                         </button>
-                                        <button onClick={() => setGeneratedPlan(null)} className="text-neutral-400 hover:text-white text-sm">Close</button>
+                                        <button onClick={() => setGeneratedPlan(null)} className="text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white text-sm">Close</button>
                                     </div>
                                 </div>
-                                <div className="whitespace-pre-wrap font-mono text-sm text-neutral-300">
+                                <div className="whitespace-pre-wrap font-mono text-sm text-neutral-600 dark:text-neutral-300">
                                     {generatedPlan}
                                 </div>
                             </div>
@@ -151,7 +151,7 @@ Since the backend is not fully connected, here is a sample plan structure for yo
                             <div className="flex justify-center gap-4">
                                 <button
                                     onClick={() => setIsStackCreated(false)}
-                                    className="px-6 py-3 rounded-full bg-white/5 text-white font-medium hover:bg-white/10 transition-colors"
+                                    className="px-6 py-3 rounded-full bg-neutral-200 dark:bg-white/5 text-neutral-900 dark:text-white font-medium hover:bg-neutral-300 dark:hover:bg-white/10 transition-colors"
                                 >
                                     Edit Stack
                                 </button>
@@ -179,7 +179,7 @@ Since the backend is not fully connected, here is a sample plan structure for yo
                             <div className="mt-6">
                                 <Link
                                     to="/tech-stacks"
-                                    className="text-neutral-500 hover:text-white transition-colors text-sm"
+                                    className="text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm"
                                 >
                                     Explore More Stacks
                                 </Link>
@@ -193,12 +193,12 @@ Since the backend is not fully connected, here is a sample plan structure for yo
 
     return (
         <Layout>
-            <div className="min-h-screen pt-24 pb-12">
+            <div className="min-h-screen pt-24 pb-12 bg-white dark:bg-neutral-950">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto">
                         <div className="text-center mb-12">
-                            <h1 className="text-4xl font-bold text-white mb-4">Create Your Own Stack</h1>
-                            <p className="text-gray-400 text-lg">Select your preferred tools to build your perfect development environment.</p>
+                            <h1 className="text-4xl font-bold text-neutral-900 dark:text-white mb-4">Create Your Own Stack</h1>
+                            <p className="text-neutral-600 dark:text-gray-400 text-lg">Select your preferred tools to build your perfect development environment.</p>
                         </div>
 
                         <div className="space-y-12">
@@ -208,26 +208,26 @@ Since the backend is not fully connected, here is a sample plan structure for yo
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: idx * 0.1 }}
-                                    className="bg-neutral-900/50 border border-white/5 rounded-2xl p-6 sm:p-8"
+                                    className="bg-white dark:bg-neutral-900/50 border border-neutral-200 dark:border-white/5 rounded-2xl p-6 sm:p-8 shadow-sm dark:shadow-none"
                                 >
                                     <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
                                         <div className="flex items-center gap-4">
                                             <div className="p-3 rounded-xl bg-indigo-500/10">
                                                 <section.icon className="w-6 h-6 text-indigo-400" />
                                             </div>
-                                            <h2 className="text-2xl font-bold text-white">{section.title}</h2>
+                                            <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">{section.title}</h2>
                                         </div>
 
                                         {/* @ts-ignore */}
                                         {section.hasFilter && (
-                                            <div className="bg-white/5 p-1 rounded-lg flex items-center gap-1">
+                                            <div className="bg-neutral-100 dark:bg-white/5 p-1 rounded-lg flex items-center gap-1">
                                                 {(['Web', 'Mobile'] as const).map((type) => (
                                                     <button
                                                         key={type}
                                                         onClick={() => setFrontendType(type)}
                                                         className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${frontendType === type
                                                             ? 'bg-indigo-600 text-white shadow-lg'
-                                                            : 'text-neutral-400 hover:text-white hover:bg-white/5'
+                                                            : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-white dark:hover:bg-white/5'
                                                             }`}
                                                     >
                                                         {type}
@@ -245,10 +245,10 @@ Since the backend is not fully connected, here is a sample plan structure for yo
                                                     onClick={() => section.setSelected(tool.slug === section.selected ? null : tool.slug)}
                                                     className={`relative p-4 rounded-xl border text-left transition-all ${section.selected === tool.slug
                                                         ? 'bg-indigo-600/20 border-indigo-500 ring-1 ring-indigo-500'
-                                                        : 'bg-white/5 border-white/5 hover:bg-white/10 hover:border-white/10'
+                                                        : 'bg-white dark:bg-white/5 border-neutral-200 dark:border-white/5 hover:border-neutral-300 dark:hover:border-white/10 hover:bg-neutral-50 dark:hover:bg-white/10'
                                                         }`}
                                                 >
-                                                    <div className="font-medium text-white mb-1 truncate">{tool.name}</div>
+                                                    <div className="font-medium text-neutral-900 dark:text-white mb-1 truncate">{tool.name}</div>
                                                     {section.selected === tool.slug && (
                                                         <div className="absolute top-2 right-2">
                                                             <Check className="w-4 h-4 text-indigo-400" />

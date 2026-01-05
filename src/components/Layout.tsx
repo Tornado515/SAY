@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Github, ChevronDown, ChevronRight } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -39,12 +40,12 @@ export function Layout({ children }: LayoutProps) {
     ];
 
     return (
-        <div className="min-h-screen bg-neutral-950 text-neutral-100 selection:bg-indigo-500/30 font-sans flex flex-col">
-            <header className="sticky top-0 z-50 border-b border-white/5 bg-neutral-950/80 backdrop-blur-xl supports-[backdrop-filter]:bg-neutral-950/60">
+        <div className="min-h-screen bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 selection:bg-indigo-500/30 font-sans flex flex-col">
+            <header className="sticky top-0 z-50 border-b border-neutral-200 dark:border-white/5 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-950/60">
                 <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center gap-8">
                         <Link to="/" className="flex items-center gap-2 group" onClick={closeMenu}>
-                            <span className="text-xl font-bold tracking-tight text-white group-hover:text-indigo-400 transition-colors">SAY</span>
+                            <span className="text-xl font-bold tracking-tight text-neutral-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">SAY</span>
                         </Link>
 
                         {/* Desktop Nav */}
@@ -123,11 +124,12 @@ export function Layout({ children }: LayoutProps) {
                     </div>
 
                     <div className="flex items-center gap-4">
+                        <ThemeToggle />
                         <a
                             href="https://github.com/Tornado515/SAY"
                             target="_blank"
                             rel="noreferrer"
-                            className="hidden sm:flex text-sm font-medium text-neutral-400 transition-colors hover:text-white gap-2 items-center"
+                            className="hidden sm:flex text-sm font-medium text-neutral-600 dark:text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-white gap-2 items-center"
                         >
                             <Github className="h-5 w-5" />
                             <span>GitHub</span>
@@ -135,7 +137,7 @@ export function Layout({ children }: LayoutProps) {
 
                         {/* Mobile Menu Button */}
                         <button
-                            className="lg:hidden p-2 text-neutral-400 hover:text-white"
+                            className="lg:hidden p-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
                             onClick={toggleMenu}
                             aria-label="Toggle menu"
                         >
@@ -251,8 +253,8 @@ export function Layout({ children }: LayoutProps) {
                 {children}
             </main>
 
-            <footer className="border-t border-white/5 bg-neutral-950 py-12 mt-20">
-                <div className="container mx-auto px-4 text-center text-sm text-neutral-500 sm:px-6 lg:px-8">
+            <footer className="border-t border-neutral-200 dark:border-white/5 bg-neutral-50 dark:bg-neutral-950 py-12 mt-20">
+                <div className="container mx-auto px-4 text-center text-sm text-neutral-600 dark:text-neutral-500 sm:px-6 lg:px-8">
                     <div className="flex justify-center gap-6 mb-4">
                         <Link to="/tools" className="hover:text-white transition-colors">Tools</Link>
                         <Link to="/compare" className="hover:text-white transition-colors">Compare</Link>
