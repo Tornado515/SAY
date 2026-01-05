@@ -23,9 +23,9 @@ export function GettingStartedPage() {
         };
 
         return {
-            card: `block p-4 bg-neutral-900 border border-white/5 rounded-xl transition-all hover:bg-neutral-800/50 group h-full ${borderColors[color]}`,
-            title: `font-semibold text-white mb-1 transition-colors ${textColors[color]}`,
-            desc: "text-xs text-neutral-400 leading-relaxed"
+            card: `block p-4 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/5 rounded-xl transition-all hover:bg-neutral-50 dark:hover:bg-neutral-800/50 group h-full shadow-sm dark:shadow-none ${borderColors[color]}`,
+            title: `font-semibold text-neutral-900 dark:text-white mb-1 transition-colors ${textColors[color]}`,
+            desc: "text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed"
         };
     };
 
@@ -36,7 +36,7 @@ export function GettingStartedPage() {
             description: "Every great project starts with a plan. Organize your thoughts before writing code.",
             content: (
                 <div className="space-y-4">
-                    <p className="text-neutral-400">
+                    <p className="text-neutral-600 dark:text-neutral-400">
                         Before you open your code editor, it's crucial to define what you're building. Use productivity tools to track features, bugs, and tasks.
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -136,10 +136,10 @@ export function GettingStartedPage() {
 
                         {/* Mobile Path */}
                         <div className="bg-neutral-900 border border-white/5 rounded-xl p-5">
-                            <h4 className="font-semibold text-white mb-3 flex items-center gap-2">
+                            <h4 className="font-semibold text-neutral-900 dark:text-white mb-3 flex items-center gap-2">
                                 <Smartphone className="w-4 h-4 text-emerald-400" /> Mobile Apps
                             </h4>
-                            <p className="text-sm text-neutral-400 mb-4">
+                            <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
                                 Build native apps for iOS and Android.
                             </p>
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -239,23 +239,23 @@ export function GettingStartedPage() {
         <Layout>
             <div className="relative isolate min-h-[50vh]">
                 {/* Header Section */}
-                <div className="bg-neutral-900/50 border-b border-white/5 py-16 sm:py-24">
+                <div className="bg-neutral-50 dark:bg-neutral-900/50 border-b border-neutral-200 dark:border-white/5 py-16 sm:py-24">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
                         <div className="flex justify-center mb-6">
                             <div className="p-3 bg-indigo-500/10 rounded-2xl border border-indigo-500/20">
                                 <Cloud className="w-8 h-8 text-indigo-400" />
                             </div>
                         </div>
-                        <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl mb-6">
+                        <h1 className="text-4xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-5xl mb-6">
                             How to Start a Project
                         </h1>
-                        <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
+                        <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
                             From the first idea to the final deployment. A comprehensive guide to the modern software development lifecycle.
                         </p>
                     </div>
                 </div>
 
-                <div className="min-h-screen bg-neutral-950 pt-16 pb-20">
+                <div className="min-h-screen bg-white dark:bg-neutral-950 pt-16 pb-20">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="max-w-3xl mx-auto">
                             <div className="space-y-12">
@@ -263,26 +263,26 @@ export function GettingStartedPage() {
                                     <div key={index} className="relative pl-8 sm:pl-12 group">
                                         {/* Vertical Line */}
                                         {index !== steps.length - 1 && (
-                                            <div className="absolute left-[11px] sm:left-[19px] top-10 bottom-[-48px] w-0.5 bg-neutral-800 group-last:hidden" />
+                                            <div className="absolute left-[11px] sm:left-[19px] top-10 bottom-[-48px] w-0.5 bg-neutral-200 dark:bg-neutral-800 group-last:hidden" />
                                         )}
 
                                         {/* Icon Bubble */}
-                                        <div className="absolute left-0 sm:left-2 top-0 bg-neutral-900 border border-neutral-800 rounded-full p-1.5 sm:p-2 z-10 shadow-xl">
+                                        <div className="absolute left-0 sm:left-2 top-0 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-full p-1.5 sm:p-2 z-10 shadow-lg dark:shadow-xl">
                                             {step.icon}
                                         </div>
 
-                                        <div className="bg-neutral-900/50 border border-white/5 rounded-2xl p-6 sm:p-8 hover:bg-neutral-900/80 transition-colors">
-                                            <h3 className="text-xl font-semibold text-white mb-2">{step.title}</h3>
-                                            <p className="text-neutral-400 mb-6 font-medium">{step.description}</p>
+                                        <div className="bg-white dark:bg-neutral-900/50 border border-neutral-200 dark:border-white/5 rounded-2xl p-6 sm:p-8 hover:bg-neutral-50 dark:hover:bg-neutral-900/80 transition-colors shadow-sm dark:shadow-none">
+                                            <h3 className="text-xl font-semibold text-neutral-900 dark:text-white mb-2">{step.title}</h3>
+                                            <p className="text-neutral-600 dark:text-neutral-400 mb-6 font-medium">{step.description}</p>
                                             {step.content}
                                         </div>
                                     </div>
                                 ))}
                             </div>
 
-                            <div className="mt-16 text-center bg-indigo-500/10 border border-indigo-500/20 rounded-2xl p-8">
-                                <h3 className="text-2xl font-semibold text-indigo-400 mb-3">Ready to dive slightly deeper?</h3>
-                                <p className="text-neutral-300 mb-6">Explore our curated tech stacks to see how these tools fit together in real-world scenarios.</p>
+                            <div className="mt-16 text-center bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 rounded-2xl p-8">
+                                <h3 className="text-2xl font-semibold text-indigo-600 dark:text-indigo-400 mb-3">Ready to dive slightly deeper?</h3>
+                                <p className="text-neutral-600 dark:text-neutral-300 mb-6">Explore our curated tech stacks to see how these tools fit together in real-world scenarios.</p>
                                 <Link
                                     to="/tech-stacks"
                                     className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
