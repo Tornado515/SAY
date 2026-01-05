@@ -27,7 +27,8 @@ export interface Tool {
     slug: string;
     description: string;
     longDescription: string;
-    category: 'Frontend' | 'Mobile' | 'AI Coding' | 'AI Mockup' | 'Deployment' | 'Testing' | 'Design' | 'Database' | 'Backend' | 'Version Control' | 'IDE' | 'AI Chatbots' | 'Productivity';
+    category: 'Frontend' | 'Mobile' | 'AI Coding' | 'AI Mockup' | 'Deployment' | 'Testing' | 'Design' | 'Database' | 'Backend' | 'Version Control' | 'IDE' | 'AI Chatbots' | 'Productivity' | 'Full Stack' | 'Architecture';
+    additionalCategories?: string[];
     link: string;
     tags: string[];
     steps: Step[];
@@ -47,6 +48,7 @@ export interface Tool {
         name: string;
         relation: 'alternative' | 'prerequisite' | 'next-step' | 'complementary';
     }[];
+    deploymentTypes?: ('full' | 'frontend' | 'backend')[];
     comparisonData?: ComparisonData;
 }
 
@@ -627,8 +629,9 @@ export const tools: Tool[] = [
         link: 'https://firebase.google.com/',
         tags: ['Deployment', 'Database', 'Auth', 'Serverless'],
         features: ['Hosting', 'Authentication', 'Firestore', 'Cloud Functions'],
-        youtubeVideoId: 'sIORx28PLrc',
+        youtubeVideoId: 'vAoB4VbhRzM',
         setupVideoId: '9kRgVxULbag',
+        deploymentTypes: ['full', 'frontend', 'backend'], // Firebase can do it all
         steps: [
             {
                 title: 'Create Project',
@@ -665,6 +668,254 @@ export const tools: Tool[] = [
         relatedTools: [
             { slug: 'react', name: 'React', relation: 'complementary' }
         ]
+    },
+    {
+        name: 'Vercel',
+        slug: 'vercel',
+        description: 'Develop. Preview. Ship. The best place to deploy frontend & fullstack apps.',
+        longDescription: 'Vercel is the platform for frontend developers, providing the speed and reliability innovators need to create at the moment of inspiration. It enables you to deploy static sites and Serverless Functions with zero configuration.',
+        category: 'Deployment',
+        link: 'https://vercel.com',
+        tags: ['Deployment', 'Frontend', 'Serverless', 'Next.js'],
+        features: ['Global CDN', 'Serverless Functions', 'Preview Deployments', 'Analytics'],
+        deploymentTypes: ['full', 'frontend'],
+        youtubeVideoId: 'Vz7Q_T2Gf-U',
+        setupVideoId: 'b7VpU7a-V1o', // Deploying React to Vercel
+        steps: [
+            {
+                title: 'Sign Up',
+                content: 'Create an account on Vercel using GitHub, GitLab, or Bitbucket.',
+                links: [{ text: 'Sign Up', url: 'https://vercel.com/signup', primary: true }]
+            },
+            {
+                title: 'Import Project',
+                content: 'Click "Add New..." > "Project" and select your Git repository.',
+            },
+            {
+                title: 'Deploy',
+                content: 'Vercel automatically detects your framework settings. Click "Deploy".',
+            },
+            {
+                title: 'CI/CD',
+                content: 'Every push to your main branch will automatically trigger a new production deployment.',
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Zero config for most frameworks', 'Incredible performance', 'Great DX'],
+            cons: ['Function limits on free tier', 'Pro plan is per seat'],
+            bestFor: ['Next.js', 'React', 'Static Sites'],
+            communitySupport: 'Massive',
+            priceModel: 'Freemium'
+        }
+    },
+    {
+        name: 'Netlify',
+        slug: 'netlify',
+        description: 'The fastest way to build the fastest sites.',
+        longDescription: 'Netlify unites an entire ecosystem of modern tools and services into a single, simple workflow for building high performance sites and apps. It provides continuous deployment, global CDN, and serverless functions.',
+        category: 'Deployment',
+        link: 'https://netlify.com',
+        tags: ['Deployment', 'Frontend', 'Jamstack'],
+        features: ['Continuous Deployment', 'Serverless Functions', 'Forms', 'Edge Handlers'],
+        deploymentTypes: ['full', 'frontend'],
+        setupVideoId: '4M1wK6h3V6w', // Netlify Crash Course
+        steps: [
+            {
+                title: 'Connect Repo',
+                content: 'Log in and drag your build folder or connect a Git repository.',
+                links: [{ text: 'Get Started', url: 'https://app.netlify.com', primary: true }]
+            },
+            {
+                title: 'Build Settings',
+                content: 'Configure your build command (e.g., `npm run build`) and publish directory (e.g., `dist`).',
+            },
+            {
+                title: 'Go Live',
+                content: 'Netlify deploys your site to a global CDN in seconds.',
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Very generous free tier', 'Easy Forms handling', 'Great community'],
+            cons: ['Build minutes limit', 'Complex enterprise pricing'],
+            bestFor: ['Static Sites', 'Jamstack', 'Documentation'],
+            communitySupport: 'Large',
+            priceModel: 'Freemium'
+        }
+    },
+    {
+        name: 'Railway',
+        slug: 'railway',
+        description: 'Made for any language, for projects big and small.',
+        longDescription: 'Railway is an infrastructure platform where you can provision infrastructure, develop with that infrastructure locally, and then deploy to the cloud. It is arguably the easiest way to deploy backend applications and databases.',
+        category: 'Deployment',
+        link: 'https://railway.app',
+        tags: ['Deployment', 'Backend', 'Database', 'PaaS'],
+        features: ['Zero Config', 'Postgres/MySQL/Redis', 'PR Environments', 'Metrics'],
+        deploymentTypes: ['full', 'backend'],
+        youtubeVideoId: 'p3J957x1a_E', // Railway intro
+        steps: [
+            {
+                title: 'Start a Project',
+                content: 'Go to the dashboard and press "New Project". You can start from a template or a repo.',
+                links: [{ text: 'Railway Dashboard', url: 'https://railway.app/dashboard', primary: true }]
+            },
+            {
+                title: 'Provision Database',
+                content: 'Right click to add a PostgreSQL or Redis database instance instantly.',
+            },
+            {
+                title: 'Deploy Code',
+                content: 'Connect your GitHub repo. Railway detects the language and builds it automatically.',
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Extremely easy to use', 'Visual infrastructure graph', 'Pay for what you use'],
+            cons: ['No free tier (trial credits only)', 'Smaller ecosystem than AWS'],
+            bestFor: ['Backends', 'Databases', 'Full Stack Apps'],
+            communitySupport: 'Growing',
+            priceModel: 'Paid'
+        }
+    },
+    {
+        name: 'Render',
+        slug: 'render',
+        description: 'The Unified Cloud to build and run all your apps and websites.',
+        longDescription: 'Render is a unified cloud to build and run all your apps and websites with free SSL, a global CDN, private networks, and auto deploys from Git. It is a strong alternative to Heroku.',
+        category: 'Deployment',
+        link: 'https://render.com',
+        tags: ['Deployment', 'Backend', 'Hosting', 'PaaS'],
+        features: ['Web Services', 'Static Sites', 'Managed Databases', 'Cron Jobs'],
+        deploymentTypes: ['full', 'backend', 'frontend'],
+        setupVideoId: '0zI883Y2d6w', // Deploy Node to Render
+        steps: [
+            {
+                title: 'New Service',
+                content: 'Click "New" and select "Web Service" for backends or "Static Site" for frontends.',
+                links: [{ text: 'Render Dashboard', url: 'https://dashboard.render.com', primary: true }]
+            },
+            {
+                title: 'Connect Git',
+                content: 'Grant access to your repository.',
+            },
+            {
+                title: 'Configure',
+                content: 'Select the runtime (Node, Python, Go, etc.) and build command.',
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Great free tier for web services', 'Cheaper than Heroku', 'Simple UI'],
+            cons: ['Slow builds on free tier', 'Cold starts on free tier'],
+            bestFor: ['Node/Python Backends', 'Postgres DB'],
+            communitySupport: 'Medium',
+            priceModel: 'Freemium'
+        }
+    },
+    {
+        name: 'Heroku',
+        slug: 'heroku',
+        description: 'Platform as a service based on a managed container system.',
+        longDescription: 'Heroku is a platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud. It was one of the first and most popular PaaS providers.',
+        category: 'Deployment',
+        link: 'https://heroku.com',
+        tags: ['Deployment', 'Backend', 'PaaS', 'Legacy'],
+        features: ['Dynos', 'Add-ons market', 'Simple CLI', 'Pipelines'],
+        deploymentTypes: ['full', 'backend'],
+        setupVideoId: '5MChXJ_t9Xk', // Heroku basics
+        steps: [
+            {
+                title: 'Create App',
+                content: 'Use the Heroku CLI or Dashboard to create a new app.',
+                links: [{ text: 'Heroku Dashboard', url: 'https://dashboard.heroku.com', primary: true }]
+            },
+            {
+                title: 'Push to Deploy',
+                content: 'Heroku uses git for deployments. `git push heroku main` is all it takes.',
+                code: 'git push heroku main',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Mature platform', 'Huge addon ecosystem', 'Very stable'],
+            cons: ['No longer free', 'Pricey at scale', 'Sleeps inactive dynos'],
+            bestFor: ['Ruby/Rails', 'Node.js', 'Postgres'],
+            communitySupport: 'Large',
+            priceModel: 'Paid'
+        }
+    },
+    {
+        name: 'Fly.io',
+        slug: 'fly-io',
+        description: 'Deploy your app servers close to your users.',
+        longDescription: 'Fly.io transforms containers into micro-VMs that run on their own hardware in 30+ regions on six continents. It is excellent for running full stack apps or databases close to your users.',
+        category: 'Deployment',
+        link: 'https://fly.io',
+        tags: ['Deployment', 'Backend', 'Edge', 'Containers'],
+        features: ['Global Deployment', 'Docker-based', 'Private Networking', 'Machine API'],
+        deploymentTypes: ['backend', 'full'],
+        setupVideoId: 'i_JpXI6jfkE', // Deploying to Fly.io
+        steps: [
+            {
+                title: 'Install CLI',
+                content: 'Install the flyctl command line tool.',
+                links: [{ text: 'Install Docs', url: 'https://fly.io/docs/hands-on/install-flyctl/', primary: true }]
+            },
+            {
+                title: 'Launch',
+                content: 'Run `fly launch` in your project directory. It detects your Dockerfile or config.',
+                code: 'fly launch',
+                language: 'bash'
+            },
+            {
+                title: 'Deploy',
+                content: 'Run `fly deploy` to push your changes.',
+                code: 'fly deploy',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Run Docker containers anywhere', 'Edge computing', 'Reasonable pricing'],
+            cons: ['More config than PaaS', 'Networking can be complex'],
+            bestFor: ['Dockerized Apps', 'Global Apps', 'Elixir/Phoenix'],
+            communitySupport: 'High (Technichal)',
+            priceModel: 'Freemium'
+        }
+    },
+    {
+        name: 'AWS Amplify',
+        slug: 'aws-amplify',
+        description: 'Complete solution for building mobile and web apps on AWS.',
+        longDescription: 'AWS Amplify is a set of tools and services that can be used together or on their own, to help front-end web and mobile developers build scalable full stack applications, powered by AWS.',
+        category: 'Deployment',
+        link: 'https://aws.amazon.com/amplify/',
+        tags: ['Deployment', 'AWS', 'Full Stack'],
+        features: ['Auth (Cognito)', 'Storage (S3)', 'API (GraphQL/REST)', 'Hosting'],
+        deploymentTypes: ['full', 'frontend'],
+        setupVideoId: '7d-p4xS8-X0',
+        steps: [
+            {
+                title: 'Connect Repo',
+                content: 'Connect your repository to Amplify Hosting.',
+                links: [{ text: 'AWS Amplify Console', url: 'https://console.aws.amazon.com/amplify', primary: true }]
+            },
+            {
+                title: 'Configure Backend',
+                content: 'Use the visual backend builder or CLI to add Auth, Data, and Storage.',
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Deep AWS integration', 'Visual backend builder', 'Scales infinitely'],
+            cons: ['AWS complexity under the hood', 'Vendor lock-in'],
+            bestFor: ['AWS-heavy apps', 'Enterprise'],
+            communitySupport: 'Large',
+            priceModel: 'Freemium'
+        }
     },
     // Design
     {
@@ -919,7 +1170,8 @@ export const tools: Tool[] = [
         slug: 'nextjs',
         description: 'The React Framework for the Web. Hybrid static & server rendering.',
         longDescription: 'Next.js enables you to create full-stack Web applications by extending React with the latest features like Server Components, and integrating powerful Rust-based tooling for the fastest builds. It handles routing, optimized rendering (SSR/SSG), and API routes out of the box.',
-        category: 'Frontend',
+        category: 'Full Stack',
+        additionalCategories: ['Frontend', 'Backend'],
         link: 'https://nextjs.org',
         tags: ['Framework', 'SSR', 'React'],
         features: ['App Router', 'Server Components', 'Image Optimization', 'Edge Runtime'],
@@ -963,6 +1215,178 @@ export const tools: Tool[] = [
                 title: 'Server Components',
                 content: 'By default, components in the `app` directory are Server Components. They render on the server and send zero JS to the client.'
             }
+        ]
+    },
+    {
+        name: 'Remix',
+        slug: 'remix',
+        description: 'Focused on web standards and modern web app UX.',
+        longDescription: 'Remix is a full stack web framework that lets you focus on the user interface and work back through web standards to deliver a fast, slick, and resilient user experience. It creates a seamless server/client runtime.',
+        category: 'Full Stack',
+        additionalCategories: ['Frontend', 'Backend'],
+        link: 'https://remix.run',
+        tags: ['Framework', 'React', 'Full Stack'],
+        features: ['Nested Routes', 'Data Loading', 'Error Handling', 'Web Standards'],
+        youtubeVideoId: 'RTq46xZqjfw', // Remix in 100s
+        setupVideoId: 'HS8d8eY2f_4', // Remix Tutorial
+        steps: [
+            {
+                title: 'Create Project',
+                content: 'Initialize a new Remix project.',
+                code: 'npx create-remix@latest',
+                language: 'bash'
+            },
+            {
+                title: 'Select Configuration',
+                content: 'Choose "Remix App Server" or another adapter during setup.',
+            },
+            {
+                title: 'Start Dev',
+                content: 'Run the development server.',
+                code: 'npm run dev',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Great performance', 'Eliminates loading states', 'Web standards based'],
+            cons: ['Smaller ecosystem than Next.js', 'Different mental model'],
+            bestFor: ['SaaS', 'Dashboards'],
+            communitySupport: 'Growing',
+            priceModel: 'Free'
+        },
+        relatedTools: [
+            { slug: 'react', name: 'React', relation: 'prerequisite' },
+            { slug: 'react-router', name: 'React Router', relation: 'complementary' }
+        ]
+    },
+    {
+        name: 'Nuxt',
+        slug: 'nuxt',
+        description: 'The Intuitive Vue Framework.',
+        longDescription: 'Nuxt is an open source framework that makes web development intuitive and powerful. It is to Vue what Next.js is to React, offering full-stack capabilities, server-side rendering, and static site generation.',
+        category: 'Full Stack',
+        additionalCategories: ['Frontend', 'Backend'],
+        link: 'https://nuxt.com',
+        tags: ['Framework', 'Vue', 'Full Stack'],
+        features: ['Auto-imports', 'File-system Routing', 'Server Side Rendering', 'Modules'],
+        youtubeVideoId: 'dCxSsr5xu-U', // Nuxt in 100s
+        setupVideoId: 'GBdO5myZNsQ', // Nuxt 3 Crash Course
+        steps: [
+            {
+                title: 'Initialize',
+                content: 'Create a new Nuxt project.',
+                code: 'npx nuxi@latest init my-app',
+                language: 'bash'
+            },
+            {
+                title: 'Install',
+                content: 'Install dependencies.',
+                code: 'cd my-app\nnpm install',
+                language: 'bash'
+            },
+            {
+                title: 'Run',
+                content: 'Start the development server.',
+                code: 'npm run dev',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Excellent developer experience', 'Powerful module system', 'Auto-imports'],
+            cons: ['Vue specific', 'Major version changes can be painful'],
+            bestFor: ['Vue developers', 'SEO Friendly Apps'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        },
+        relatedTools: [
+            { slug: 'vue', name: 'Vue', relation: 'prerequisite' }
+        ]
+    },
+    {
+        name: 'SvelteKit',
+        slug: 'sveltekit',
+        description: 'Web development, streamlined.',
+        longDescription: 'SvelteKit is a framework for building web applications of all sizes, with a beautiful development experience and flexible filesystem-based routing. It is built on Svelte, which compiles your code to tiny, framework-less vanilla JS.',
+        category: 'Full Stack',
+        additionalCategories: ['Frontend', 'Backend'],
+        link: 'https://kit.svelte.dev',
+        tags: ['Framework', 'Svelte', 'Full Stack'],
+        features: ['Compiler', 'No Virtual DOM', 'Scoped CSS', 'Server Routes'],
+        youtubeVideoId: 'rv3Yq-B8qp4', // Svelte in 100s
+        setupVideoId: 'MoGkX4t9adA', // SvelteKit Crash Course
+        steps: [
+            {
+                title: 'Create',
+                content: 'Create a new SvelteKit app.',
+                code: 'npm create svelte@latest my-app',
+                language: 'bash'
+            },
+            {
+                title: 'Setup',
+                content: 'Follow the prompts to configure TypeScript, ESLint, etc.',
+            },
+            {
+                title: 'Run',
+                content: 'Start coding.',
+                code: 'npm run dev',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Tiny bundles', 'No virtual DOM overhead', 'Simple reactivity'],
+            cons: ['Smaller ecosystem', 'Not React'],
+            bestFor: ['High performance apps', 'Interactive UIs'],
+            communitySupport: 'Passionate',
+            priceModel: 'Free'
+        },
+        relatedTools: [
+            { slug: 'vite', name: 'Vite', relation: 'complementary' }
+        ]
+    },
+    {
+        name: 'Astro',
+        slug: 'astro',
+        description: 'The web framework for content-driven websites.',
+        longDescription: 'Astro is an all-in-one web framework for building fast, content-focused websites. It defaults to shipping zero JavaScript to the client (Islands Architecture) but lets you hydrate interactive components when needed.',
+        category: 'Full Stack',
+        additionalCategories: ['Frontend', 'Backend'],
+        link: 'https://astro.build',
+        tags: ['Framework', 'Static Site', 'MPA'],
+        features: ['Zero JS by default', 'Islands Architecture', 'Content Collections', 'UI Agnostic'],
+        youtubeVideoId: 'dsTXcSeAZq8', // Astro in 100s
+        setupVideoId: 'M55mQ6a9784', // Astro Crash Course
+        steps: [
+            {
+                title: 'Launch',
+                content: 'Create a new Astro project.',
+                code: 'npm create astro@latest',
+                language: 'bash'
+            },
+            {
+                title: 'Configure',
+                content: 'Follow the wizard. It is very friendly.',
+            },
+            {
+                title: 'Integrations',
+                content: 'Add integrations like React, Tailwind, or Vue with a single command.',
+                code: 'npx astro add react tailwind',
+                language: 'bash'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Fastest by default', 'Bring your own UI framework', 'Great for content'],
+            cons: ['Not optimized for complex SPAs', 'Unique mental model (Islands)'],
+            bestFor: ['Blogs', 'Marketing Sites', 'Docs'],
+            communitySupport: 'Growing fast',
+            priceModel: 'Free'
+        },
+        relatedTools: [
+            { slug: 'react', name: 'React', relation: 'complementary' },
+            { slug: 'tailwindcss', name: 'Tailwind CSS', relation: 'complementary' }
         ]
     },
     {
@@ -2924,5 +3348,215 @@ export const tools: Tool[] = [
                 content: 'Use the Automation tab to create rules like "When all subtasks are done, move parent to Done". It saves hours of manual updating.'
             }
         ]
+    },
+    // Architectures
+    {
+        name: 'Monolithic Architecture',
+        slug: 'monolithic',
+        description: 'A traditional unified model where the application is built as a single unit.',
+        longDescription: 'In a monolithic architecture, all components of the application—database operations, business logic, and UI—are bundled together. It is simple to develop, test, and deploy initially but can become unwieldy as the application grows.',
+        category: 'Architecture',
+        link: 'https://en.wikipedia.org/wiki/Monolithic_application',
+        tags: ['Architecture', 'Traditional', 'Unified'],
+        features: ['Simple Deployment', 'Easy Debugging', 'Unified Codebase'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Simple to develop and deploy', 'Easy to debug', 'No network latency between components'],
+            cons: ['Hard to scale', 'Tight coupling', 'Technology lock-in'],
+            bestFor: ['Small to Medium Apps', 'MVPs', 'Simple Teams'],
+            communitySupport: 'Universal',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Microservices Architecture',
+        slug: 'microservices',
+        description: 'An architectural style that structures an application as a collection of services.',
+        longDescription: 'Microservices architecture structures an application as a collection of loosely coupled services, which implement business capabilities. Each service can be developed, deployed, and scaled independently.',
+        category: 'Architecture',
+        link: 'https://microservices.io/',
+        tags: ['Architecture', 'Distributed', 'Scalable'],
+        features: ['Independent Deployment', 'Scalability', 'Technology Agnostic'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['Highly scalable', 'Independent deployment', 'Fault isolation'],
+            cons: ['Complex to manage', 'Network latency', 'Data consistency challenges'],
+            bestFor: ['Large Enterprise Apps', 'Complex Domains', 'Large Teams'],
+            communitySupport: 'Massive',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Serverless Architecture',
+        slug: 'serverless-arch',
+        description: 'Build and run applications without thinking about servers.',
+        longDescription: 'Serverless architecture allows you to build and run applications and services without thinking about servers. Your application is broken into functions that are triggered by events and managed by a cloud provider.',
+        category: 'Architecture',
+        link: 'https://aws.amazon.com/serverless/',
+        tags: ['Architecture', 'Cloud', 'Functions'],
+        features: ['No Server Management', 'Auto-scaling', 'Pay-per-use'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['No infrastructure management', 'Cost effective for low traffic', 'Auto-scaling'],
+            cons: ['Cold starts', 'Vendor lock-in', 'Debugging can be hard'],
+            bestFor: ['Event-driven apps', 'Variable workloads', 'Rapid prototyping'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Event-Driven Architecture',
+        slug: 'event-driven',
+        description: 'A software architecture paradigm promoting the production, detection, consumption of, and reaction to events.',
+        longDescription: 'Event-driven architecture (EDA) uses events to trigger and communicate between decoupled services and is common in modern applications built with microservices.',
+        category: 'Architecture',
+        link: 'https://aws.amazon.com/event-driven-architecture/',
+        tags: ['Architecture', 'Async', 'Decoupled'],
+        features: ['Decoupling', 'Real-time', 'Scalability'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['Loose coupling', 'Scalability', 'Responsiveness'],
+            cons: ['Complex to trace', 'Event consistency', 'Debugging difficulty'],
+            bestFor: ['Real-time apps', 'Complex workflows', 'IoT'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Jamstack',
+        slug: 'jamstack',
+        description: 'An architecture designed to make the web faster, more secure, and easier to scale.',
+        longDescription: 'Jamstack (JavaScript, APIs, and Markup) is a modern web development architecture based on client-side JavaScript, reusable APIs, and prebuilt Markup.',
+        category: 'Architecture',
+        link: 'https://jamstack.org/',
+        tags: ['Architecture', 'Web', 'Static'],
+        features: ['Performance', 'Security', 'Cheap Hosting'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Fast performance', 'High security', 'Low cost'],
+            cons: ['Dynamic features require APIs', 'Build times can be long'],
+            bestFor: ['Content sites', 'E-commerce', 'Landing pages'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Clean Architecture',
+        slug: 'clean-architecture',
+        description: 'A software design philosophy that separates the elements of a design into ring levels.',
+        longDescription: 'Clean Architecture allows for the separation of concerns by organizing code into concentric circles, with the domain logic at the center and external concerns like UI and DB on the outside.',
+        category: 'Architecture',
+        link: 'https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html',
+        tags: ['Architecture', 'Design Pattern', 'Maintainable'],
+        features: ['Testability', 'Independence of UI', 'Independence of DB'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['Highly testable', 'Framework independent', 'Maintainable'],
+            cons: ['Boilerplate code', 'Overkill for simple apps', 'Steep learning curve'],
+            bestFor: ['Long-term projects', 'Enterprise software', 'Complex domains'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Hexagonal Architecture',
+        slug: 'hexagonal',
+        description: 'Also known as Ports and Adapters, it aims to create loosely coupled application components.',
+        longDescription: 'Hexagonal Architecture isolates the core business logic from outside concerns (like databases, UIs, or external APIs) using ports and adapters.',
+        category: 'Architecture',
+        link: 'https://alistair.cockburn.us/hexagonal-architecture/',
+        tags: ['Architecture', 'Ports and Adapters', 'Decoupled'],
+        features: ['Isolation', 'Testability', 'Flexibility'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['Decoupled components', 'Easy testing', 'Flexible adapters'],
+            cons: ['Complexity', 'Many files/interfaces', 'Learning curve'],
+            bestFor: ['Domain-driven design', 'Complex business logic'],
+            communitySupport: 'Medium',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Service-Oriented Architecture (SOA)',
+        slug: 'soa',
+        description: 'An architectural style that supports service orientation.',
+        longDescription: 'SOA is a style of software design where services are provided to the other components by application components, through a communication protocol over a network.',
+        category: 'Architecture',
+        link: 'https://en.wikipedia.org/wiki/Service-oriented_architecture',
+        tags: ['Architecture', 'Enterprise', 'Services'],
+        features: ['Reusability', 'Interoperability', 'Loose Coupling'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'High',
+            pros: ['Service reusability', 'Better maintainability', 'Scalability'],
+            cons: ['High overhead', 'Complex management', 'Expensive implementation'],
+            bestFor: ['Large Enterprise Systems', 'Legacy Integration'],
+            communitySupport: 'Stable',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Layered (N-Tier) Architecture',
+        slug: 'layered-n-tier',
+        description: 'Organizes the application into logical layers (e.g., Presentation, Business, Data).',
+        longDescription: 'Layered architecture is a traditional pattern where code is organized into layers, each with a specific responsibility. Common layers include Presentation, Business Logic, and Data Access.',
+        category: 'Architecture',
+        link: 'https://en.wikipedia.org/wiki/Multitier_architecture',
+        tags: ['Architecture', 'Traditional', 'Structured'],
+        features: ['Separation of Concerns', 'Simplicity', 'Standardization'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Easy to understand', 'Standard structure', 'Separation of concerns'],
+            cons: ['Can lead to "sinkhole" anti-pattern', 'Performance overhead'],
+            bestFor: ['Standard Web Apps', 'Enterprise Apps'],
+            communitySupport: 'Universal',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'MVC Architecture',
+        slug: 'mvc',
+        description: 'Model-View-Controller pattern for separating internal representations of information from the ways information is presented.',
+        longDescription: 'MVC is an architectural pattern that separates an application into three main logical components: the model, the view, and the controller. Each of these components are built to handle specific development aspects of an application.',
+        category: 'Architecture',
+        link: 'https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller',
+        tags: ['Architecture', 'Pattern', 'UI'],
+        features: ['Separation of Concerns', 'Parallel Development', 'Testability'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Clean separation', 'Parallel development', 'Easy to maintain'],
+            cons: ['Complexity for small apps', 'Strict structure'],
+            bestFor: ['Web Applications', 'UI Heavy Apps'],
+            communitySupport: 'Universal',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Client-Server Architecture',
+        slug: 'client-server',
+        description: 'A distributed application structure that partitions tasks or workloads between the providers of a resource or service, called servers, and service requesters, called clients.',
+        longDescription: 'Client-server architecture is a distributed application structure that partitions tasks or workloads between the providers of a resource or service, called servers, and service requesters, called clients.',
+        category: 'Architecture',
+        link: 'https://en.wikipedia.org/wiki/Client%E2%80%93server_model',
+        tags: ['Architecture', 'Distributed', 'Network'],
+        features: ['Centralized Control', 'Scalability', 'Accessibility'],
+        steps: [],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Centralized control', 'Easier maintenance', 'Security'],
+            cons: ['Single point of failure (server)', 'Network dependency'],
+            bestFor: ['Email', 'Web', 'Banking'],
+            communitySupport: 'Universal',
+            priceModel: 'Free'
+        }
     }
 ];

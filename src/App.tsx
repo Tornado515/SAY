@@ -10,6 +10,8 @@ import { GettingStartedPage } from './pages/GettingStartedPage';
 import { TechStacksPage } from './pages/TechStacksPage';
 import { CreateStackPage } from './pages/CreateStackPage';
 import { TechStackDetailPage } from './pages/TechStackDetailPage';
+import { HowToVibeCodePage } from './pages/HowToVibeCodePage';
+import { PromptLibraryPage } from './pages/PromptLibraryPage';
 import { ScrollToTop } from './components/ScrollToTop';
 
 function App() {
@@ -28,9 +30,11 @@ function App() {
           <Route path="/tech-stacks" element={<TechStacksPage />} />
           <Route path="/create-stack" element={<CreateStackPage />} />
           <Route path="/tech-stacks/:slug" element={<TechStackDetailPage />} />
+          <Route path="/how-to-vibe-code" element={<HowToVibeCodePage />} />
+          <Route path="/prompt-library" element={<PromptLibraryPage />} />
         </Routes>
       </BrowserRouter>
-    </ThemeProvider>
+     </ThemeProvider>
   );
 }
 

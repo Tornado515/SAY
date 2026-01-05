@@ -74,6 +74,22 @@ export function Layout({ children }: LayoutProps) {
                                 Tech Stacks
                             </Link>
 
+                            <Link
+                                to="/how-to-vibe-code"
+                                className={`text-sm font-medium transition-colors hover:text-white ${location.pathname === '/how-to-vibe-code' ? 'text-white' : 'text-neutral-400'
+                                    }`}
+                            >
+                                Vibe Coding
+                            </Link>
+
+                            <Link
+                                to="/prompt-library"
+                                className={`text-sm font-medium transition-colors hover:text-white ${location.pathname === '/prompt-library' ? 'text-white' : 'text-neutral-400'
+                                    }`}
+                            >
+                                Prompt Library
+                            </Link>
+
                             {/* Tools Dropdown */}
                             <div className="relative group h-16 flex items-center">
                                 <Link
@@ -176,6 +192,24 @@ export function Layout({ children }: LayoutProps) {
                                 }`}
                         >
                             Tech Stacks
+                        </Link>
+
+                        <Link
+                            to="/how-to-vibe-code"
+                            onClick={closeMenu}
+                            className={`font-medium transition-colors hover:text-white ${location.pathname === '/how-to-vibe-code' ? 'text-white' : 'text-neutral-400'
+                                }`}
+                        >
+                            Vibe Coding
+                        </Link>
+
+                        <Link
+                            to="/prompt-library"
+                            onClick={closeMenu}
+                            className={`font-medium transition-colors hover:text-white ${location.pathname === '/prompt-library' ? 'text-white' : 'text-neutral-400'
+                                }`}
+                        >
+                            Prompt Library
                         </Link>
 
                         <div className="space-y-3">
