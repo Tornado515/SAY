@@ -1,12 +1,14 @@
 import type { Tool } from '../data/tools';
 import { ArrowRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface ToolCardProps {
     tool: Tool;
 }
 
 export function ToolCard({ tool }: ToolCardProps) {
+    const { t } = useTranslation();
     const location = useLocation();
 
     return (
@@ -17,12 +19,12 @@ export function ToolCard({ tool }: ToolCardProps) {
         >
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                    {tool.name}
+                    {t(`tools.${tool.slug}.name`, { defaultValue: tool.name })}
                 </h3>
-                <ArrowRight className="h-4 w-4 text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors" />
+                <ArrowRight className="h-4 w-4 text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors rtl:rotate-180" />
             </div>
             <p className="flex-auto text-sm text-neutral-600 dark:text-neutral-400 mb-6 line-clamp-2">
-                {tool.description}
+                {t(`tools.${tool.slug}.description`, { defaultValue: tool.description })}
             </p>
             <div className="flex flex-wrap gap-2 mt-auto">
                 {tool.tags.map((tag) => (

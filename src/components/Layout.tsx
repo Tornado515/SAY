@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Github, ChevronDown, ChevronRight } from 'lucide-react';
+import { Menu, X, Github, ChevronDown, ChevronRight, Globe } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 import { ThemeToggle } from './ThemeToggle';
 
 interface LayoutProps {
@@ -11,6 +13,17 @@ export function Layout({ children }: LayoutProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isMobileCategoriesOpen, setIsMobileCategoriesOpen] = useState(false);
     const location = useLocation();
+    const { t, i18n } = useTranslation();
+
+    const toggleLanguage = () => {
+        const newLang = i18n.language === 'en' ? 'ar' : 'en';
+        i18n.changeLanguage(newLang);
+    };
+
+    useEffect(() => {
+        document.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
+        document.documentElement.lang = i18n.language;
+    }, [i18n.language]);
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     const closeMenu = () => {
@@ -55,7 +68,7 @@ export function Layout({ children }: LayoutProps) {
                                 className={`text-sm font-medium transition-colors hover:text-white ${location.pathname === '/' ? 'text-white' : 'text-neutral-400'
                                     }`}
                             >
-                                Home
+                                {t('nav.home')}
                             </Link>
 
                             <Link
@@ -63,7 +76,7 @@ export function Layout({ children }: LayoutProps) {
                                 className={`text-sm font-medium transition-colors hover:text-white ${location.pathname === '/getting-started' ? 'text-white' : 'text-neutral-400'
                                     }`}
                             >
-                                Getting Started
+                                {t('nav.gettingStarted')}
                             </Link>
 
                             <Link
@@ -71,7 +84,7 @@ export function Layout({ children }: LayoutProps) {
                                 className={`text-sm font-medium transition-colors hover:text-white ${location.pathname.startsWith('/tech-stacks') ? 'text-white' : 'text-neutral-400'
                                     }`}
                             >
-                                Tech Stacks
+                                {t('nav.techStacks')}
                             </Link>
 
                             <Link
@@ -79,7 +92,7 @@ export function Layout({ children }: LayoutProps) {
                                 className={`text-sm font-medium transition-colors hover:text-white ${location.pathname === '/how-to-vibe-code' ? 'text-white' : 'text-neutral-400'
                                     }`}
                             >
-                                Vibe Coding
+                                {t('nav.vibeCoding')}
                             </Link>
 
                             <Link
@@ -87,7 +100,7 @@ export function Layout({ children }: LayoutProps) {
                                 className={`text-sm font-medium transition-colors hover:text-white ${location.pathname === '/prompt-library' ? 'text-white' : 'text-neutral-400'
                                     }`}
                             >
-                                Prompt Library
+                                {t('nav.promptLibrary')}
                             </Link>
 
                             {/* Tools Dropdown */}
@@ -97,7 +110,7 @@ export function Layout({ children }: LayoutProps) {
                                     className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-white group-hover:text-white focus:outline-none ${location.pathname.startsWith('/tool') || location.pathname === '/tools' || location.pathname.startsWith('/category') ? 'text-white' : 'text-neutral-400'
                                         }`}
                                 >
-                                    Tools
+                                    {t('nav.tools')}
                                     <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
                                 </Link>
 
@@ -107,19 +120,19 @@ export function Layout({ children }: LayoutProps) {
                                             to="/categories"
                                             className="block px-4 py-2 text-sm text-indigo-400 hover:bg-white/5 hover:text-indigo-300 font-medium border-b border-white/5"
                                         >
-                                            View All Categories
+                                            {t('nav.viewAllCategories')}
                                         </Link>
                                         <Link
                                             to="/tools"
                                             className="block px-4 py-2 text-sm text-neutral-200 hover:bg-white/5 hover:text-white font-medium border-b border-white/5"
                                         >
-                                            Browse All Tools
+                                            {t('nav.browseAllTools')}
                                         </Link>
                                         <Link
                                             to="/compare"
                                             className="block px-4 py-2 text-sm text-neutral-200 hover:bg-white/5 hover:text-white font-medium border-b border-white/5"
                                         >
-                                            Compare Tools
+                                            {t('nav.compareTools')}
                                         </Link>
                                         <div className="py-1">
                                             <span className="px-4 text-xs font-semibold text-neutral-500 uppercase tracking-wider">Quick Access</span>
@@ -148,8 +161,16 @@ export function Layout({ children }: LayoutProps) {
                             className="hidden sm:flex text-sm font-medium text-neutral-600 dark:text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-white gap-2 items-center"
                         >
                             <Github className="h-5 w-5" />
-                            <span>GitHub</span>
+                            <span>{t('nav.github')}</span>
                         </a>
+
+                        <button
+                            onClick={toggleLanguage}
+                            className="hidden sm:flex text-sm font-medium text-neutral-400 transition-colors hover:text-white gap-2 items-center"
+                        >
+                            <Globe className="h-5 w-5" />
+                            <span>{t('nav.language')}</span>
+                        </button>
 
                         {/* Mobile Menu Button */}
                         <button
@@ -173,7 +194,7 @@ export function Layout({ children }: LayoutProps) {
                             className={`font-medium transition-colors hover:text-white ${location.pathname === '/' ? 'text-white' : 'text-neutral-400'
                                 }`}
                         >
-                            Home
+                            {t('nav.home')}
                         </Link>
 
                         <Link
@@ -182,7 +203,7 @@ export function Layout({ children }: LayoutProps) {
                             className={`font-medium transition-colors hover:text-white ${location.pathname === '/getting-started' ? 'text-white' : 'text-neutral-400'
                                 }`}
                         >
-                            Getting Started
+                            {t('nav.gettingStarted')}
                         </Link>
 
                         <Link
@@ -191,7 +212,7 @@ export function Layout({ children }: LayoutProps) {
                             className={`font-medium transition-colors hover:text-white ${location.pathname.startsWith('/tech-stacks') ? 'text-white' : 'text-neutral-400'
                                 }`}
                         >
-                            Tech Stacks
+                            {t('nav.techStacks')}
                         </Link>
 
                         <Link
@@ -200,7 +221,7 @@ export function Layout({ children }: LayoutProps) {
                             className={`font-medium transition-colors hover:text-white ${location.pathname === '/how-to-vibe-code' ? 'text-white' : 'text-neutral-400'
                                 }`}
                         >
-                            Vibe Coding
+                            {t('nav.vibeCoding')}
                         </Link>
 
                         <Link
@@ -209,7 +230,7 @@ export function Layout({ children }: LayoutProps) {
                             className={`font-medium transition-colors hover:text-white ${location.pathname === '/prompt-library' ? 'text-white' : 'text-neutral-400'
                                 }`}
                         >
-                            Prompt Library
+                            {t('nav.promptLibrary')}
                         </Link>
 
                         <div className="space-y-3">
@@ -219,7 +240,7 @@ export function Layout({ children }: LayoutProps) {
                                     onClick={closeMenu}
                                     className={`font-medium flex-grow ${location.pathname.startsWith('/tool') || location.pathname === '/tools' || location.pathname.startsWith('/category') ? 'text-white' : 'text-neutral-400'}`}
                                 >
-                                    Tools
+                                    {t('nav.tools')}
                                 </Link>
                                 <button
                                     onClick={toggleMobileCategories}
@@ -236,21 +257,21 @@ export function Layout({ children }: LayoutProps) {
                                         onClick={closeMenu}
                                         className="block text-base text-indigo-400 hover:text-indigo-300"
                                     >
-                                        View All Categories
+                                        {t('nav.viewAllCategories')}
                                     </Link>
                                     <Link
                                         to="/tools"
                                         onClick={closeMenu}
                                         className="block text-base text-white hover:text-indigo-300"
                                     >
-                                        Browse All Tools
+                                        {t('nav.browseAllTools')}
                                     </Link>
                                     <Link
                                         to="/compare"
                                         onClick={closeMenu}
                                         className="block text-base text-white hover:text-indigo-300"
                                     >
-                                        Compare Tools
+                                        {t('nav.compareTools')}
                                     </Link>
                                     <div className="pt-2 pb-1 border-t border-white/5">
                                         <span className="text-xs font-medium text-neutral-500 uppercase">Categories</span>
@@ -277,8 +298,15 @@ export function Layout({ children }: LayoutProps) {
                             className="flex items-center gap-2 text-neutral-400 hover:text-white font-medium mt-4 pt-4 border-t border-white/10"
                         >
                             <Github className="h-5 w-5" />
-                            GitHub
+                            {t('nav.github')}
                         </a>
+                        <button
+                            onClick={toggleLanguage}
+                            className="flex items-center gap-2 text-neutral-400 hover:text-white font-medium mt-4 pt-4 border-t border-white/10 w-full"
+                        >
+                            <Globe className="h-5 w-5" />
+                            {t('nav.language')}
+                        </button>
                     </nav>
                 </div>
             )}
@@ -290,11 +318,11 @@ export function Layout({ children }: LayoutProps) {
             <footer className="border-t border-neutral-200 dark:border-white/5 bg-neutral-50 dark:bg-neutral-950 py-12 mt-20">
                 <div className="container mx-auto px-4 text-center text-sm text-neutral-600 dark:text-neutral-500 sm:px-6 lg:px-8">
                     <div className="flex justify-center gap-6 mb-4">
-                        <Link to="/tools" className="hover:text-white transition-colors">Tools</Link>
-                        <Link to="/compare" className="hover:text-white transition-colors">Compare</Link>
-                        <a href="https://github.com/Tornado515/SAY" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">GitHub</a>
+                        <Link to="/tools" className="hover:text-white transition-colors">{t('footer.tools')}</Link>
+                        <Link to="/compare" className="hover:text-white transition-colors">{t('footer.compare')}</Link>
+                        <a href="https://github.com/Tornado515/SAY" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">{t('footer.github')}</a>
                     </div>
-                    <p>© {new Date().getFullYear()} SAY. Open source and community driven.</p>
+                    <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
                 </div>
             </footer>
         </div>

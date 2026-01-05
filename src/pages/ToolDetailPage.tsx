@@ -1,4 +1,5 @@
 import { useParams, Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { tools } from '../data/tools';
 import { ExternalLink, ArrowLeft, CheckCircle, ArrowRightLeft } from 'lucide-react';
 import { Layout } from '../components/Layout';
@@ -7,13 +8,14 @@ import { QuickSpecsSection } from '../components/QuickSpecsSection';
 import ReactMarkdown from 'react-markdown';
 
 export function ToolDetailPage() {
+    const { t } = useTranslation();
     const { slug } = useParams();
     const location = useLocation();
     const tool = tools.find((t) => t.slug === slug);
 
     // Dynamic Back Link State
     const backLink = location.state?.from || '/tools';
-    const backLabel = location.state?.fromName ? `Back to ${location.state.fromName}` : 'Back to Tools';
+    const backLabel = location.state?.fromName ? t('nav.backTo', { name: location.state.fromName, defaultValue: `Back to ${location.state.fromName}` }) : t('nav.backToTools', { defaultValue: 'Back to Tools' });
 
     if (!tool) {
         return (
@@ -37,7 +39,7 @@ export function ToolDetailPage() {
                         to={backLink}
                         className="group mb-8 inline-flex items-center gap-2 text-sm font-medium text-neutral-600 dark:text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-white"
                     >
-                        <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                        <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1 rtl:rotate-180 rtl:group-hover:translate-x-1" />
                         {backLabel}
                     </Link>
 
@@ -49,14 +51,14 @@ export function ToolDetailPage() {
                     >
                         <div className="flex items-center gap-4 mb-4">
                             <h1 className="text-4xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-5xl">
-                                {tool.name}
+                                {t(`tools.${tool.slug}.name`, { defaultValue: tool.name })}
                             </h1>
                             <span className="inline-flex items-center rounded-full bg-indigo-400/10 px-3 py-1 text-sm font-medium text-indigo-400 ring-1 ring-inset ring-indigo-400/20">
-                                {tool.category}
+                                {t(`categories.${tool.category.toLowerCase()}.title`, { defaultValue: tool.category })}
                             </span>
                         </div>
                         <p className="text-xl leading-8 text-neutral-600 dark:text-neutral-300">
-                            {tool.description}
+                            {t(`tools.${tool.slug}.description`, { defaultValue: tool.description })}
                         </p>
                         <div className="mt-6 flex flex-wrap gap-4">
                             <a
@@ -88,13 +90,15 @@ export function ToolDetailPage() {
                                 <QuickSpecsSection tool={tool} />
                             )}
 
-
-
                             {/* Description */}
                             <section>
-                                <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">What is {tool.name}?</h2>
+                                <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
+                                    {t('tool.whatIs', { name: tool.name, defaultValue: `What is ${tool.name}?` })}
+                                </h2>
                                 <div className="prose prose-neutral dark:prose-invert max-w-none text-neutral-600 dark:text-neutral-300">
-                                    <p className="leading-relaxed whitespace-pre-line">{tool.longDescription}</p>
+                                    <p className="leading-relaxed whitespace-pre-line">
+                                        {t(`tools.${tool.slug}.longDescription`, { defaultValue: tool.longDescription })}
+                                    </p>
                                 </div>
                             </section>
 
@@ -143,12 +147,18 @@ export function ToolDetailPage() {
                             {/* AI Features Section */}
                             {tool.aiFeatures && tool.aiFeatures.length > 0 && (
                                 <section>
-                                    <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6">Key Capabilities</h2>
+                                    <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6">
+                                        {t('tool.keyCapabilities', { defaultValue: 'Key Capabilities' })}
+                                    </h2>
                                     <div className="grid grid-cols-1 gap-6">
                                         {tool.aiFeatures.map((feature, idx) => (
                                             <div key={idx} className="rounded-2xl bg-indigo-50 dark:bg-indigo-500/5 p-6 ring-1 ring-indigo-500/10 dark:ring-indigo-500/20 hover:bg-indigo-100 dark:hover:bg-indigo-500/10 transition-colors">
-                                                <h3 className="text-lg font-semibold text-indigo-600 dark:text-indigo-400 mb-2">{feature.title}</h3>
-                                                <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed text-sm">{feature.content}</p>
+                                                <h3 className="text-lg font-semibold text-indigo-600 dark:text-indigo-400 mb-2">
+                                                    {t(`tools.${tool.slug}.aiFeatures.${idx}.title`, { defaultValue: feature.title })}
+                                                </h3>
+                                                <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed text-sm">
+                                                    {t(`tools.${tool.slug}.aiFeatures.${idx}.content`, { defaultValue: feature.content })}
+                                                </p>
                                             </div>
                                         ))}
                                     </div>
@@ -157,7 +167,9 @@ export function ToolDetailPage() {
 
                             {/* How to use */}
                             <section>
-                                <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6">How to get started</h2>
+                                <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6">
+                                    {t('tool.howToGetStarted', { defaultValue: 'How to get started' })}
+                                </h2>
                                 <div className="space-y-8 border-l-2 border-neutral-200 dark:border-white/10 pl-10 ml-3">
                                     {tool.steps?.map((step, index) => (
                                         <div key={index} className="relative group">
@@ -168,23 +180,25 @@ export function ToolDetailPage() {
 
                                             {/* Content */}
                                             <div className="bg-white dark:bg-neutral-900/50 rounded-2xl p-6 border border-neutral-200 dark:border-white/5 hover:border-neutral-300 dark:hover:border-white/10 transition-colors shadow-sm dark:shadow-none">
-                                                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">{step.title}</h3>
-                                                <div className="text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4">
+                                                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
+                                                    {t(`tools.${tool.slug}.steps.${index}.title`, { defaultValue: step.title })}
+                                                </h3>
+                                                <div className="text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4" dir="auto">
                                                     <ReactMarkdown
                                                         components={{
                                                             strong: ({ node, ...props }) => <strong className="font-semibold text-neutral-900 dark:text-white" {...props} />,
-                                                            code: ({ node, ...props }) => <code className="bg-neutral-100 dark:bg-white/10 text-indigo-600 dark:text-indigo-300 rounded px-1 py-0.5 text-sm font-mono" {...props} />,
+                                                            code: ({ node, ...props }) => <code className="bg-neutral-100 dark:bg-white/10 text-indigo-600 dark:text-indigo-300 rounded px-1 py-0.5 text-sm font-mono" dir="ltr" {...props} />,
                                                             a: ({ node, ...props }) => <a className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 underline" target="_blank" rel="noopener noreferrer" {...props} />,
                                                             p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />
                                                         }}
                                                     >
-                                                        {step.content}
+                                                        {t(`tools.${tool.slug}.steps.${index}.content`, { defaultValue: step.content })}
                                                     </ReactMarkdown>
                                                 </div>
 
                                                 {/* Optional Code Block */}
                                                 {step.code && (
-                                                    <div className="mb-4 bg-neutral-100 dark:bg-black/50 rounded-lg border border-neutral-200 dark:border-white/5 overflow-hidden">
+                                                    <div className="mb-4 bg-neutral-100 dark:bg-black/50 rounded-lg border border-neutral-200 dark:border-white/5 overflow-hidden" dir="ltr">
                                                         <div className="flex items-center justify-between px-4 py-2 bg-neutral-200/50 dark:bg-white/5 border-b border-neutral-200 dark:border-white/5">
                                                             <span className="text-xs font-mono text-neutral-500">{step.language || 'bash'}</span>
                                                         </div>
@@ -225,12 +239,18 @@ export function ToolDetailPage() {
                             {/* Additional Info Section */}
                             {tool.additionalInfo && tool.additionalInfo.length > 0 && (
                                 <div className="space-y-6 pt-8 border-t border-neutral-200 dark:border-white/10">
-                                    <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">Good to Know</h2>
+                                    <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">
+                                        {t('tool.goodToKnow', { defaultValue: 'Good to Know' })}
+                                    </h2>
                                     <div className="grid grid-cols-1 gap-4">
                                         {tool.additionalInfo.map((info, idx) => (
                                             <div key={idx} className="rounded-2xl bg-neutral-50 dark:bg-white/5 p-6 ring-1 ring-neutral-200 dark:ring-white/10 shadow-sm dark:shadow-none">
-                                                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">{info.title}</h3>
-                                                <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed">{info.content}</p>
+                                                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
+                                                    {t(`tools.${tool.slug}.additionalInfo.${idx}.title`, { defaultValue: info.title })}
+                                                </h3>
+                                                <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                                                    {t(`tools.${tool.slug}.additionalInfo.${idx}.content`, { defaultValue: info.content })}
+                                                </p>
                                             </div>
                                         ))}
                                     </div>
@@ -240,7 +260,9 @@ export function ToolDetailPage() {
                             {/* Related Tools Section */}
                             {tool.relatedTools && tool.relatedTools.length > 0 && (
                                 <div className="space-y-6 pt-8 border-t border-neutral-200 dark:border-white/10">
-                                    <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">Related Tools</h2>
+                                    <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">
+                                        {t('tool.relatedTools', { defaultValue: 'Related Tools' })}
+                                    </h2>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         {tool.relatedTools.map((related) => {
                                             const relatedTool = tools.find(t => t.slug === related.slug);
@@ -253,7 +275,7 @@ export function ToolDetailPage() {
                                                 >
                                                     <div className="flex items-center justify-between mb-2">
                                                         <span className="font-semibold text-neutral-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                                                            {relatedTool.name}
+                                                            {t(`tools.${relatedTool.slug}.name`, { defaultValue: relatedTool.name })}
                                                         </span>
                                                         <span className={`text-xs px-2 py-0.5 rounded-full font-medium border ${related.relation === 'alternative'
                                                             ? 'border-orange-500/30 text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-500/10'
@@ -265,7 +287,7 @@ export function ToolDetailPage() {
                                                         </span>
                                                     </div>
                                                     <p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2">
-                                                        {relatedTool.description}
+                                                        {t(`tools.${relatedTool.slug}.description`, { defaultValue: relatedTool.description })}
                                                     </p>
                                                 </Link>
                                             );
@@ -280,12 +302,16 @@ export function ToolDetailPage() {
                             <div className="sticky top-24 space-y-8">
                                 {/* Features */}
                                 <div className="rounded-2xl border border-neutral-200 dark:border-white/5 bg-white dark:bg-white/5 p-6 shadow-sm dark:shadow-none">
-                                    <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4">Key Features</h3>
+                                    <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4">
+                                        {t('tool.keyFeatures', { defaultValue: 'Key Features' })}
+                                    </h3>
                                     <ul className="space-y-3">
-                                        {tool.features?.map((feature) => (
+                                        {tool.features?.map((feature, idx) => (
                                             <li key={feature} className="flex gap-3 text-neutral-600 dark:text-neutral-300">
                                                 <CheckCircle className="h-5 w-5 flex-none text-indigo-500 dark:text-indigo-400" />
-                                                <span className="text-sm">{feature}</span>
+                                                <span className="text-sm">
+                                                    {t(`tools.${tool.slug}.features.${idx}`, { defaultValue: feature })}
+                                                </span>
                                             </li>
                                         ))}
                                     </ul>

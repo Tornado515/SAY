@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Sparkles, Play, CheckCircle, Info, X, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 interface AuditResult {
   score: number;
@@ -15,6 +16,7 @@ interface AuditResult {
 }
 
 export function PromptTester() {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [prompt, setPrompt] = useState('');
   const [result, setResult] = useState<AuditResult | null>(null);
@@ -23,7 +25,7 @@ export function PromptTester() {
 
   const handleAudit = async () => {
     if (!prompt.trim()) return;
-    
+
     setIsLoading(true);
     setError(null);
     setResult(null);
@@ -45,7 +47,7 @@ export function PromptTester() {
       setResult(data);
     } catch (err) {
       console.error(err);
-      setError('Failed to analyze prompt. Please try again.');
+      setError(t('vibeCodingPage.promptTester.error', { defaultValue: 'Failed to analyze prompt. Please try again.' }));
     } finally {
       setIsLoading(false);
     }
@@ -77,7 +79,7 @@ export function PromptTester() {
           >
             <div className="absolute inset-0 bg-indigo-500/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
             <Sparkles className="w-5 h-5 text-indigo-400" />
-            <span className="text-lg font-medium text-white">Test Your Prompt</span>
+            <span className="text-lg font-medium text-white">{t('vibeCodingPage.promptTester.button', { defaultValue: 'Test Your Prompt' })}</span>
           </motion.button>
         </div>
       ) : (
@@ -90,7 +92,7 @@ export function PromptTester() {
           <div className="p-6 border-b border-white/5 flex justify-between items-center bg-neutral-900/50">
             <div className="flex items-center gap-3">
               <Sparkles className="w-5 h-5 text-indigo-400" />
-              <h3 className="text-lg font-semibold text-white">Prompt Auditor (AI Powered)</h3>
+              <h3 className="text-lg font-semibold text-white">{t('vibeCodingPage.promptTester.title', { defaultValue: 'Prompt Auditor (AI Powered)' })}</h3>
             </div>
             <button
               onClick={() => setIsOpen(false)}
@@ -105,7 +107,7 @@ export function PromptTester() {
               <textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Paste your prompt here to check its engineering quality..."
+                placeholder={t('vibeCodingPage.promptTester.placeholder', { defaultValue: "Paste your prompt here to check its engineering quality..." })}
                 className="w-full h-40 bg-black/30 border border-white/10 rounded-xl p-4 text-neutral-200 placeholder:text-neutral-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 resize-none font-mono text-sm"
               />
               <div className="flex justify-end items-center gap-4">
@@ -120,7 +122,7 @@ export function PromptTester() {
                   ) : (
                     <Play className="w-4 h-4" />
                   )}
-                  {isLoading ? 'Auditing...' : 'Run Audit'}
+                  {isLoading ? t('vibeCodingPage.promptTester.auditing', { defaultValue: 'Auditing...' }) : t('vibeCodingPage.promptTester.runAudit', { defaultValue: 'Run Audit' })}
                 </button>
               </div>
             </div>
@@ -136,19 +138,19 @@ export function PromptTester() {
                   {/* Score Section */}
                   <div className="grid md:grid-cols-3 gap-8">
                     <div className={`col-span-1 p-6 rounded-2xl border flex flex-col items-center justify-center text-center ${getScoreBg(result.score)}`}>
-                      <span className="text-neutral-400 text-sm font-medium uppercase tracking-wider mb-2">Vibe Score</span>
+                      <span className="text-neutral-400 text-sm font-medium uppercase tracking-wider mb-2">{t('vibeCodingPage.promptTester.vibeScore', { defaultValue: 'Vibe Score' })}</span>
                       <div className={`text-6xl font-bold mb-2 ${getScoreColor(result.score)}`}>
                         {result.score}
                       </div>
                       <div className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide bg-black/20 ${getScoreColor(result.score)}`}>
-                        {result.level}
+                        {t(`vibeCodingPage.promptTester.levels.${result.level}`, { defaultValue: result.level })}
                       </div>
                     </div>
 
                     <div className="col-span-2 space-y-6">
                       {/* Breakdown */}
                       <div>
-                        <h4 className="text-sm font-medium text-neutral-400 mb-3 uppercase tracking-wider">Analysis Breakdown</h4>
+                        <h4 className="text-sm font-medium text-neutral-400 mb-3 uppercase tracking-wider">{t('vibeCodingPage.promptTester.analysisBreakdown', { defaultValue: 'Analysis Breakdown' })}</h4>
                         <div className="grid sm:grid-cols-2 gap-3">
                           {Array.isArray(result.breakdown) ? result.breakdown.map((item, i) => (
                             <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-white/5 border border-white/5">
@@ -164,7 +166,7 @@ export function PromptTester() {
                             </div>
                           )) : (
                             <div className="col-span-2 text-neutral-500 text-sm italic">
-                              Breakdown analysis unavailable.
+                              {t('vibeCodingPage.promptTester.unavailable', { defaultValue: 'Breakdown analysis unavailable.' })}
                             </div>
                           )}
                         </div>
@@ -172,7 +174,7 @@ export function PromptTester() {
 
                       {/* Detected Keywords */}
                       <div>
-                        <h4 className="text-sm font-medium text-neutral-400 mb-3 uppercase tracking-wider">Detected Keywords</h4>
+                        <h4 className="text-sm font-medium text-neutral-400 mb-3 uppercase tracking-wider">{t('vibeCodingPage.promptTester.detectedKeywords', { defaultValue: 'Detected Keywords' })}</h4>
                         <div className="flex flex-wrap gap-2">
                           {result.detectedKeywords.length > 0 ? (
                             result.detectedKeywords.map((keyword, i) => (
@@ -181,14 +183,14 @@ export function PromptTester() {
                               </span>
                             ))
                           ) : (
-                            <span className="text-neutral-500 text-sm italic">No technical keywords detected.</span>
+                            <span className="text-neutral-500 text-sm italic">{t('vibeCodingPage.promptTester.noKeywords', { defaultValue: 'No technical keywords detected.' })}</span>
                           )}
                         </div>
                       </div>
 
                       {/* Feedback */}
                       <div>
-                        <h4 className="text-sm font-medium text-neutral-400 mb-3 uppercase tracking-wider">Feedback</h4>
+                        <h4 className="text-sm font-medium text-neutral-400 mb-3 uppercase tracking-wider">{t('vibeCodingPage.promptTester.feedback', { defaultValue: 'Feedback' })}</h4>
                         <ul className="space-y-3">
                           {result.feedback.map((item, i) => (
                             <li key={i} className="flex items-start gap-3 text-sm text-neutral-300">
@@ -199,7 +201,7 @@ export function PromptTester() {
                           {result.feedback.length === 0 && (
                             <li className="flex items-start gap-3 text-sm text-green-400">
                               <CheckCircle className="w-4 h-4 mt-0.5 shrink-0" />
-                              <span>Perfect prompt! No improvements needed.</span>
+                              <span>{t('vibeCodingPage.promptTester.perfect', { defaultValue: 'Perfect prompt! No improvements needed.' })}</span>
                             </li>
                           )}
                         </ul>
