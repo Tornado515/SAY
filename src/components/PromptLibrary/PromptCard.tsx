@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Copy, Check, Terminal, FileText } from 'lucide-react';
 import type { CodingPromptEntry, RequirementPromptEntry } from '../../data/prompt-engine';
+import { useTranslation } from 'react-i18next';
 
 interface PromptCardProps {
   prompt: CodingPromptEntry | RequirementPromptEntry;
@@ -8,6 +9,7 @@ interface PromptCardProps {
 }
 
 export function PromptCard({ prompt, type }: PromptCardProps) {
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -39,14 +41,14 @@ export function PromptCard({ prompt, type }: PromptCardProps) {
         <button
           onClick={handleCopy}
           className="text-neutral-500 hover:text-white transition-colors p-2 rounded-md hover:bg-white/5"
-          title="Copy to clipboard"
+          title={t('promptLibraryPage.card.copy', { defaultValue: 'Copy to clipboard' })}
         >
           {copied ? <Check size={16} className="text-green-500" /> : <Copy size={16} />}
         </button>
       </div>
 
       <div className="flex-grow bg-black/30 rounded-lg p-4 mb-4 overflow-hidden relative">
-        <pre className="text-neutral-300 text-sm font-mono whitespace-pre-wrap break-words line-clamp-[10]">
+        <pre className="text-neutral-300 text-sm font-mono whitespace-pre-wrap break-words line-clamp-[10]" dir="ltr">
           {prompt.prompt}
         </pre>
         <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />

@@ -2,7 +2,10 @@ import { GitBranch, Globe, Code2, Download, Cloud, PenTool, ListTodo, Layers, Da
 import { Layout } from '../components/Layout';
 import { Link } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
+
 export function GettingStartedPage() {
+    const { t } = useTranslation();
     // Helper to generate consistent card styles with dynamic colors
     const getCardStyles = (color: 'pink' | 'purple' | 'indigo' | 'emerald' | 'orange' | 'blue') => {
         const borderColors = {
@@ -32,12 +35,12 @@ export function GettingStartedPage() {
     const steps = [
         {
             icon: <ListTodo className="w-6 h-6 text-pink-400" />,
-            title: "1. Ideation & Planning",
-            description: "Every great project starts with a plan. Organize your thoughts before writing code.",
+            title: t('gettingStarted.steps.planning.title'),
+            description: t('gettingStarted.steps.planning.description'),
             content: (
                 <div className="space-y-4">
                     <p className="text-neutral-400">
-                        Before you open your code editor, it's crucial to define what you're building. Use productivity tools to track features, bugs, and tasks.
+                        {t('gettingStarted.steps.planning.content')}
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                         <Link to="/tool/trello" className={getCardStyles('pink').card}>
@@ -58,12 +61,12 @@ export function GettingStartedPage() {
         },
         {
             icon: <PenTool className="w-6 h-6 text-purple-400" />,
-            title: "2. Design & Prototyping",
-            description: "Visualize your application to ensure a great user experience.",
+            title: t('gettingStarted.steps.design.title'),
+            description: t('gettingStarted.steps.design.description'),
             content: (
                 <div className="space-y-4">
                     <p className="text-neutral-400">
-                        Don't guess how your app should look. Design it. This saves countless hours of rewriting CSS later.
+                        {t('gettingStarted.steps.design.content')}
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                         <Link to="/tool/figma" className={getCardStyles('purple').card}>
@@ -84,12 +87,12 @@ export function GettingStartedPage() {
         },
         {
             icon: <Download className="w-6 h-6 text-indigo-400" />,
-            title: "3. The Essentials (Prerequisites)",
-            description: "Install the foundational tools used by developers worldwide.",
+            title: t('gettingStarted.steps.prerequisites.title'),
+            description: t('gettingStarted.steps.prerequisites.description'),
             content: (
                 <div className="space-y-6">
                     <p className="text-neutral-400">
-                        Regardless of what you build, you'll likely need these three core tools on your machine.
+                        {t('gettingStarted.steps.prerequisites.content')}
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                         <Link to="/tool/nodejs" className={getCardStyles('indigo').card}>
@@ -110,22 +113,22 @@ export function GettingStartedPage() {
         },
         {
             icon: <Layers className="w-6 h-6 text-emerald-400" />,
-            title: "4. Initialize Your Project",
-            description: "Choose your stack and start coding.",
+            title: t('gettingStarted.steps.init.title'),
+            description: t('gettingStarted.steps.init.description'),
             content: (
                 <div className="space-y-6">
                     <p className="text-neutral-400">
-                        Depending on what you want to build, the setup differs. Here are the common paths:
+                        {t('gettingStarted.steps.init.content')}
                     </p>
 
                     <div className="grid gap-4">
                         {/* Web Path */}
                         <div className="bg-neutral-900 border border-white/5 rounded-xl p-5">
                             <h4 className="font-semibold text-white mb-3 flex items-center gap-2">
-                                <Code2 className="w-4 h-4 text-emerald-400" /> Web Development
+                                <Code2 className="w-4 h-4 text-emerald-400" /> {t('gettingStarted.steps.init.web.title')}
                             </h4>
                             <p className="text-sm text-neutral-400 mb-4">
-                                Use a modern framework to build interactive sites.
+                                {t('gettingStarted.steps.init.web.description')}
                             </p>
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                                 <Link to="/tool/react" className="bg-black/50 border border-white/10 rounded px-3 py-2 text-sm text-neutral-300 hover:text-white hover:border-emerald-500/50 transition-colors text-center">React</Link>
@@ -137,10 +140,10 @@ export function GettingStartedPage() {
                         {/* Mobile Path */}
                         <div className="bg-neutral-900 border border-white/5 rounded-xl p-5">
                             <h4 className="font-semibold text-white mb-3 flex items-center gap-2">
-                                <Smartphone className="w-4 h-4 text-emerald-400" /> Mobile Apps
+                                <Smartphone className="w-4 h-4 text-emerald-400" /> {t('gettingStarted.steps.init.mobile.title')}
                             </h4>
                             <p className="text-sm text-neutral-400 mb-4">
-                                Build native apps for iOS and Android.
+                                {t('gettingStarted.steps.init.mobile.description')}
                             </p>
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                                 <Link to="/tool/react-native" className="bg-black/50 border border-white/10 rounded px-3 py-2 text-sm text-neutral-300 hover:text-white hover:border-emerald-500/50 transition-colors text-center">React Native</Link>
@@ -152,10 +155,10 @@ export function GettingStartedPage() {
                         {/* Backend Path */}
                         <div className="bg-neutral-900 border border-white/5 rounded-xl p-5">
                             <h4 className="font-semibold text-white mb-3 flex items-center gap-2">
-                                <Database className="w-4 h-4 text-emerald-400" /> Backend & Database
+                                <Database className="w-4 h-4 text-emerald-400" /> {t('gettingStarted.steps.init.backend.title')}
                             </h4>
                             <p className="text-sm text-neutral-400 mb-4">
-                                Power your app with data and logic.
+                                {t('gettingStarted.steps.init.backend.description')}
                             </p>
                             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                                 <Link to="/tool/nodejs" className="bg-black/50 border border-white/10 rounded px-3 py-2 text-sm text-neutral-300 hover:text-white hover:border-emerald-500/50 transition-colors text-center">Node.js</Link>
@@ -170,12 +173,12 @@ export function GettingStartedPage() {
         },
         {
             icon: <GitBranch className="w-6 h-6 text-orange-400" />,
-            title: "5. Version Control",
-            description: "Save your progress and collaborate securely.",
+            title: t('gettingStarted.steps.versionControl.title'),
+            description: t('gettingStarted.steps.versionControl.description'),
             content: (
                 <div className="space-y-6">
                     <p className="text-neutral-400">
-                        You have two main ways to use Git: the Command Line (powerful, standard) or GitHub Desktop (easy, visual).
+                        {t('gettingStarted.steps.versionControl.content')}
                     </p>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -183,18 +186,18 @@ export function GettingStartedPage() {
                             <h4 className={`${getCardStyles('orange').title} flex items-center gap-2`}>
                                 <Terminal className="w-4 h-4" /> Git CLI
                             </h4>
-                            <p className={getCardStyles('orange').desc}>The standard command line interface. Essential to learn for long-term career growth.</p>
+                            <p className={getCardStyles('orange').desc}>{t('gettingStarted.steps.versionControl.cli_desc')}</p>
                         </Link>
                         <Link to="/tool/github" className={getCardStyles('orange').card}>
                             <h4 className={`${getCardStyles('orange').title} flex items-center gap-2`}>
                                 <Cloud className="w-4 h-4" /> GitHub Desktop
                             </h4>
-                            <p className={getCardStyles('orange').desc}>A visual application that handles Git commands for you. Great for beginners.</p>
+                            <p className={getCardStyles('orange').desc}>{t('gettingStarted.steps.versionControl.desktop_desc')}</p>
                         </Link>
                     </div>
 
                     <div className="bg-black/30 rounded-lg p-4 font-mono text-sm text-neutral-300 space-y-2 border border-white/5">
-                        <p className="text-xs text-neutral-500 mb-2 border-b border-white/10 pb-2">Common Commands:</p>
+                        <p className="text-xs text-neutral-500 mb-2 border-b border-white/10 pb-2">{t('gettingStarted.steps.versionControl.commands_title')}</p>
                         <p><span className="text-orange-400">git</span> init</p>
                         <p><span className="text-orange-400">git</span> add .</p>
                         <p><span className="text-orange-400">git</span> commit -m "Initial commit"</p>
@@ -205,12 +208,12 @@ export function GettingStartedPage() {
         },
         {
             icon: <Globe className="w-6 h-6 text-blue-400" />,
-            title: "6. Deployment",
-            description: "Share your creation with the world.",
+            title: t('gettingStarted.steps.deployment.title'),
+            description: t('gettingStarted.steps.deployment.description'),
             content: (
                 <div className="space-y-4">
                     <p className="text-neutral-400">
-                        Get a live URL for your project. The tool you need depends on your stack.
+                        {t('gettingStarted.steps.deployment.content')}
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                         <Link to="/tool/vercel" className={getCardStyles('blue').card}>
@@ -247,10 +250,10 @@ export function GettingStartedPage() {
                             </div>
                         </div>
                         <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl mb-6">
-                            How to Start a Project
+                            {t('gettingStarted.title')}
                         </h1>
                         <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
-                            From the first idea to the final deployment. A comprehensive guide to the modern software development lifecycle.
+                            {t('gettingStarted.subtitle')}
                         </p>
                     </div>
                 </div>
@@ -260,14 +263,14 @@ export function GettingStartedPage() {
                         <div className="max-w-3xl mx-auto">
                             <div className="space-y-12">
                                 {steps.map((step, index) => (
-                                    <div key={index} className="relative pl-8 sm:pl-12 group">
+                                    <div key={index} className="relative pl-8 sm:pl-12 rtl:pl-0 rtl:pr-8 sm:rtl:pr-12 group">
                                         {/* Vertical Line */}
                                         {index !== steps.length - 1 && (
-                                            <div className="absolute left-[11px] sm:left-[19px] top-10 bottom-[-48px] w-0.5 bg-neutral-800 group-last:hidden" />
+                                            <div className="absolute left-[11px] sm:left-[19px] rtl:left-auto rtl:right-[11px] sm:rtl:right-[19px] top-10 bottom-[-48px] w-0.5 bg-neutral-800 group-last:hidden" />
                                         )}
 
                                         {/* Icon Bubble */}
-                                        <div className="absolute left-0 sm:left-2 top-0 bg-neutral-900 border border-neutral-800 rounded-full p-1.5 sm:p-2 z-10 shadow-xl">
+                                        <div className="absolute left-0 sm:left-2 rtl:left-auto rtl:right-0 sm:rtl:right-2 top-0 bg-neutral-900 border border-neutral-800 rounded-full p-1.5 sm:p-2 z-10 shadow-xl">
                                             {step.icon}
                                         </div>
 
@@ -281,13 +284,13 @@ export function GettingStartedPage() {
                             </div>
 
                             <div className="mt-16 text-center bg-indigo-500/10 border border-indigo-500/20 rounded-2xl p-8">
-                                <h3 className="text-2xl font-semibold text-indigo-400 mb-3">Ready to dive slightly deeper?</h3>
-                                <p className="text-neutral-300 mb-6">Explore our curated tech stacks to see how these tools fit together in real-world scenarios.</p>
+                                <h3 className="text-2xl font-semibold text-indigo-400 mb-3">{t('gettingStarted.cta.title')}</h3>
+                                <p className="text-neutral-300 mb-6">{t('gettingStarted.cta.description')}</p>
                                 <Link
                                     to="/tech-stacks"
                                     className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
                                 >
-                                    View Tech Stacks
+                                    {t('gettingStarted.cta.button')}
                                 </Link>
                             </div>
                         </div>
