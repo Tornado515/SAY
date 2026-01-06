@@ -34,8 +34,8 @@ export function CreateStackPage() {
 
     // Tool Filtering considering additionalCategories
     const fullStackTools = tools.filter(t => t.category === 'Full Stack' || t.additionalCategories?.includes('Full Stack'));
-    const frontendTools = tools.filter(t => 
-        (t.category === (frontendType === 'Web' ? 'Frontend' : 'Mobile')) || 
+    const frontendTools = tools.filter(t =>
+        (t.category === (frontendType === 'Web' ? 'Frontend' : 'Mobile')) ||
         (frontendType === 'Web' ? t.additionalCategories?.includes('Frontend') : t.additionalCategories?.includes('Mobile'))
     );
     const backendTools = tools.filter(t => t.category === 'Backend' || t.additionalCategories?.includes('Backend'));
@@ -66,7 +66,7 @@ export function CreateStackPage() {
     const handleSplitDeploymentSelect = (type: 'frontend' | 'backend', slug: string | null) => {
         if (type === 'frontend') setSelectedFrontendDeployment(slug);
         if (type === 'backend') setSelectedBackendDeployment(slug);
-        
+
         if (slug) {
             setSelectedFullDeployment(null);
         }
@@ -90,39 +90,39 @@ export function CreateStackPage() {
             hasFilter: true,
             disabled: !!selectedFullStack
         },
-        { 
-            title: 'Backend Framework', 
-            icon: Server, 
-            tools: backendTools, 
-            selected: selectedBackend, 
+        {
+            title: 'Backend Framework',
+            icon: Server,
+            tools: backendTools,
+            selected: selectedBackend,
             setSelected: setSelectedBackend,
             disabled: !!selectedFullStack
         },
         { title: 'Database', icon: Database, tools: databaseTools, selected: selectedDatabase, setSelected: setSelectedDatabase },
         { title: 'Architecture', icon: Box, tools: architectureTools, selected: selectedArchitecture, setSelected: setSelectedArchitecture },
-        
+
         // Deployment Sections
-        { 
-            title: 'Full Stack Deployment', 
-            icon: Layers, 
-            tools: fullDeploymentTools, 
-            selected: selectedFullDeployment, 
+        {
+            title: 'Full Stack Deployment',
+            icon: Layers,
+            tools: fullDeploymentTools,
+            selected: selectedFullDeployment,
             setSelected: handleFullDeploymentSelect,
             disabled: !!(selectedFrontendDeployment || selectedBackendDeployment)
         },
-        { 
-            title: 'Frontend Deployment', 
-            icon: Globe, 
-            tools: frontendDeploymentTools, 
-            selected: selectedFrontendDeployment, 
+        {
+            title: 'Frontend Deployment',
+            icon: Globe,
+            tools: frontendDeploymentTools,
+            selected: selectedFrontendDeployment,
             setSelected: (slug: string | null) => handleSplitDeploymentSelect('frontend', slug),
             disabled: !!selectedFullDeployment
         },
-        { 
-            title: 'Backend Deployment', 
-            icon: Server, 
-            tools: backendDeploymentTools, 
-            selected: selectedBackendDeployment, 
+        {
+            title: 'Backend Deployment',
+            icon: Server,
+            tools: backendDeploymentTools,
+            selected: selectedBackendDeployment,
             setSelected: (slug: string | null) => handleSplitDeploymentSelect('backend', slug),
             disabled: !!selectedFullDeployment
         },
@@ -139,8 +139,8 @@ export function CreateStackPage() {
     const handleGeneratePlan = async () => {
         setIsGenerating(true);
         try {
-            // Call backend API
-            const response = await fetch('/api/generateStackPlan', {
+            const apiUrl = import.meta.env.VITE_API_URL || '';
+            const response = await fetch(`${apiUrl}/api/generateStackPlan`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -207,7 +207,7 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 text-left max-w-2xl mx-auto">
                             {[
-                                ...(selectedFullStack 
+                                ...(selectedFullStack
                                     ? [{ label: 'Full Stack', value: selectedFullStack }]
                                     : [
                                         { label: 'Frontend', value: selectedFrontend },
@@ -216,7 +216,7 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                                 ),
                                 { label: 'Database', value: selectedDatabase },
                                 { label: 'Architecture', value: selectedArchitecture },
-                                ...(selectedFullDeployment 
+                                ...(selectedFullDeployment
                                     ? [{ label: 'Deployment', value: selectedFullDeployment }]
                                     : [
                                         { label: 'Frontend Deploy', value: selectedFrontendDeployment },
@@ -234,13 +234,13 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                                 );
                             })}
                         </div>
-                        
+
                         {/* generatedPlan section remains similar, just closed properly */}
                         {generatedPlan ? (
-                           (() => {
+                            (() => {
                                 const section2Header = "# Section 2: AI Scaffolding Plan (Copy & Paste this to your AI Assistant)";
                                 const parts = generatedPlan.split(section2Header);
-                                
+
                                 // If split was successful, we have at least 2 parts (part[0] is before section 2)
                                 if (parts.length > 1) {
                                     const section1Header = "# Section 1: Prerequisites & Preparation (For the User)";
@@ -294,7 +294,7 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                                                         </button>
                                                         <button onClick={() => setGeneratedPlan(null)} className="p-2 text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
                                                             <span className="sr-only">Close</span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x w-5 h-5"><path d="M18 6 6 18"/><path d="m6 6 18 12"/></svg>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x w-5 h-5"><path d="M18 6 6 18" /><path d="m6 6 18 12" /></svg>
                                                         </button>
                                                     </div>
                                                 </div>
