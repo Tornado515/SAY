@@ -31,7 +31,8 @@ export function PromptTester() {
     setResult(null);
 
     try {
-      const response = await fetch('http://localhost:3001/api/auditPrompt', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      const response = await fetch(`${apiUrl}/api/auditPrompt`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
