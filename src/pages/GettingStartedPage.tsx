@@ -123,22 +123,22 @@ export function GettingStartedPage() {
 
                     <div className="grid gap-4">
                         {/* Web Path */}
-                        <div className="bg-neutral-900 border border-white/5 rounded-xl p-5">
-                            <h4 className="font-semibold text-white mb-3 flex items-center gap-2">
+                        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/5 rounded-xl p-5">
+                            <h4 className="font-semibold text-neutral-900 dark:text-white mb-3 flex items-center gap-2">
                                 <Code2 className="w-4 h-4 text-emerald-400" /> {t('gettingStarted.steps.init.web.title')}
                             </h4>
-                            <p className="text-sm text-neutral-400 mb-4">
+                            <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
                                 {t('gettingStarted.steps.init.web.description')}
                             </p>
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                                <Link to="/tool/react" className="bg-black/50 border border-white/10 rounded px-3 py-2 text-sm text-neutral-300 hover:text-white hover:border-emerald-500/50 transition-colors text-center">React</Link>
-                                <Link to="/tool/vue" className="bg-black/50 border border-white/10 rounded px-3 py-2 text-sm text-neutral-300 hover:text-white hover:border-emerald-500/50 transition-colors text-center">Vue</Link>
-                                <Link to="/tool/nextjs" className="bg-black/50 border border-white/10 rounded px-3 py-2 text-sm text-neutral-300 hover:text-white hover:border-emerald-500/50 transition-colors text-center">Next.js</Link>
+                                <Link to="/tool/react" className="bg-white dark:bg-black/50 border border-neutral-200 dark:border-white/10 rounded px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:border-emerald-500/50 transition-colors text-center">React</Link>
+                                <Link to="/tool/vue" className="bg-white dark:bg-black/50 border border-neutral-200 dark:border-white/10 rounded px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:border-emerald-500/50 transition-colors text-center">Vue</Link>
+                                <Link to="/tool/nextjs" className="bg-white dark:bg-black/50 border border-neutral-200 dark:border-white/10 rounded px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:border-emerald-500/50 transition-colors text-center">Next.js</Link>
                             </div>
                         </div>
 
                         {/* Mobile Path */}
-                        <div className="bg-neutral-900 border border-white/5 rounded-xl p-5">
+                        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/5 rounded-xl p-5">
                             <h4 className="font-semibold text-neutral-900 dark:text-white mb-3 flex items-center gap-2">
                                 <Smartphone className="w-4 h-4 text-emerald-400" /> {t('gettingStarted.steps.init.mobile.title')}
                             </h4>
@@ -146,25 +146,25 @@ export function GettingStartedPage() {
                                 {t('gettingStarted.steps.init.mobile.description')}
                             </p>
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                                <Link to="/tool/react-native" className="bg-black/50 border border-white/10 rounded px-3 py-2 text-sm text-neutral-300 hover:text-white hover:border-emerald-500/50 transition-colors text-center">React Native</Link>
-                                <Link to="/tool/expo" className="bg-black/50 border border-white/10 rounded px-3 py-2 text-sm text-neutral-300 hover:text-white hover:border-emerald-500/50 transition-colors text-center">Expo</Link>
-                                <Link to="/tool/flutter" className="bg-black/50 border border-white/10 rounded px-3 py-2 text-sm text-neutral-300 hover:text-white hover:border-emerald-500/50 transition-colors text-center">Flutter</Link>
+                                <Link to="/tool/react-native" className="bg-white dark:bg-black/50 border border-neutral-200 dark:border-white/10 rounded px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:border-emerald-500/50 transition-colors text-center">React Native</Link>
+                                <Link to="/tool/expo" className="bg-white dark:bg-black/50 border border-neutral-200 dark:border-white/10 rounded px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:border-emerald-500/50 transition-colors text-center">Expo</Link>
+                                <Link to="/tool/flutter" className="bg-white dark:bg-black/50 border border-neutral-200 dark:border-white/10 rounded px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:border-emerald-500/50 transition-colors text-center">Flutter</Link>
                             </div>
                         </div>
 
                         {/* Backend Path */}
-                        <div className="bg-neutral-900 border border-white/5 rounded-xl p-5">
-                            <h4 className="font-semibold text-white mb-3 flex items-center gap-2">
+                        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/5 rounded-xl p-5">
+                            <h4 className="font-semibold text-neutral-900 dark:text-white mb-3 flex items-center gap-2">
                                 <Database className="w-4 h-4 text-emerald-400" /> {t('gettingStarted.steps.init.backend.title')}
                             </h4>
-                            <p className="text-sm text-neutral-400 mb-4">
+                            <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
                                 {t('gettingStarted.steps.init.backend.description')}
                             </p>
                             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                                <Link to="/tool/nodejs" className="bg-black/50 border border-white/10 rounded px-3 py-2 text-sm text-neutral-300 hover:text-white hover:border-emerald-500/50 transition-colors text-center">Node.js</Link>
-                                <Link to="/tool/python" className="bg-black/50 border border-white/10 rounded px-3 py-2 text-sm text-neutral-300 hover:text-white hover:border-emerald-500/50 transition-colors text-center">Python</Link>
-                                <Link to="/tool/postgresql" className="bg-black/50 border border-white/10 rounded px-3 py-2 text-sm text-neutral-300 hover:text-white hover:border-emerald-500/50 transition-colors text-center">PostgreSQL</Link>
-                                <Link to="/tool/firebase" className="bg-black/50 border border-white/10 rounded px-3 py-2 text-sm text-neutral-300 hover:text-white hover:border-emerald-500/50 transition-colors text-center">Firebase</Link>
+                                <Link to="/tool/nodejs" className="bg-white dark:bg-black/50 border border-neutral-200 dark:border-white/10 rounded px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:border-emerald-500/50 transition-colors text-center">Node.js</Link>
+                                <Link to="/tool/python" className="bg-white dark:bg-black/50 border border-neutral-200 dark:border-white/10 rounded px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:border-emerald-500/50 transition-colors text-center">Python</Link>
+                                <Link to="/tool/postgresql" className="bg-white dark:bg-black/50 border border-neutral-200 dark:border-white/10 rounded px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:border-emerald-500/50 transition-colors text-center">PostgreSQL</Link>
+                                <Link to="/tool/firebase" className="bg-white dark:bg-black/50 border border-neutral-200 dark:border-white/10 rounded px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:border-emerald-500/50 transition-colors text-center">Firebase</Link>
                             </div>
                         </div>
                     </div>
@@ -196,8 +196,8 @@ export function GettingStartedPage() {
                         </Link>
                     </div>
 
-                    <div className="bg-black/30 rounded-lg p-4 font-mono text-sm text-neutral-300 space-y-2 border border-white/5">
-                        <p className="text-xs text-neutral-500 mb-2 border-b border-white/10 pb-2">{t('gettingStarted.steps.versionControl.commands_title')}</p>
+                    <div className="bg-white dark:bg-black/30 rounded-lg p-4 font-mono text-sm text-neutral-700 dark:text-neutral-300 space-y-2 border border-neutral-200 dark:border-white/5" dir="ltr">
+                        <p className="text-xs text-neutral-500 mb-2 border-b border-neutral-200 dark:border-white/10 pb-2">{t('gettingStarted.steps.versionControl.commands_title')}</p>
                         <p><span className="text-orange-400">git</span> init</p>
                         <p><span className="text-orange-400">git</span> add .</p>
                         <p><span className="text-orange-400">git</span> commit -m "Initial commit"</p>
@@ -255,7 +255,7 @@ export function GettingStartedPage() {
                         <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
                             {t('gettingStarted.subtitle')}
                         </p>
-                        </p>
+
                     </div>
                 </div>
 
@@ -267,11 +267,11 @@ export function GettingStartedPage() {
                                     <div key={index} className="relative pl-8 sm:pl-12 rtl:pl-0 rtl:pr-8 sm:rtl:pr-12 group">
                                         {/* Vertical Line */}
                                         {index !== steps.length - 1 && (
-                                        <div className="absolute left-[11px] sm:left-[19px] rtl:left-auto rtl:right-[11px] sm:rtl:right-[19px] top-10 bottom-[-48px] w-0.5 bg-neutral-200 dark:bg-neutral-800 group-last:hidden" />
-                                )}
+                                            <div className="absolute left-[11px] sm:left-[19px] rtl:left-auto rtl:right-[11px] sm:rtl:right-[19px] top-10 bottom-[-48px] w-0.5 bg-neutral-200 dark:bg-neutral-800 group-last:hidden" />
+                                        )}
 
-                                {/* Icon Bubble */}
-                                <div className="absolute left-0 sm:left-2 rtl:left-auto rtl:right-0 sm:rtl:right-2 top-0 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-full p-1.5 sm:p-2 z-10 shadow-lg dark:shadow-xl">
+                                        {/* Icon Bubble */}
+                                        <div className="absolute left-0 sm:left-2 rtl:left-auto rtl:right-0 sm:rtl:right-2 top-0 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-full p-1.5 sm:p-2 z-10 shadow-lg dark:shadow-xl">
                                             {step.icon}
                                         </div>
 

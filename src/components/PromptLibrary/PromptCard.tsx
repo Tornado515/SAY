@@ -23,35 +23,35 @@ export function PromptCard({ prompt, type }: PromptCardProps) {
   const reqPrompt = prompt as RequirementPromptEntry;
 
   return (
-    <div className="bg-neutral-900 border border-white/10 rounded-xl p-6 hover:border-indigo-500/50 transition-colors group relative flex flex-col h-full">
+    <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 rounded-xl p-6 hover:border-indigo-500/50 transition-colors group relative flex flex-col h-full shadow-sm dark:shadow-none">
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-2">
           <div className={`p-2 rounded-lg ${isCoding ? 'bg-indigo-500/10 text-indigo-400' : 'bg-purple-500/10 text-purple-400'}`}>
             {isCoding ? <Terminal size={18} /> : <FileText size={18} />}
           </div>
           <div>
-            <h3 className="text-white font-medium text-sm">
+            <h3 className="text-neutral-900 dark:text-white font-medium text-sm">
               {isCoding ? codingPrompt.subCategory : reqPrompt.type}
             </h3>
-            <p className="text-neutral-400 text-xs">
+            <p className="text-neutral-600 dark:text-neutral-400 text-xs">
               {prompt.domain}
             </p>
           </div>
         </div>
         <button
           onClick={handleCopy}
-          className="text-neutral-500 hover:text-white transition-colors p-2 rounded-md hover:bg-white/5"
+          className="text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors p-2 rounded-md hover:bg-neutral-100 dark:hover:bg-white/5"
           title={t('promptLibraryPage.card.copy', { defaultValue: 'Copy to clipboard' })}
         >
           {copied ? <Check size={16} className="text-green-500" /> : <Copy size={16} />}
         </button>
       </div>
 
-      <div className="flex-grow bg-black/30 rounded-lg p-4 mb-4 overflow-hidden relative">
-        <pre className="text-neutral-300 text-sm font-mono whitespace-pre-wrap break-words line-clamp-[10]" dir="ltr">
+      <div className="flex-grow bg-neutral-50 dark:bg-black/30 rounded-lg p-4 mb-4 overflow-hidden relative">
+        <pre className="text-neutral-700 dark:text-neutral-300 text-sm font-mono whitespace-pre-wrap break-words line-clamp-[10]" dir="ltr">
           {prompt.prompt}
         </pre>
-        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-neutral-50 dark:from-black/30 to-transparent pointer-events-none" />
       </div>
 
       <div className="flex flex-wrap gap-2 mt-auto">

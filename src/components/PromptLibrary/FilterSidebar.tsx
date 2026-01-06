@@ -49,17 +49,17 @@ export function FilterSidebar({ filters, setFilters, activeTab, isOpen, onClose 
       )}
 
       <aside className={`
-        fixed inset-y-0 left-0 z-50 w-64 bg-neutral-900 border-r border-white/10 p-6 transform transition-transform duration-200 ease-in-out
+        fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-neutral-900 border-r border-neutral-200 dark:border-white/10 p-6 transform transition-transform duration-200 ease-in-out
         lg:sticky lg:top-16 ${heightClass} lg:bottom-auto lg:overflow-y-auto
         ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         rtl:lg:left-auto rtl:lg:right-0 rtl:right-auto rtl:left-0 rtl:${isOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'}
       `}>
         <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-2 text-white font-semibold">
+          <div className="flex items-center gap-2 text-neutral-900 dark:text-white font-semibold">
             <Filter size={20} />
             <span>{t('promptLibraryPage.filters.title', { defaultValue: 'Filters' })}</span>
           </div>
-          <button onClick={onClose} className="lg:hidden text-neutral-400 hover:text-white">
+          <button onClick={onClose} className="lg:hidden text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white">
             <X size={20} />
           </button>
         </div>
@@ -67,11 +67,11 @@ export function FilterSidebar({ filters, setFilters, activeTab, isOpen, onClose 
         <div className="space-y-6">
           {/* Domain Filter */}
           <div className="space-y-2">
-            <label className="text-xs font-medium text-neutral-400 uppercase tracking-wider">{t('promptLibraryPage.filters.domain', { defaultValue: 'Domain' })}</label>
+            <label className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">{t('promptLibraryPage.filters.domain', { defaultValue: 'Domain' })}</label>
             <select
               value={filters.domain}
               onChange={(e) => handleChange('domain', e.target.value)}
-              className="w-full bg-neutral-800 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
+              className="w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-white/10 rounded-lg px-3 py-2 text-sm text-neutral-900 dark:text-white focus:outline-none focus:border-indigo-500"
             >
               <option value="">{t('promptLibraryPage.filters.allDomains', { defaultValue: 'All Domains' })}</option>
               {PROJECT_DOMAINS.map(domain => (
@@ -84,11 +84,11 @@ export function FilterSidebar({ filters, setFilters, activeTab, isOpen, onClose 
             <>
               {/* Tech Stack Filter */}
               <div className="space-y-2">
-                <label className="text-xs font-medium text-neutral-400 uppercase tracking-wider">{t('promptLibraryPage.filters.techStack', { defaultValue: 'Tech Stack' })}</label>
+                <label className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">{t('promptLibraryPage.filters.techStack', { defaultValue: 'Tech Stack' })}</label>
                 <select
                   value={filters.techStack}
                   onChange={(e) => handleChange('techStack', e.target.value)}
-                  className="w-full bg-neutral-800 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-white/10 rounded-lg px-3 py-2 text-sm text-neutral-900 dark:text-white focus:outline-none focus:border-indigo-500"
                 >
                   <option value="">{t('promptLibraryPage.filters.allTechStacks', { defaultValue: 'All Tech Stacks' })}</option>
                   {allTechStacks.map(tech => (
@@ -99,11 +99,11 @@ export function FilterSidebar({ filters, setFilters, activeTab, isOpen, onClose 
 
               {/* Vibe Filter */}
               <div className="space-y-2">
-                <label className="text-xs font-medium text-neutral-400 uppercase tracking-wider">{t('promptLibraryPage.filters.vibe', { defaultValue: 'Vibe' })}</label>
+                <label className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">{t('promptLibraryPage.filters.vibe', { defaultValue: 'Vibe' })}</label>
                 <select
                   value={filters.vibe}
                   onChange={(e) => handleChange('vibe', e.target.value)}
-                  className="w-full bg-neutral-800 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-white/10 rounded-lg px-3 py-2 text-sm text-neutral-900 dark:text-white focus:outline-none focus:border-indigo-500"
                 >
                   <option value="">{t('promptLibraryPage.filters.allVibes', { defaultValue: 'All Vibes' })}</option>
                   {VIBE_PERSONAS.map(vibe => (
@@ -118,11 +118,11 @@ export function FilterSidebar({ filters, setFilters, activeTab, isOpen, onClose 
             <>
               {/* Type Filter */}
               <div className="space-y-2">
-                <label className="text-xs font-medium text-neutral-400 uppercase tracking-wider">{t('promptLibraryPage.filters.type', { defaultValue: 'Type' })}</label>
+                <label className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">{t('promptLibraryPage.filters.type', { defaultValue: 'Type' })}</label>
                 <select
                   value={filters.category} // Reusing category for Type
                   onChange={(e) => handleChange('category', e.target.value)}
-                  className="w-full bg-neutral-800 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-white/10 rounded-lg px-3 py-2 text-sm text-neutral-900 dark:text-white focus:outline-none focus:border-indigo-500"
                 >
                   <option value="">{t('promptLibraryPage.filters.allTypes', { defaultValue: 'All Types' })}</option>
                   {REQ_TYPES.map(type => (
@@ -135,7 +135,7 @@ export function FilterSidebar({ filters, setFilters, activeTab, isOpen, onClose 
 
           <button
             onClick={() => setFilters({ domain: '', category: '', techStack: '', vibe: '' })}
-            className="w-full py-2 text-sm text-neutral-400 hover:text-white border border-white/10 rounded-lg hover:bg-white/5 transition-colors"
+            className="w-full py-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white border border-neutral-200 dark:border-white/10 rounded-lg hover:bg-neutral-100 dark:hover:bg-white/5 transition-colors"
           >
             {t('promptLibraryPage.filters.reset', { defaultValue: 'Reset Filters' })}
           </button>

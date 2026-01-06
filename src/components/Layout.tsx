@@ -65,7 +65,7 @@ export function Layout({ children }: LayoutProps) {
                         <nav className="hidden lg:flex items-center gap-6">
                             <Link
                                 to="/"
-                                className={`text-sm font-medium transition-colors hover:text-white ${location.pathname === '/' ? 'text-white' : 'text-neutral-400'
+                                className={`text-sm font-medium transition-colors hover:text-neutral-900 dark:hover:text-white ${location.pathname === '/' ? 'text-neutral-900 dark:text-white' : 'text-neutral-500 dark:text-neutral-400'
                                     }`}
                             >
                                 {t('nav.home')}
@@ -73,7 +73,7 @@ export function Layout({ children }: LayoutProps) {
 
                             <Link
                                 to="/getting-started"
-                                className={`text-sm font-medium transition-colors hover:text-white ${location.pathname === '/getting-started' ? 'text-white' : 'text-neutral-400'
+                                className={`text-sm font-medium transition-colors hover:text-neutral-900 dark:hover:text-white ${location.pathname === '/getting-started' ? 'text-neutral-900 dark:text-white' : 'text-neutral-500 dark:text-neutral-400'
                                     }`}
                             >
                                 {t('nav.gettingStarted')}
@@ -81,7 +81,7 @@ export function Layout({ children }: LayoutProps) {
 
                             <Link
                                 to="/tech-stacks"
-                                className={`text-sm font-medium transition-colors hover:text-white ${location.pathname.startsWith('/tech-stacks') ? 'text-white' : 'text-neutral-400'
+                                className={`text-sm font-medium transition-colors hover:text-neutral-900 dark:hover:text-white ${location.pathname.startsWith('/tech-stacks') ? 'text-neutral-900 dark:text-white' : 'text-neutral-500 dark:text-neutral-400'
                                     }`}
                             >
                                 {t('nav.techStacks')}
@@ -89,7 +89,7 @@ export function Layout({ children }: LayoutProps) {
 
                             <Link
                                 to="/how-to-vibe-code"
-                                className={`text-sm font-medium transition-colors hover:text-white ${location.pathname === '/how-to-vibe-code' ? 'text-white' : 'text-neutral-400'
+                                className={`text-sm font-medium transition-colors hover:text-neutral-900 dark:hover:text-white ${location.pathname === '/how-to-vibe-code' ? 'text-neutral-900 dark:text-white' : 'text-neutral-500 dark:text-neutral-400'
                                     }`}
                             >
                                 {t('nav.vibeCoding')}
@@ -97,7 +97,7 @@ export function Layout({ children }: LayoutProps) {
 
                             <Link
                                 to="/prompt-library"
-                                className={`text-sm font-medium transition-colors hover:text-white ${location.pathname === '/prompt-library' ? 'text-white' : 'text-neutral-400'
+                                className={`text-sm font-medium transition-colors hover:text-neutral-900 dark:hover:text-white ${location.pathname === '/prompt-library' ? 'text-neutral-900 dark:text-white' : 'text-neutral-500 dark:text-neutral-400'
                                     }`}
                             >
                                 {t('nav.promptLibrary')}
@@ -107,7 +107,7 @@ export function Layout({ children }: LayoutProps) {
                             <div className="relative group h-16 flex items-center">
                                 <Link
                                     to="/tools"
-                                    className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-white group-hover:text-white focus:outline-none ${location.pathname.startsWith('/tool') || location.pathname === '/tools' || location.pathname.startsWith('/category') ? 'text-white' : 'text-neutral-400'
+                                    className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-neutral-900 dark:hover:text-white group-hover:text-neutral-900 dark:group-hover:text-white focus:outline-none ${location.pathname.startsWith('/tool') || location.pathname === '/tools' || location.pathname.startsWith('/category') ? 'text-neutral-900 dark:text-white' : 'text-neutral-500 dark:text-neutral-400'
                                         }`}
                                 >
                                     {t('nav.tools')}
@@ -148,9 +148,9 @@ export function Layout({ children }: LayoutProps) {
                                         ))}
                                     </div>
                                 </div>
-                            </div>
-                        </nav>
-                    </div>
+                            </div >
+                        </nav >
+                    </div >
 
                     <div className="flex items-center gap-4">
                         <ThemeToggle />
@@ -166,7 +166,7 @@ export function Layout({ children }: LayoutProps) {
 
                         <button
                             onClick={toggleLanguage}
-                            className="hidden sm:flex text-sm font-medium text-neutral-400 transition-colors hover:text-white gap-2 items-center"
+                            className="hidden sm:flex text-sm font-medium text-neutral-600 dark:text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-white gap-2 items-center"
                         >
                             <Globe className="h-5 w-5" />
                             <span>{t('nav.language')}</span>
@@ -181,135 +181,137 @@ export function Layout({ children }: LayoutProps) {
                             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                         </button>
                     </div>
-                </div>
-            </header>
+                </div >
+            </header >
 
             {/* Mobile Menu Overlay */}
-            {isMenuOpen && (
-                <div className="lg:hidden fixed inset-0 z-40 bg-neutral-950/95 backdrop-blur-3xl pt-20 px-6 overflow-y-auto">
-                    <nav className="flex flex-col gap-6 text-lg pb-10">
-                        <Link
-                            to="/"
-                            onClick={closeMenu}
-                            className={`font-medium transition-colors hover:text-white ${location.pathname === '/' ? 'text-white' : 'text-neutral-400'
-                                }`}
-                        >
-                            {t('nav.home')}
-                        </Link>
+            {
+                isMenuOpen && (
+                    <div className="lg:hidden fixed inset-0 z-40 bg-neutral-950/95 backdrop-blur-3xl pt-20 px-6 overflow-y-auto">
+                        <nav className="flex flex-col gap-6 text-lg pb-10">
+                            <Link
+                                to="/"
+                                onClick={closeMenu}
+                                className={`font-medium transition-colors hover:text-white ${location.pathname === '/' ? 'text-white' : 'text-neutral-400'
+                                    }`}
+                            >
+                                {t('nav.home')}
+                            </Link>
 
-                        <Link
-                            to="/getting-started"
-                            onClick={closeMenu}
-                            className={`font-medium transition-colors hover:text-white ${location.pathname === '/getting-started' ? 'text-white' : 'text-neutral-400'
-                                }`}
-                        >
-                            {t('nav.gettingStarted')}
-                        </Link>
+                            <Link
+                                to="/getting-started"
+                                onClick={closeMenu}
+                                className={`font-medium transition-colors hover:text-white ${location.pathname === '/getting-started' ? 'text-white' : 'text-neutral-400'
+                                    }`}
+                            >
+                                {t('nav.gettingStarted')}
+                            </Link>
 
-                        <Link
-                            to="/tech-stacks"
-                            onClick={closeMenu}
-                            className={`font-medium transition-colors hover:text-white ${location.pathname.startsWith('/tech-stacks') ? 'text-white' : 'text-neutral-400'
-                                }`}
-                        >
-                            {t('nav.techStacks')}
-                        </Link>
+                            <Link
+                                to="/tech-stacks"
+                                onClick={closeMenu}
+                                className={`font-medium transition-colors hover:text-white ${location.pathname.startsWith('/tech-stacks') ? 'text-white' : 'text-neutral-400'
+                                    }`}
+                            >
+                                {t('nav.techStacks')}
+                            </Link>
 
-                        <Link
-                            to="/how-to-vibe-code"
-                            onClick={closeMenu}
-                            className={`font-medium transition-colors hover:text-white ${location.pathname === '/how-to-vibe-code' ? 'text-white' : 'text-neutral-400'
-                                }`}
-                        >
-                            {t('nav.vibeCoding')}
-                        </Link>
+                            <Link
+                                to="/how-to-vibe-code"
+                                onClick={closeMenu}
+                                className={`font-medium transition-colors hover:text-white ${location.pathname === '/how-to-vibe-code' ? 'text-white' : 'text-neutral-400'
+                                    }`}
+                            >
+                                {t('nav.vibeCoding')}
+                            </Link>
 
-                        <Link
-                            to="/prompt-library"
-                            onClick={closeMenu}
-                            className={`font-medium transition-colors hover:text-white ${location.pathname === '/prompt-library' ? 'text-white' : 'text-neutral-400'
-                                }`}
-                        >
-                            {t('nav.promptLibrary')}
-                        </Link>
+                            <Link
+                                to="/prompt-library"
+                                onClick={closeMenu}
+                                className={`font-medium transition-colors hover:text-white ${location.pathname === '/prompt-library' ? 'text-white' : 'text-neutral-400'
+                                    }`}
+                            >
+                                {t('nav.promptLibrary')}
+                            </Link>
 
-                        <div className="space-y-3">
-                            <div className="flex items-center justify-between pb-2 cursor-pointer" onClick={() => setIsMobileCategoriesOpen(!isMobileCategoriesOpen)}>
-                                <Link
-                                    to="/tools"
-                                    onClick={closeMenu}
-                                    className={`font-medium flex-grow ${location.pathname.startsWith('/tool') || location.pathname === '/tools' || location.pathname.startsWith('/category') ? 'text-white' : 'text-neutral-400'}`}
-                                >
-                                    {t('nav.tools')}
-                                </Link>
-                                <button
-                                    onClick={toggleMobileCategories}
-                                    className="p-2 -mr-2 text-neutral-400"
-                                >
-                                    {isMobileCategoriesOpen ? <ChevronDown className="w-5 h-5" /> : <ChevronRight className="w-5 h-5" />}
-                                </button>
-                            </div>
-
-                            {isMobileCategoriesOpen && (
-                                <div className="pl-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
-                                    <Link
-                                        to="/categories"
-                                        onClick={closeMenu}
-                                        className="block text-base text-indigo-400 hover:text-indigo-300"
-                                    >
-                                        {t('nav.viewAllCategories')}
-                                    </Link>
+                            <div className="space-y-3">
+                                <div className="flex items-center justify-between pb-2 cursor-pointer" onClick={() => setIsMobileCategoriesOpen(!isMobileCategoriesOpen)}>
                                     <Link
                                         to="/tools"
                                         onClick={closeMenu}
-                                        className="block text-base text-white hover:text-indigo-300"
+                                        className={`font-medium flex-grow ${location.pathname.startsWith('/tool') || location.pathname === '/tools' || location.pathname.startsWith('/category') ? 'text-white' : 'text-neutral-400'}`}
                                     >
-                                        {t('nav.browseAllTools')}
+                                        {t('nav.tools')}
                                     </Link>
-                                    <Link
-                                        to="/compare"
-                                        onClick={closeMenu}
-                                        className="block text-base text-white hover:text-indigo-300"
+                                    <button
+                                        onClick={toggleMobileCategories}
+                                        className="p-2 -mr-2 text-neutral-400"
                                     >
-                                        {t('nav.compareTools')}
-                                    </Link>
-                                    <div className="pt-2 pb-1 border-t border-white/5">
-                                        <span className="text-xs font-medium text-neutral-500 uppercase">Categories</span>
-                                    </div>
-                                    {categories.map((link) => (
-                                        <Link
-                                            key={link.name}
-                                            to={link.path}
-                                            onClick={closeMenu}
-                                            className={`block text-base transition-colors hover:text-white ${location.pathname === link.path ? 'text-white' : 'text-neutral-400'
-                                                }`}
-                                        >
-                                            {link.name}
-                                        </Link>
-                                    ))}
+                                        {isMobileCategoriesOpen ? <ChevronDown className="w-5 h-5" /> : <ChevronRight className="w-5 h-5" />}
+                                    </button>
                                 </div>
-                            )}
-                        </div>
 
-                        <a
-                            href="https://github.com/Tornado515/SAY"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="flex items-center gap-2 text-neutral-400 hover:text-white font-medium mt-4 pt-4 border-t border-white/10"
-                        >
-                            <Github className="h-5 w-5" />
-                            {t('nav.github')}
-                        </a>
-                        <button
-                            onClick={toggleLanguage}
-                            className="flex items-center gap-2 text-neutral-400 hover:text-white font-medium mt-4 pt-4 border-t border-white/10 w-full"
-                        >
-                            <Globe className="h-5 w-5" />
-                            {t('nav.language')}
-                        </button>
-                    </nav>
-                </div>
-            )}
+                                {isMobileCategoriesOpen && (
+                                    <div className="pl-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
+                                        <Link
+                                            to="/categories"
+                                            onClick={closeMenu}
+                                            className="block text-base text-indigo-400 hover:text-indigo-300"
+                                        >
+                                            {t('nav.viewAllCategories')}
+                                        </Link>
+                                        <Link
+                                            to="/tools"
+                                            onClick={closeMenu}
+                                            className="block text-base text-white hover:text-indigo-300"
+                                        >
+                                            {t('nav.browseAllTools')}
+                                        </Link>
+                                        <Link
+                                            to="/compare"
+                                            onClick={closeMenu}
+                                            className="block text-base text-white hover:text-indigo-300"
+                                        >
+                                            {t('nav.compareTools')}
+                                        </Link>
+                                        <div className="pt-2 pb-1 border-t border-white/5">
+                                            <span className="text-xs font-medium text-neutral-500 uppercase">Categories</span>
+                                        </div>
+                                        {categories.map((link) => (
+                                            <Link
+                                                key={link.name}
+                                                to={link.path}
+                                                onClick={closeMenu}
+                                                className={`block text-base transition-colors hover:text-white ${location.pathname === link.path ? 'text-white' : 'text-neutral-400'
+                                                    }`}
+                                            >
+                                                {link.name}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
+                            <a
+                                href="https://github.com/Tornado515/SAY"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="flex items-center gap-2 text-neutral-400 hover:text-white font-medium mt-4 pt-4 border-t border-white/10"
+                            >
+                                <Github className="h-5 w-5" />
+                                {t('nav.github')}
+                            </a>
+                            <button
+                                onClick={toggleLanguage}
+                                className="flex items-center gap-2 text-neutral-400 hover:text-white font-medium mt-4 pt-4 border-t border-white/10 w-full"
+                            >
+                                <Globe className="h-5 w-5" />
+                                {t('nav.language')}
+                            </button>
+                        </nav>
+                    </div>
+                )
+            }
 
             <main className="flex-grow">
                 {children}
@@ -325,6 +327,6 @@ export function Layout({ children }: LayoutProps) {
                     <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
                 </div>
             </footer>
-        </div>
+        </div >
     );
 }

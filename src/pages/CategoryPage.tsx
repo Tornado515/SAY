@@ -57,7 +57,7 @@ export function CategoryPage() {
                             <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl">
                                 {t(`categories.${categoryInfo.slug}.description`, { defaultValue: categoryInfo.description })}
                             </p>
-                            </p>
+
                         </motion.div>
                     </div>
 

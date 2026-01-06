@@ -51,7 +51,7 @@ export function Dashboard() {
   }, [library, activeTab, filters, searchQuery]);
 
   return (
-    <div className="flex min-h-[calc(100vh-64px)] bg-neutral-950">
+    <div className="flex min-h-[calc(100vh-64px)] bg-neutral-50 dark:bg-neutral-950">
       <FilterSidebar
         filters={filters}
         setFilters={setFilters}
@@ -62,17 +62,17 @@ export function Dashboard() {
 
       <main className="flex-1 flex flex-col min-w-0">
         {/* Header */}
-        <header className="border-b border-white/10 bg-neutral-900/50 backdrop-blur-xl sticky top-0 z-30">
+        <header className="border-b border-neutral-200 dark:border-white/10 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-xl sticky top-0 z-30">
           <div className="px-6 py-4">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => setIsSidebarOpen(true)}
-                  className="lg:hidden text-neutral-400 hover:text-white"
+                  className="lg:hidden text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
                 >
                   <Menu size={24} />
                 </button>
-                <h1 className="text-2xl font-bold text-white">{t('promptLibraryPage.title', { defaultValue: 'Prompt Library' })}</h1>
+                <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">{t('promptLibraryPage.title', { defaultValue: 'Prompt Library' })}</h1>
               </div>
               <div className="relative w-full max-w-md hidden md:block">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 rtl:right-3 rtl:left-auto" size={18} />
@@ -81,15 +81,15 @@ export function Dashboard() {
                   placeholder={t('promptLibraryPage.searchPlaceholder', { defaultValue: 'Search prompts...' })}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-neutral-800 border border-white/10 rounded-lg pl-10 pr-4 py-2 text-sm text-white focus:outline-none focus:border-indigo-500 rtl:pr-10 rtl:pl-4"
+                  className="w-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-white/10 rounded-lg pl-10 pr-4 py-2 text-sm text-neutral-900 dark:text-white focus:outline-none focus:border-indigo-500 rtl:pr-10 rtl:pl-4"
                 />
               </div>
             </div>
 
-            <div className="flex gap-6 border-b border-white/10">
+            <div className="flex gap-6 border-b border-neutral-200 dark:border-white/10">
               <button
                 onClick={() => setActiveTab('coding')}
-                className={`pb-3 text-sm font-medium transition-colors relative ${activeTab === 'coding' ? 'text-indigo-400' : 'text-neutral-400 hover:text-white'
+                className={`pb-3 text-sm font-medium transition-colors relative ${activeTab === 'coding' ? 'text-indigo-600 dark:text-indigo-400' : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
                   }`}
               >
                 {t('promptLibraryPage.tabs.coding', { defaultValue: 'Coding Prompts' })}
@@ -99,7 +99,7 @@ export function Dashboard() {
               </button>
               <button
                 onClick={() => setActiveTab('requirements')}
-                className={`pb-3 text-sm font-medium transition-colors relative ${activeTab === 'requirements' ? 'text-indigo-400' : 'text-neutral-400 hover:text-white'
+                className={`pb-3 text-sm font-medium transition-colors relative ${activeTab === 'requirements' ? 'text-indigo-600 dark:text-indigo-400' : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
                   }`}
               >
                 {t('promptLibraryPage.tabs.specs', { defaultValue: 'Project Specs' })}
@@ -113,7 +113,7 @@ export function Dashboard() {
 
         {/* Content */}
         <div className="p-6 overflow-y-auto flex-1">
-          <div className="mb-4 text-neutral-400 text-sm">
+          <div className="mb-4 text-neutral-600 dark:text-neutral-400 text-sm">
             {t('promptLibraryPage.showingResults', { count: filteredPrompts.length, defaultValue: 'Showing {{count}} results' })}
           </div>
 
