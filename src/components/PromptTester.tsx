@@ -31,7 +31,16 @@ export function PromptTester() {
     setResult(null);
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      // In development, use relative path to hit the Vite proxy (which goes to localhost:3001)
+      // In production, use the VITE_API_URL environment variable (must be set in Vercel/CI)
+      const apiUrl = import.meta.env.DEV
+        ? ''
+        : (import.meta.env.VITE_API_URL || '');
+
+      if (!import.meta.env.DEV && !apiUrl) {
+        console.warn("WARNING: VITE_API_URL is missing in production build. Requests may fail.");
+      }
+
       const response = await fetch(`${apiUrl}/api/auditPrompt`, {
         method: 'POST',
         headers: {

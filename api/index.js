@@ -8,7 +8,14 @@ import { fileURLToPath } from 'url';
 const app = express();
 
 // Enable CORS for all routes
-app.use(cors());
+app.use(cors({
+    origin: [
+        'http://localhost:5173',
+        'https://say-toolkit.web.app',
+        'https://say-toolkit.firebaseapp.com'
+    ],
+    credentials: true
+}));
 app.use(express.json());
 
 // Initialize Gemini

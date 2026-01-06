@@ -20,6 +20,17 @@ export function CreateStackPage() {
 
     const [isStackCreated, setIsStackCreated] = useState(false);
     const [frontendType, setFrontendType] = useState<'Web' | 'Mobile'>('Web');
+    const [isCopied, setIsCopied] = useState(false);
+
+    const handleCopy = async (text: string) => {
+        try {
+            await navigator.clipboard.writeText(text);
+            setIsCopied(true);
+            setTimeout(() => setIsCopied(false), 2000);
+        } catch (err) {
+            console.error('Failed to copy:', err);
+        }
+    };
 
     // Tool Filtering considering additionalCategories
     const fullStackTools = tools.filter(t => t.category === 'Full Stack' || t.additionalCategories?.includes('Full Stack'));
@@ -129,6 +140,11 @@ export function CreateStackPage() {
         setIsGenerating(true);
         try {
             const apiUrl = import.meta.env.VITE_API_URL || '';
+
+            if (!import.meta.env.DEV && !apiUrl) {
+                console.warn("WARNING: VITE_API_URL is missing. API calls will default to frontend domain.");
+            }
+
             const response = await fetch(`${apiUrl}/api/generateStackPlan`, {
                 method: 'POST',
                 headers: {
@@ -150,11 +166,17 @@ export function CreateStackPage() {
                 }),
             });
 
-            const data = await response.json();
-
             if (!response.ok) {
-                throw new Error(data.message || 'Failed to generate plan');
+                const text = await response.text();
+                try {
+                    const errorData = JSON.parse(text);
+                    throw new Error(errorData.message || `Server error: ${response.status}`);
+                } catch (e) {
+                    throw new Error(`Server connection failed (${response.status}). Please check network tab.`);
+                }
             }
+
+            const data = await response.json();
 
             setGeneratedPlan(data.plan);
         } catch (error) {
@@ -262,14 +284,23 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                                                     </div>
                                                     <div className="flex items-center gap-2">
                                                         <button
-                                                            onClick={() => {
-                                                                navigator.clipboard.writeText(section2Content);
-                                                                alert("Scaffolding plan copied to clipboard!");
-                                                            }}
-                                                            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition-colors"
+                                                            onClick={() => handleCopy(section2Content)}
+                                                            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${isCopied
+                                                                ? 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
+                                                                : 'bg-indigo-600 hover:bg-indigo-500 text-white'
+                                                                }`}
                                                         >
-                                                            <Layers className="w-4 h-4" />
-                                                            Copy Prompt
+                                                            {isCopied ? (
+                                                                <>
+                                                                    <Check className="w-4 h-4" />
+                                                                    Copied!
+                                                                </>
+                                                            ) : (
+                                                                <>
+                                                                    <Layers className="w-4 h-4" />
+                                                                    Copy Prompt
+                                                                </>
+                                                            )}
                                                         </button>
                                                         <button onClick={() => setGeneratedPlan(null)} className="p-2 text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
                                                             <span className="sr-only">Close</span>
@@ -294,16 +325,14 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                                             <h3 className="text-xl font-bold text-neutral-900 dark:text-white m-0">Implementation Plan</h3>
                                             <div className="flex items-center gap-3">
                                                 <button
-                                                    onClick={() => {
-                                                        navigator.clipboard.writeText(generatedPlan);
-                                                        alert("Full plan copied to clipboard!");
-                                                    }}
-                                                    className="flex items-center gap-2 text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-300 text-sm font-medium transition-colors"
+                                                    onClick={() => handleCopy(generatedPlan)}
+                                                    className={`flex items-center gap-2 text-sm font-medium transition-colors ${isCopied ? 'text-green-400' : 'text-indigo-400 hover:text-indigo-300'
+                                                        }`}
                                                 >
-                                                    <div className="p-1.5 rounded-md bg-indigo-500/10 hover:bg-indigo-500/20">
-                                                        <Layers className="w-4 h-4" />
+                                                    <div className={`p-1.5 rounded-md ${isCopied ? 'bg-green-500/10' : 'bg-indigo-500/10 hover:bg-indigo-500/20'}`}>
+                                                        {isCopied ? <Check className="w-4 h-4" /> : <Layers className="w-4 h-4" />}
                                                     </div>
-                                                    Copy Full Plan
+                                                    {isCopied ? 'Copied!' : 'Copy Full Plan'}
                                                 </button>
                                                 <button onClick={() => setGeneratedPlan(null)} className="text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white text-sm">Close</button>
                                             </div>
