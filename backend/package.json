@@ -2,6 +2,7 @@
     "name": "say",
     "private": true,
     "version": "0.0.0",
+    "type": "module",
     "main": "api/index.js",
     "scripts": {
         "dev": "nodemon api/index.js",
