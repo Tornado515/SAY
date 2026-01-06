@@ -1,6 +1,6 @@
 /**
  * ---------------------------------------------------------------------------
- * PROMPT ENGINE - UNIFIED GENERATOR
+ * PROMPT ENGINE - UNIFIED GENERATOR (FIXED)
  * ---------------------------------------------------------------------------
  * This module generates:
  * 1. A Vibe Coding Dictionary (Thousands of specific coding prompts)
@@ -78,6 +78,37 @@ export const TECH_STACKS = {
     database: ["PostgreSQL", "MongoDB", "Redis", "Cassandra", "MySQL", "DynamoDB"],
     testing: ["Jest", "Cypress", "JUnit", "PyTest", "Selenium", "Playwright"],
     devops: ["Docker", "Kubernetes", "AWS Lambda", "GitHub Actions", "Terraform", "Ansible"]
+};
+
+// *** NEW: Mapping to prevent invalid combos (e.g. React in Java) ***
+const TECH_TO_LANGUAGE_MAP: Record<string, string[]> = {
+    // Frontend
+    "React": ["TypeScript", "JavaScript"],
+    "Vue.js": ["TypeScript", "JavaScript"],
+    "Angular": ["TypeScript"],
+    "Svelte": ["TypeScript", "JavaScript"],
+    "Next.js": ["TypeScript"],
+    "React Native": ["TypeScript"],
+    "Tailwind CSS": ["HTML/CSS", "JavaScript", "TypeScript"],
+
+    // Backend
+    "Spring Boot": ["Java"],
+    "Node.js (Express)": ["TypeScript", "JavaScript"],
+    "Django": ["Python"],
+    "Go (Gin)": ["Go"],
+    "Rust (Actix)": ["Rust"],
+    "FastAPI": ["Python"],
+
+    // Testing
+    "Jest": ["TypeScript", "JavaScript"],
+    "Cypress": ["TypeScript", "JavaScript"],
+    "JUnit": ["Java"],
+    "PyTest": ["Python"],
+    "Playwright": ["TypeScript", "JavaScript", "Python", "C#"],
+    "Selenium": ["Java", "Python", "C#"],
+
+    // General Fallbacks
+    "General Code": LANGUAGES
 };
 
 export const VIBE_PERSONAS: VibePersona[] = [
@@ -188,7 +219,7 @@ export function generateCodingPrompts(): CodingPromptEntry[] {
     for (const domain of PROJECT_DOMAINS) {
         for (const tmpl of CODING_TEMPLATES) {
 
-            // Determine Tech Stack
+            // 1. Determine Tech Stack
             let targetTechs: string[] = ["General Code"];
             if (tmpl.category.includes("Frontend")) targetTechs = TECH_STACKS.frontend;
             else if (tmpl.category.includes("Backend")) targetTechs = TECH_STACKS.backend;
@@ -196,17 +227,22 @@ export function generateCodingPrompts(): CodingPromptEntry[] {
             else if (tmpl.category.includes("Quality")) targetTechs = TECH_STACKS.testing;
 
             for (const tech of targetTechs) {
+
+                // 2. DETERMINE CORRECT LANGUAGE
+                // Look up allowed languages for this tech. If not found, default to global list.
+                const allowedLanguages = TECH_TO_LANGUAGE_MAP[tech] || LANGUAGES;
+                // Pick one valid language for this specific tech
+                const selectedLang = allowedLanguages[Math.floor(Math.random() * allowedLanguages.length)];
+
                 for (const persona of VIBE_PERSONAS) {
                     for (const variable of tmpl.variables) {
-
-                        const randomLang = LANGUAGES[Math.floor(Math.random() * LANGUAGES.length)];
 
                         const finalPrompt = fillTemplate(tmpl.templateStr, {
                             PERSONA: persona.instruction,
                             DOMAIN: domain,
                             TECH: tech,
                             VARIABLE: variable,
-                            LANGUAGE: randomLang
+                            LANGUAGE: selectedLang
                         });
 
                         dictionary.push({
