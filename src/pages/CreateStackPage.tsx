@@ -140,6 +140,11 @@ export function CreateStackPage() {
         setIsGenerating(true);
         try {
             const apiUrl = import.meta.env.VITE_API_URL || '';
+
+            if (!import.meta.env.DEV && !apiUrl) {
+                console.warn("WARNING: VITE_API_URL is missing. API calls will default to frontend domain.");
+            }
+
             const response = await fetch(`${apiUrl}/api/generateStackPlan`, {
                 method: 'POST',
                 headers: {
@@ -161,11 +166,17 @@ export function CreateStackPage() {
                 }),
             });
 
-            const data = await response.json();
-
             if (!response.ok) {
-                throw new Error(data.message || 'Failed to generate plan');
+                const text = await response.text();
+                try {
+                    const errorData = JSON.parse(text);
+                    throw new Error(errorData.message || `Server error: ${response.status}`);
+                } catch (e) {
+                    throw new Error(`Server connection failed (${response.status}). Please check network tab.`);
+                }
             }
+
+            const data = await response.json();
 
             setGeneratedPlan(data.plan);
         } catch (error) {
@@ -274,11 +285,10 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                                                     <div className="flex items-center gap-2">
                                                         <button
                                                             onClick={() => handleCopy(section2Content)}
-                                                            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                                                isCopied 
-                                                                ? 'bg-green-500/20 text-green-400 hover:bg-green-500/30' 
+                                                            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${isCopied
+                                                                ? 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
                                                                 : 'bg-indigo-600 hover:bg-indigo-500 text-white'
-                                                            }`}
+                                                                }`}
                                                         >
                                                             {isCopied ? (
                                                                 <>
@@ -316,9 +326,8 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                                             <div className="flex items-center gap-3">
                                                 <button
                                                     onClick={() => handleCopy(generatedPlan)}
-                                                    className={`flex items-center gap-2 text-sm font-medium transition-colors ${
-                                                        isCopied ? 'text-green-400' : 'text-indigo-400 hover:text-indigo-300'
-                                                    }`}
+                                                    className={`flex items-center gap-2 text-sm font-medium transition-colors ${isCopied ? 'text-green-400' : 'text-indigo-400 hover:text-indigo-300'
+                                                        }`}
                                                 >
                                                     <div className={`p-1.5 rounded-md ${isCopied ? 'bg-green-500/10' : 'bg-indigo-500/10 hover:bg-indigo-500/20'}`}>
                                                         {isCopied ? <Check className="w-4 h-4" /> : <Layers className="w-4 h-4" />}
