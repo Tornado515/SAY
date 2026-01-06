@@ -31,18 +31,18 @@ export function ComparisonPage() {
 
     // Helper to render a comparison row
     const renderRow = (label: string, val1: any, val2: any, isList = false) => (
-        <div className="grid grid-cols-3 gap-4 py-4 border-b border-white/5 items-center">
+        <div className="grid grid-cols-3 gap-4 py-4 border-b border-neutral-200 dark:border-white/5 items-center">
             <div className="col-span-1 text-neutral-400 font-medium">{label}</div>
-            <div className="col-span-1 text-neutral-200">
+            <div className="col-span-1 text-neutral-900 dark:text-neutral-200">
                 {isList ? (
                     <ul className="list-disc list-inside space-y-1">
-                        {val1?.map((item: string, i: number) => <li key={i} className="text-sm">{item}</li>) || <span className="text-neutral-600 italic">N/A</span>}
+                        {val1?.map((item: string, i: number) => <li key={i} className="text-sm">{item}</li>) || <span className="text-neutral-500 dark:text-neutral-600 italic">N/A</span>}
                     </ul>
                 ) : (
                     val1 || <span className="text-neutral-600 italic">N/A</span>
                 )}
             </div>
-            <div className="col-span-1 text-neutral-200">
+            <div className="col-span-1 text-neutral-900 dark:text-neutral-200">
                 {isList ? (
                     <ul className="list-disc list-inside space-y-1">
                         {val2?.map((item: string, i: number) => <li key={i} className="text-sm">{item}</li>) || <span className="text-neutral-600 italic">N/A</span>}
@@ -59,23 +59,23 @@ export function ComparisonPage() {
             <div className="relative isolate min-h-[50vh] py-16 sm:py-24">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl mb-4">
+                        <h1 className="text-4xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-5xl mb-4">
                             Compare Tools
                         </h1>
-                        <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
+                        <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
                             Select two tools to compare their features, pros, cons, and best use cases side-by-side.
                         </p>
                     </div>
 
                     {/* Tool Selectors */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16 bg-neutral-900/50 p-8 rounded-3xl border border-white/5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16 bg-neutral-50 dark:bg-neutral-900/50 p-8 rounded-3xl border border-neutral-200 dark:border-white/5">
                         <div className="relative">
-                            <label className="block text-sm font-medium text-neutral-400 mb-2">Tool 1</label>
+                            <label className="block text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">Tool 1</label>
                             <div className="relative">
                                 <select
                                     value={tool1Slug}
                                     onChange={(e) => setTool1Slug(e.target.value)}
-                                    className="w-full appearance-none bg-neutral-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-neutral-600"
+                                    className="w-full appearance-none bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 rounded-xl px-4 py-3 text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-neutral-500 dark:placeholder:text-neutral-600"
                                 >
                                     <option value="">Select a tool...</option>
                                     {categories.map(cat => (
@@ -93,7 +93,7 @@ export function ComparisonPage() {
                         <div className="hidden md:flex items-center justify-center pt-6">
                             <button
                                 onClick={handleSwap}
-                                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-neutral-400 hover:bg-white/10 hover:text-white transition-colors cursor-pointer"
+                                className="w-10 h-10 rounded-full bg-neutral-200 dark:bg-white/5 flex items-center justify-center text-neutral-600 dark:text-neutral-400 hover:bg-neutral-300 dark:hover:bg-white/10 hover:text-neutral-900 dark:hover:text-white transition-colors cursor-pointer"
                                 title="Swap tools"
                             >
                                 <ArrowRightLeft className="w-5 h-5" />
@@ -101,12 +101,12 @@ export function ComparisonPage() {
                         </div>
 
                         <div className="relative">
-                            <label className="block text-sm font-medium text-neutral-400 mb-2">Tool 2</label>
+                            <label className="block text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">Tool 2</label>
                             <div className="relative">
                                 <select
                                     value={tool2Slug}
                                     onChange={(e) => setTool2Slug(e.target.value)}
-                                    className="w-full appearance-none bg-neutral-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                                    className="w-full appearance-none bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 rounded-xl px-4 py-3 text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
                                 >
                                     <option value="">Select a tool...</option>
                                     {categories.map(cat => (
@@ -133,20 +133,20 @@ export function ComparisonPage() {
                             <div className="grid grid-cols-3 gap-4 mb-8 text-center">
                                 <div className="col-span-1"></div>
                                 <div className="col-span-1">
-                                    <h2 className="text-2xl font-bold text-white mb-2">{tool1.name}</h2>
-                                    <span className="inline-flex items-center rounded-full bg-indigo-500/10 px-2.5 py-0.5 text-xs font-medium text-indigo-400 ring-1 ring-inset ring-indigo-500/20">
+                                    <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">{tool1.name}</h2>
+                                    <span className="inline-flex items-center rounded-full bg-indigo-50 dark:bg-indigo-500/10 px-2.5 py-0.5 text-xs font-medium text-indigo-600 dark:text-indigo-400 ring-1 ring-inset ring-indigo-200 dark:ring-indigo-500/20">
                                         {tool1.category}
                                     </span>
                                 </div>
                                 <div className="col-span-1">
-                                    <h2 className="text-2xl font-bold text-white mb-2">{tool2.name}</h2>
-                                    <span className="inline-flex items-center rounded-full bg-indigo-500/10 px-2.5 py-0.5 text-xs font-medium text-indigo-400 ring-1 ring-inset ring-indigo-500/20">
+                                    <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">{tool2.name}</h2>
+                                    <span className="inline-flex items-center rounded-full bg-indigo-50 dark:bg-indigo-500/10 px-2.5 py-0.5 text-xs font-medium text-indigo-600 dark:text-indigo-400 ring-1 ring-inset ring-indigo-200 dark:ring-indigo-500/20">
                                         {tool2.category}
                                     </span>
                                 </div>
                             </div>
 
-                            <div className="bg-white/5 rounded-3xl border border-white/10 p-8 space-y-2">
+                            <div className="bg-white dark:bg-white/5 rounded-3xl border border-neutral-200 dark:border-white/10 p-8 space-y-2 shadow-lg dark:shadow-none">
                                 {/* Core Info */}
                                 {renderRow('Price Model', tool1.comparisonData?.priceModel, tool2.comparisonData?.priceModel)}
                                 {renderRow('Learning Curve', tool1.comparisonData?.learningCurve, tool2.comparisonData?.learningCurve)}
@@ -155,9 +155,9 @@ export function ComparisonPage() {
                                 {/* Lists */}
                                 {renderRow('Best For', tool1.comparisonData?.bestFor, tool2.comparisonData?.bestFor, true)}
 
-                                <div className="grid grid-cols-3 gap-4 py-6 border-b border-white/5">
+                                <div className="grid grid-cols-3 gap-4 py-6 border-b border-neutral-200 dark:border-white/5">
                                     <div className="col-span-1 text-neutral-400 font-medium">Pros</div>
-                                    <div className="col-span-1 text-green-400/90 space-y-2">
+                                    <div className="col-span-1 text-green-600 dark:text-green-400/90 space-y-2">
                                         {tool1.comparisonData?.pros.map((pro, i) => (
                                             <div key={i} className="flex gap-2 text-sm">
                                                 <Check className="w-4 h-4 flex-shrink-0 mt-0.5 text-green-500" />
@@ -165,7 +165,7 @@ export function ComparisonPage() {
                                             </div>
                                         )) || <span className="text-neutral-600 italic">N/A</span>}
                                     </div>
-                                    <div className="col-span-1 text-green-400/90 space-y-2">
+                                    <div className="col-span-1 text-green-600 dark:text-green-400/90 space-y-2">
                                         {tool2.comparisonData?.pros.map((pro, i) => (
                                             <div key={i} className="flex gap-2 text-sm">
                                                 <Check className="w-4 h-4 flex-shrink-0 mt-0.5 text-green-500" />
@@ -177,7 +177,7 @@ export function ComparisonPage() {
 
                                 <div className="grid grid-cols-3 gap-4 py-6">
                                     <div className="col-span-1 text-neutral-400 font-medium">Cons</div>
-                                    <div className="col-span-1 text-red-400/90 space-y-2">
+                                    <div className="col-span-1 text-red-600 dark:text-red-400/90 space-y-2">
                                         {tool1.comparisonData?.cons.map((con, i) => (
                                             <div key={i} className="flex gap-2 text-sm">
                                                 <X className="w-4 h-4 flex-shrink-0 mt-0.5 text-red-500" />
@@ -185,7 +185,7 @@ export function ComparisonPage() {
                                             </div>
                                         )) || <span className="text-neutral-600 italic">N/A</span>}
                                     </div>
-                                    <div className="col-span-1 text-red-400/90 space-y-2">
+                                    <div className="col-span-1 text-red-600 dark:text-red-400/90 space-y-2">
                                         {tool2.comparisonData?.cons.map((con, i) => (
                                             <div key={i} className="flex gap-2 text-sm">
                                                 <X className="w-4 h-4 flex-shrink-0 mt-0.5 text-red-500" />
@@ -200,10 +200,10 @@ export function ComparisonPage() {
                     )}
 
                     {!tool1 || !tool2 ? (
-                        <div className="text-center mt-20 p-12 border border-dashed border-white/10 rounded-3xl bg-white/5/50">
-                            <ArrowRightLeft className="w-12 h-12 text-neutral-600 mx-auto mb-4" />
-                            <h3 className="text-lg font-medium text-neutral-400">Ready to Compare</h3>
-                            <p className="text-neutral-500 mt-2">Select two tools above to see how they stack up.</p>
+                        <div className="text-center mt-20 p-12 border border-dashed border-neutral-200 dark:border-white/10 rounded-3xl bg-neutral-50 dark:bg-white/5/50">
+                            <ArrowRightLeft className="w-12 h-12 text-neutral-400 dark:text-neutral-600 mx-auto mb-4" />
+                            <h3 className="text-lg font-medium text-neutral-900 dark:text-neutral-400">Ready to Compare</h3>
+                            <p className="text-neutral-600 dark:text-neutral-500 mt-2">Select two tools above to see how they stack up.</p>
                         </div>
                     ) : null}
 

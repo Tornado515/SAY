@@ -1,8 +1,11 @@
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 export function Hero() {
+    const { t } = useTranslation();
+
     return (
         <section className="relative overflow-hidden pt-24 pb-32 sm:pt-32 sm:pb-40">
             <div className="container mx-auto px-4 text-center sm:px-6 lg:px-8 relative z-10">
@@ -12,24 +15,26 @@ export function Hero() {
                     transition={{ duration: 0.6 }}
                     className="mx-auto max-w-4xl"
                 >
-                    <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-indigo-500/10 px-3 py-1 text-sm font-medium text-indigo-400 ring-1 ring-inset ring-indigo-500/20">
+                    <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-indigo-100 dark:bg-indigo-500/10 px-3 py-1 text-sm font-medium text-indigo-700 dark:text-indigo-400 ring-1 ring-inset ring-indigo-300 dark:ring-indigo-500/20">
                         <Sparkles className="h-4 w-4" />
-                        <span>Discover the Future of Development</span>
+                        <span>{t('home.hero.badge')}</span>
                     </div>
-                    <h1 className="text-5xl font-bold tracking-tight text-white sm:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-neutral-400">
-                        Start All Yourself.
-                        <span className="block text-indigo-400 mt-2 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">The Modern Stack.</span>
+                    <h1 className="text-5xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 via-neutral-800 to-neutral-600 dark:from-white dark:via-white dark:to-neutral-400 leading-snug rtl:bg-gradient-to-l">
+                        {t('home.hero.titlePrefix')}
+                        <span className="block text-indigo-600 dark:text-indigo-400 mt-2 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent leading-snug rtl:bg-gradient-to-l">
+                            {t('home.hero.titleSuffix')}
+                        </span>
                     </h1>
-                    <p className="mt-8 text-xl leading-8 text-neutral-400 max-w-2xl mx-auto">
-                        A curated directory of the best tools, frameworks, and AI assistants to help you build and ship your next big idea.
+                    <p className="mt-8 text-xl leading-8 text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
+                        {t('home.hero.description')}
                     </p>
                     <div className="mt-10 flex items-center justify-center gap-x-6">
                         <Link
                             to="/tools"
                             className="group flex items-center gap-2 rounded-full bg-indigo-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all hover:bg-indigo-500 hover:scale-105"
                         >
-                            Explore Tools
-                            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                            {t('home.hero.cta')}
+                            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180" />
                         </Link>
                     </div>
                 </motion.div>
