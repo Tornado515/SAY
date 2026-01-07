@@ -8,7 +8,7 @@ export function HowToVibeCodePage() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 selection:bg-indigo-500/30">
+      <div className="min-h-screen w-full overflow-x-hidden bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 selection:bg-indigo-500/30">
         {/* Hero Section */}
         <div className="relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-500/10 via-neutral-100/0 to-neutral-100/0 dark:from-indigo-900/20 dark:via-neutral-950/0 dark:to-neutral-950/0" />
