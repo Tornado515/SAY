@@ -18,7 +18,7 @@ export function HowToVibeCodePage() {
                 <Sparkles className="w-4 h-4" />
                 <span>{t('vibeCodingPage.badge', { defaultValue: 'The Future of Coding is Here' })}</span>
               </div>
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 py-2 bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 via-indigo-600 to-indigo-500 dark:from-white dark:via-indigo-200 dark:to-indigo-400 leading-tight md:leading-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-8 py-2 bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 via-indigo-600 to-indigo-500 dark:from-white dark:via-indigo-200 dark:to-indigo-400 leading-tight md:leading-tight">
                 {t('vibeCodingPage.title', { defaultValue: 'How to Vibe Code' })}
               </h1>
               <p className="text-xl text-neutral-600 dark:text-neutral-400 leading-relaxed">
@@ -53,10 +53,10 @@ export function HowToVibeCodePage() {
                 ))}
               </ul>
             </div>
-            <div className="relative group">
+            <div className="relative group min-w-0">
               <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-              <div className="relative p-8 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 rounded-xl">
-                <pre className="font-mono text-sm text-indigo-600 dark:text-indigo-300 overflow-x-auto" dir="ltr">
+              <div className="relative p-4 md:p-8 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 rounded-xl max-w-full">
+                <pre className="font-mono text-sm text-indigo-600 dark:text-indigo-300 overflow-x-auto max-w-full" dir="ltr">
                   <code>{`// Old Way
 function calculateTotal(items) {
   return items.reduce((acc, item) => {
@@ -174,7 +174,7 @@ function calculateTotal(items) {
           </div>
 
           {/* Context is King */}
-          <div className="mb-32 relative overflow-hidden rounded-3xl bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 p-8 md:p-12">
+          <div className="mb-32 relative overflow-hidden rounded-3xl bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 p-6 md:p-12">
             <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"></div>
             <div className="relative z-10">
               <h2 className="text-3xl font-bold text-neutral-900 dark:text-white mb-8">{t('vibeCodingPage.contextIsKing.title', { defaultValue: 'Context is King' })}</h2>
@@ -198,14 +198,14 @@ function calculateTotal(items) {
                     </li>
                   </ul>
                 </div>
-                <div className="bg-white dark:bg-black/50 rounded-xl border border-neutral-200 dark:border-white/10 p-6">
+                <div className="bg-white dark:bg-black/50 rounded-xl border border-neutral-200 dark:border-white/10 p-6 min-w-0">
                   <div className="flex items-center gap-2 mb-4 text-neutral-500 text-sm">
                     <div className="w-3 h-3 rounded-full bg-red-500" />
                     <div className="w-3 h-3 rounded-full bg-yellow-500" />
                     <div className="w-3 h-3 rounded-full bg-green-500" />
                     <span className="ml-2">context_example.txt</span>
                   </div>
-                  <pre className="font-mono text-xs text-neutral-600 dark:text-neutral-400 overflow-x-auto" dir="ltr">
+                  <pre className="font-mono text-xs text-neutral-600 dark:text-neutral-400 overflow-x-auto max-w-full" dir="ltr">
                     <code>{`Project: E-commerce Platform
 Stack: Next.js, TypeScript, Tailwind, Supabase
 
