@@ -2,6 +2,7 @@ import React from 'react';
 import { Filter, X } from 'lucide-react';
 import { PROJECT_DOMAINS, TECH_STACKS, VIBE_PERSONAS, REQ_TYPES } from '../../data/prompt-engine';
 import { useTranslation } from 'react-i18next';
+import { SearchableDropdown } from './SearchableDropdown';
 
 interface FilterSidebarProps {
   filters: {
@@ -64,72 +65,49 @@ export function FilterSidebar({ filters, setFilters, activeTab, isOpen, onClose 
           </button>
         </div>
 
+
         <div className="space-y-6">
           {/* Domain Filter */}
-          <div className="space-y-2">
-            <label className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">{t('promptLibraryPage.filters.domain', { defaultValue: 'Domain' })}</label>
-            <select
-              value={filters.domain}
-              onChange={(e) => handleChange('domain', e.target.value)}
-              className="w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-white/10 rounded-lg px-3 py-2 text-sm text-neutral-900 dark:text-white focus:outline-none focus:border-indigo-500"
-            >
-              <option value="">{t('promptLibraryPage.filters.allDomains', { defaultValue: 'All Domains' })}</option>
-              {PROJECT_DOMAINS.map(domain => (
-                <option key={domain} value={domain}>{domain}</option>
-              ))}
-            </select>
-          </div>
+          <SearchableDropdown
+            label={t('promptLibraryPage.filters.domain', { defaultValue: 'Domain' })}
+            options={PROJECT_DOMAINS}
+            value={filters.domain}
+            onChange={(value) => handleChange('domain', value)}
+            placeholder={t('promptLibraryPage.filters.allDomains', { defaultValue: 'All Domains' })}
+          />
 
           {activeTab === 'coding' && (
             <>
               {/* Tech Stack Filter */}
-              <div className="space-y-2">
-                <label className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">{t('promptLibraryPage.filters.techStack', { defaultValue: 'Tech Stack' })}</label>
-                <select
-                  value={filters.techStack}
-                  onChange={(e) => handleChange('techStack', e.target.value)}
-                  className="w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-white/10 rounded-lg px-3 py-2 text-sm text-neutral-900 dark:text-white focus:outline-none focus:border-indigo-500"
-                >
-                  <option value="">{t('promptLibraryPage.filters.allTechStacks', { defaultValue: 'All Tech Stacks' })}</option>
-                  {allTechStacks.map(tech => (
-                    <option key={tech} value={tech}>{tech}</option>
-                  ))}
-                </select>
-              </div>
+              <SearchableDropdown
+                label={t('promptLibraryPage.filters.techStack', { defaultValue: 'Tech Stack' })}
+                options={allTechStacks}
+                value={filters.techStack}
+                onChange={(value) => handleChange('techStack', value)}
+                placeholder={t('promptLibraryPage.filters.allTechStacks', { defaultValue: 'All Tech Stacks' })}
+              />
 
               {/* Vibe Filter */}
-              <div className="space-y-2">
-                <label className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">{t('promptLibraryPage.filters.vibe', { defaultValue: 'Vibe' })}</label>
-                <select
-                  value={filters.vibe}
-                  onChange={(e) => handleChange('vibe', e.target.value)}
-                  className="w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-white/10 rounded-lg px-3 py-2 text-sm text-neutral-900 dark:text-white focus:outline-none focus:border-indigo-500"
-                >
-                  <option value="">{t('promptLibraryPage.filters.allVibes', { defaultValue: 'All Vibes' })}</option>
-                  {VIBE_PERSONAS.map(vibe => (
-                    <option key={vibe.id} value={vibe.name}>{vibe.name}</option>
-                  ))}
-                </select>
-              </div>
+              <SearchableDropdown
+                label={t('promptLibraryPage.filters.vibe', { defaultValue: 'Vibe' })}
+                options={VIBE_PERSONAS.map(v => ({ label: v.name, value: v.name }))}
+                value={filters.vibe}
+                onChange={(value) => handleChange('vibe', value)}
+                placeholder={t('promptLibraryPage.filters.allVibes', { defaultValue: 'All Vibes' })}
+              />
             </>
           )}
 
           {activeTab === 'requirements' && (
             <>
               {/* Type Filter */}
-              <div className="space-y-2">
-                <label className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">{t('promptLibraryPage.filters.type', { defaultValue: 'Type' })}</label>
-                <select
-                  value={filters.category} // Reusing category for Type
-                  onChange={(e) => handleChange('category', e.target.value)}
-                  className="w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-white/10 rounded-lg px-3 py-2 text-sm text-neutral-900 dark:text-white focus:outline-none focus:border-indigo-500"
-                >
-                  <option value="">{t('promptLibraryPage.filters.allTypes', { defaultValue: 'All Types' })}</option>
-                  {REQ_TYPES.map(type => (
-                    <option key={type.id} value={type.name}>{type.name}</option>
-                  ))}
-                </select>
-              </div>
+              <SearchableDropdown
+                label={t('promptLibraryPage.filters.type', { defaultValue: 'Type' })}
+                options={REQ_TYPES.map(t => ({ label: t.name, value: t.name }))}
+                value={filters.category}
+                onChange={(value) => handleChange('category', value)}
+                placeholder={t('promptLibraryPage.filters.allTypes', { defaultValue: 'All Types' })}
+              />
             </>
           )}
 

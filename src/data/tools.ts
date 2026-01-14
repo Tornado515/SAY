@@ -27,7 +27,7 @@ export interface Tool {
     slug: string;
     description: string;
     longDescription: string;
-    category: 'Frontend' | 'Mobile' | 'AI Coding' | 'AI Mockup' | 'Deployment' | 'Testing' | 'Design' | 'Database' | 'Backend' | 'Version Control' | 'IDE' | 'AI Chatbots' | 'Productivity' | 'Full Stack' | 'Architecture';
+    category: 'Frontend' | 'Mobile' | 'AI Coding' | 'AI Mockup' | 'Deployment' | 'Testing' | 'Design' | 'Database' | 'Backend' | 'Version Control' | 'IDE' | 'AI Chatbots' | 'Productivity' | 'Full Stack' | 'Architecture' | 'Styling';
     additionalCategories?: string[];
     link: string;
     tags: string[];
@@ -678,7 +678,7 @@ export const tools: Tool[] = [
         link: 'https://vercel.com',
         tags: ['Deployment', 'Frontend', 'Serverless', 'Next.js'],
         features: ['Global CDN', 'Serverless Functions', 'Preview Deployments', 'Analytics'],
-        deploymentTypes: ['full', 'frontend'],
+        deploymentTypes: ['full', 'frontend', 'backend'],
         youtubeVideoId: 'Vz7Q_T2Gf-U',
         setupVideoId: 'b7VpU7a-V1o', // Deploying React to Vercel
         steps: [
@@ -3556,6 +3556,182 @@ export const tools: Tool[] = [
             cons: ['Single point of failure (server)', 'Network dependency'],
             bestFor: ['Email', 'Web', 'Banking'],
             communitySupport: 'Universal',
+            priceModel: 'Free'
+        }
+    },
+    // Styling
+    {
+        name: 'Tailwind CSS',
+        slug: 'tailwindcss',
+        description: 'A utility-first CSS framework packed with classes that can be composed to build any design, directly in your markup.',
+        longDescription: 'Tailwind CSS is a utility-first CSS framework that provides low-level utility classes for building custom designs without writing custom CSS. It enables rapid UI development with its comprehensive set of pre-built classes.',
+        category: 'Styling',
+        link: 'https://tailwindcss.com',
+        tags: ['CSS', 'Utility-First', 'Styling', 'Frontend'],
+        features: ['Utility Classes', 'JIT Mode', 'Responsive Design', 'Dark Mode'],
+        steps: [
+            {
+                title: 'Install Tailwind CSS',
+                content: 'Install Tailwind CSS and its peer dependencies via npm.',
+                code: 'npm install -D tailwindcss postcss autoprefixer\\nnpx tailwindcss init -p',
+                language: 'bash',
+                links: [{ text: 'Tailwind CSS Docs', url: 'https://tailwindcss.com/docs/installation', primary: true }]
+            },
+            {
+                title: 'Configure Template Paths',
+                content: 'Add the paths to all of your template files in your tailwind.config.js file.',
+                code: 'module.exports = {\\n  content: [\"./src/**/*.{js,jsx,ts,tsx}\"],\\n  theme: { extend: {} },\\n  plugins: [],\\n}',
+                language: 'javascript'
+            },
+            {
+                title: 'Add Tailwind Directives',
+                content: 'Add the @tailwind directives to your main CSS file.',
+                code: '@tailwind base;\\n@tailwind components;\\n@tailwind utilities;',
+                language: 'css'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Rapid development', 'No CSS context switching', 'Highly customizable'],
+            cons: ['Verbose HTML', 'Learning curve for utility classes'],
+            bestFor: ['Rapid Prototyping', 'Custom Designs', 'Component Libraries'],
+            communitySupport: 'Massive',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Regular CSS',
+        slug: 'regular-css',
+        description: 'Classic Cascading Style Sheets - the standard styling language for the web.',
+        longDescription: 'Regular CSS (Cascading Style Sheets) is the foundational styling language for the web. It gives you complete control over styling without any build tools or dependencies.',
+        category: 'Styling',
+        link: 'https://developer.mozilla.org/en-US/docs/Web/CSS',
+        tags: ['CSS', 'Vanilla', 'Styling', 'Frontend'],
+        features: ['No Dependencies', 'Full Control', 'Browser Native', 'CSS Variables'],
+        steps: [
+            {
+                title: 'Create a CSS File',
+                content: 'Create a .css file in your project.',
+                code: '/* styles.css */\\nbody {\\n  font-family: sans-serif;\\n  margin: 0;\\n  padding: 0;\\n}',
+                language: 'css'
+            },
+            {
+                title: 'Link to HTML or Import',
+                content: 'Link in HTML or import in your JavaScript/React file.',
+                code: "import './styles.css';",
+                language: 'javascript'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['No build step', 'Universal browser support', 'Full control'],
+            cons: ['No scoping by default', 'Manual organization'],
+            bestFor: ['Simple Projects', 'Learning', 'Maximum Control'],
+            communitySupport: 'Universal',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'shadcn/ui',
+        slug: 'shadcn-ui',
+        description: 'Beautifully designed components built with Radix UI and Tailwind CSS. Copy and paste into your apps.',
+        longDescription: 'shadcn/ui is not a component library in the traditional sense. It is a collection of reusable components that you can copy and paste into your apps. You own the code and can customize it however you like.',
+        category: 'Styling',
+        link: 'https://ui.shadcn.com',
+        tags: ['React', 'Components', 'Tailwind', 'Radix'],
+        features: ['Copy-Paste Components', 'Tailwind Based', 'Accessible', 'Customizable'],
+        steps: [
+            {
+                title: 'Initialize shadcn/ui',
+                content: 'Run the init command to set up your project.',
+                code: 'npx shadcn-ui@latest init',
+                language: 'bash',
+                links: [{ text: 'shadcn/ui Docs', url: 'https://ui.shadcn.com/docs/installation', primary: true }]
+            },
+            {
+                title: 'Add Components',
+                content: 'Add the components you need to your project.',
+                code: 'npx shadcn-ui@latest add button\\nnpx shadcn-ui@latest add card\\nnpx shadcn-ui@latest add input',
+                language: 'bash'
+            },
+            {
+                title: 'Use Components',
+                content: 'Import and use the components in your code.',
+                code: "import { Button } from '@/components/ui/button';\\n\\nexport function MyComponent() {\\n  return <Button>Click me</Button>;\\n}",
+                language: 'tsx'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Beautiful defaults', 'Full ownership of code', 'Accessible'],
+            cons: ['Requires Tailwind', 'React only'],
+            bestFor: ['React Apps', 'Design Systems', 'Production Apps'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'Styled Components',
+        slug: 'styled-components',
+        description: 'Visual primitives for the component age. Use the best bits of ES6 and CSS to style your apps.',
+        longDescription: 'Styled Components is a CSS-in-JS library that lets you write actual CSS code to style your React components. It removes the mapping between components and styles, so you can write your styles directly inside your component files.',
+        category: 'Styling',
+        link: 'https://styled-components.com',
+        tags: ['CSS-in-JS', 'React', 'Styling', 'Frontend'],
+        features: ['Scoped Styles', 'Dynamic Styling', 'Theming', 'SSR Support'],
+        steps: [
+            {
+                title: 'Install Styled Components',
+                content: 'Install styled-components via npm.',
+                code: 'npm install styled-components',
+                language: 'bash',
+                links: [{ text: 'Styled Components Docs', url: 'https://styled-components.com/docs', primary: true }]
+            },
+            {
+                title: 'Create Styled Component',
+                content: 'Create your first styled component.',
+                code: "import styled from 'styled-components';\\n\\nconst Button = styled.button`\\n  background: palevioletred;\\n  color: white;\\n  padding: 0.5em 1em;\\n  border: none;\\n  border-radius: 3px;\\n`;",
+                language: 'javascript'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Medium',
+            pros: ['Scoped styles', 'Dynamic props', 'Co-located with components'],
+            cons: ['Runtime overhead', 'Adds to bundle size'],
+            bestFor: ['React Apps', 'Dynamic Theming', 'Component Libraries'],
+            communitySupport: 'Large',
+            priceModel: 'Free'
+        }
+    },
+    {
+        name: 'CSS Modules',
+        slug: 'css-modules',
+        description: 'A CSS file where all class names are scoped locally by default.',
+        longDescription: 'CSS Modules are CSS files in which all class names and animation names are scoped locally by default. This solves the global scope problem of CSS by generating unique class names at build time.',
+        category: 'Styling',
+        link: 'https://github.com/css-modules/css-modules',
+        tags: ['CSS', 'Scoped', 'Styling', 'Frontend'],
+        features: ['Local Scope', 'Composition', 'No Runtime', 'Build-time Processing'],
+        steps: [
+            {
+                title: 'Create a CSS Module',
+                content: 'Create a file with the .module.css extension.',
+                code: '/* Button.module.css */\\n.button {\\n  background: blue;\\n  color: white;\\n  padding: 10px 20px;\\n}',
+                language: 'css'
+            },
+            {
+                title: 'Import and Use',
+                content: 'Import the module and use the classes.',
+                code: "import styles from './Button.module.css';\\n\\nexport function Button() {\\n  return <button className={styles.button}>Click me</button>;\\n}",
+                language: 'javascript'
+            }
+        ],
+        comparisonData: {
+            learningCurve: 'Low',
+            pros: ['Local scoping', 'No runtime cost', 'Works with any framework'],
+            cons: ['Requires build step', 'Less dynamic than CSS-in-JS'],
+            bestFor: ['Any Framework', 'Scoped Styles', 'Performance Focus'],
+            communitySupport: 'Large',
             priceModel: 'Free'
         }
     }
