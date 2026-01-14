@@ -30,6 +30,7 @@ export interface CodingPromptEntry {
     domain: string;
     category: string;
     subCategory: string;
+    component: string;
     techStack: string;
     vibe: string;
     prompt: string;
@@ -250,6 +251,7 @@ export function generateCodingPrompts(): CodingPromptEntry[] {
                             domain: domain,
                             category: tmpl.category,
                             subCategory: tmpl.subCategory,
+                            component: variable,
                             techStack: tech,
                             vibe: persona.name,
                             prompt: finalPrompt

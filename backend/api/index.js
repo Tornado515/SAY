@@ -62,12 +62,15 @@ app.post('/api/generateStackPlan', async (req, res) => {
             ? `Full Stack Framework: ${stack.fullStack}`
             : `Frontend: ${stack.frontend}, Backend: ${stack.backend}`;
 
+        const stylingText = stack.styling ? `Styling: ${stack.styling}` : '';
+
         // 3. Construct Prompt
         const prompt = `
         You are an expert Senior Solution Architect and Prompt Engineer.
         
         GOAL: Create a structured guide to build a new web application with this stack:
         - ${stackText}
+        ${stylingText ? `- ${stylingText}` : ''}
         - Database: ${stack.database}
         - Architecture: ${stack.architecture}
         - ${deploymentText}
@@ -88,6 +91,7 @@ app.post('/api/generateStackPlan', async (req, res) => {
         This inner prompt should:
         - Tell the AI agent it is an expert developer.
         - instruct it to initialize the project structure for the selected stack (${hasFullStack ? stack.fullStack : `${stack.frontend} and ${stack.backend}`}) using the ${stack.architecture} architecture.
+        ${stack.styling ? `- instruct it to set up ${stack.styling} for styling.` : ''}
         - instruct it to install specific dependencies.
         - instruct it to create configuration files (tsconfig, etc).
         - instruct it to build a "Hello World" proof-of-concept connecting everything together.

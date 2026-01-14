@@ -19,11 +19,19 @@ export function Dashboard() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 50;
+
   useEffect(() => {
     // Generate library on mount
     const lib = generateFullLibrary();
     setLibrary(lib);
   }, []);
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters, activeTab, searchQuery]);
 
   const filteredPrompts = useMemo(() => {
     if (activeTab === 'coding') {
@@ -49,6 +57,17 @@ export function Dashboard() {
       });
     }
   }, [library, activeTab, filters, searchQuery]);
+
+  const totalPages = Math.ceil(filteredPrompts.length / ITEMS_PER_PAGE);
+  const currentPrompts = filteredPrompts.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="flex min-h-[calc(100vh-64px)] bg-neutral-50 dark:bg-neutral-950">
@@ -113,12 +132,17 @@ export function Dashboard() {
 
         {/* Content */}
         <div className="p-6 overflow-y-auto flex-1">
-          <div className="mb-4 text-neutral-600 dark:text-neutral-400 text-sm">
-            {t('promptLibraryPage.showingResults', { count: filteredPrompts.length, defaultValue: 'Showing {{count}} results' })}
+          <div className="mb-4 text-neutral-600 dark:text-neutral-400 text-sm flex justify-between items-center">
+            <span>
+              {t('promptLibraryPage.showingResults', {
+                count: filteredPrompts.length,
+                defaultValue: `Showing ${Math.min((currentPage - 1) * ITEMS_PER_PAGE + 1, filteredPrompts.length)} - ${Math.min(currentPage * ITEMS_PER_PAGE, filteredPrompts.length)} of ${filteredPrompts.length} results`
+              })}
+            </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {filteredPrompts.slice(0, 50).map(prompt => (
+            {currentPrompts.map(prompt => (
               <PromptCard
                 key={prompt.id}
                 prompt={prompt}
@@ -126,9 +150,54 @@ export function Dashboard() {
               />
             ))}
           </div>
-          {filteredPrompts.length > 50 && (
-            <div className="mt-8 text-center text-neutral-500 text-sm">
-              {t('promptLibraryPage.showingFirst', { count: 50, defaultValue: 'Showing first 50 results. Refine filters to see more.' })}
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="mt-8 flex justify-center items-center gap-2">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-4 py-2 rounded-lg border border-neutral-200 dark:border-white/10 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {t('common.previous', { defaultValue: 'Previous' })}
+              </button>
+
+              <div className="flex items-center gap-1">
+                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                  // Logic to show a window of pages around current page
+                  let pageNum = currentPage;
+                  if (totalPages <= 5) {
+                    pageNum = i + 1;
+                  } else if (currentPage <= 3) {
+                    pageNum = i + 1;
+                  } else if (currentPage >= totalPages - 2) {
+                    pageNum = totalPages - 4 + i;
+                  } else {
+                    pageNum = currentPage - 2 + i;
+                  }
+
+                  return (
+                    <button
+                      key={pageNum}
+                      onClick={() => handlePageChange(pageNum)}
+                      className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${currentPage === pageNum
+                        ? 'bg-indigo-600 text-white'
+                        : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-white/5'
+                        }`}
+                    >
+                      {pageNum}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 rounded-lg border border-neutral-200 dark:border-white/10 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {t('common.next', { defaultValue: 'Next' })}
+              </button>
             </div>
           )}
         </div>

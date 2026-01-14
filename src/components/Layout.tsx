@@ -65,7 +65,7 @@ export function Layout({ children }: LayoutProps) {
                         <nav className="hidden lg:flex items-center gap-6">
                             <Link
                                 to="/"
-                                className={`text-sm font-medium transition-colors hover:text-neutral-900 dark:hover:text-white ${location.pathname === '/' ? 'text-neutral-900 dark:text-white' : 'text-neutral-500 dark:text-neutral-400'
+                                className={`text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${location.pathname === '/' ? 'text-purple-600 dark:text-purple-400' : 'text-neutral-500 dark:text-neutral-400'
                                     }`}
                             >
                                 {t('nav.home')}
@@ -73,7 +73,7 @@ export function Layout({ children }: LayoutProps) {
 
                             <Link
                                 to="/getting-started"
-                                className={`text-sm font-medium transition-colors hover:text-neutral-900 dark:hover:text-white ${location.pathname === '/getting-started' ? 'text-neutral-900 dark:text-white' : 'text-neutral-500 dark:text-neutral-400'
+                                className={`text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${location.pathname === '/getting-started' ? 'text-purple-600 dark:text-purple-400' : 'text-neutral-500 dark:text-neutral-400'
                                     }`}
                             >
                                 {t('nav.gettingStarted')}
@@ -81,7 +81,7 @@ export function Layout({ children }: LayoutProps) {
 
                             <Link
                                 to="/tech-stacks"
-                                className={`text-sm font-medium transition-colors hover:text-neutral-900 dark:hover:text-white ${location.pathname.startsWith('/tech-stacks') ? 'text-neutral-900 dark:text-white' : 'text-neutral-500 dark:text-neutral-400'
+                                className={`text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${location.pathname.startsWith('/tech-stacks') ? 'text-purple-600 dark:text-purple-400' : 'text-neutral-500 dark:text-neutral-400'
                                     }`}
                             >
                                 {t('nav.techStacks')}
@@ -89,7 +89,7 @@ export function Layout({ children }: LayoutProps) {
 
                             <Link
                                 to="/how-to-vibe-code"
-                                className={`text-sm font-medium transition-colors hover:text-neutral-900 dark:hover:text-white ${location.pathname === '/how-to-vibe-code' ? 'text-neutral-900 dark:text-white' : 'text-neutral-500 dark:text-neutral-400'
+                                className={`text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${location.pathname === '/how-to-vibe-code' ? 'text-purple-600 dark:text-purple-400' : 'text-neutral-500 dark:text-neutral-400'
                                     }`}
                             >
                                 {t('nav.vibeCoding')}
@@ -97,7 +97,7 @@ export function Layout({ children }: LayoutProps) {
 
                             <Link
                                 to="/prompt-library"
-                                className={`text-sm font-medium transition-colors hover:text-neutral-900 dark:hover:text-white ${location.pathname === '/prompt-library' ? 'text-neutral-900 dark:text-white' : 'text-neutral-500 dark:text-neutral-400'
+                                className={`text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${location.pathname === '/prompt-library' ? 'text-purple-600 dark:text-purple-400' : 'text-neutral-500 dark:text-neutral-400'
                                     }`}
                             >
                                 {t('nav.promptLibrary')}
@@ -107,7 +107,7 @@ export function Layout({ children }: LayoutProps) {
                             <div className="relative group h-16 flex items-center">
                                 <Link
                                     to="/tools"
-                                    className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-neutral-900 dark:hover:text-white group-hover:text-neutral-900 dark:group-hover:text-white focus:outline-none ${location.pathname.startsWith('/tool') || location.pathname === '/tools' || location.pathname.startsWith('/category') ? 'text-neutral-900 dark:text-white' : 'text-neutral-500 dark:text-neutral-400'
+                                    className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 focus:outline-none ${location.pathname.startsWith('/tool') || location.pathname === '/tools' || location.pathname.startsWith('/category') ? 'text-purple-600 dark:text-purple-400' : 'text-neutral-500 dark:text-neutral-400'
                                         }`}
                                 >
                                     {t('nav.tools')}
@@ -115,22 +115,22 @@ export function Layout({ children }: LayoutProps) {
                                 </Link>
 
                                 <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0">
-                                    <div className="w-56 bg-neutral-900 border border-white/10 rounded-xl shadow-xl overflow-hidden py-1">
+                                    <div className="w-56 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 rounded-xl shadow-xl overflow-hidden py-1 max-h-96 overflow-y-auto">
                                         <Link
                                             to="/categories"
-                                            className="block px-4 py-2 text-sm text-indigo-400 hover:bg-white/5 hover:text-indigo-300 font-medium border-b border-white/5"
+                                            className="block px-4 py-2 text-sm text-indigo-600 dark:text-indigo-400 hover:bg-neutral-50 dark:hover:bg-white/5 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium border-b border-neutral-200 dark:border-white/5"
                                         >
                                             {t('nav.viewAllCategories')}
                                         </Link>
                                         <Link
                                             to="/tools"
-                                            className="block px-4 py-2 text-sm text-neutral-200 hover:bg-white/5 hover:text-white font-medium border-b border-white/5"
+                                            className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-white/5 hover:text-neutral-900 dark:hover:text-white font-medium border-b border-neutral-200 dark:border-white/5"
                                         >
                                             {t('nav.browseAllTools')}
                                         </Link>
                                         <Link
                                             to="/compare"
-                                            className="block px-4 py-2 text-sm text-neutral-200 hover:bg-white/5 hover:text-white font-medium border-b border-white/5"
+                                            className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-white/5 hover:text-neutral-900 dark:hover:text-white font-medium border-b border-neutral-200 dark:border-white/5"
                                         >
                                             {t('nav.compareTools')}
                                         </Link>
@@ -141,7 +141,7 @@ export function Layout({ children }: LayoutProps) {
                                             <Link
                                                 key={cat.name}
                                                 to={cat.path}
-                                                className="block px-4 py-2 text-sm text-neutral-400 hover:bg-white/5 hover:text-white"
+                                                className="block px-4 py-2 text-sm text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-white/5 hover:text-neutral-900 dark:hover:text-white"
                                             >
                                                 {cat.name}
                                             </Link>
@@ -187,12 +187,12 @@ export function Layout({ children }: LayoutProps) {
             {/* Mobile Menu Overlay */}
             {
                 isMenuOpen && (
-                    <div className="lg:hidden fixed inset-0 z-40 bg-neutral-950/95 backdrop-blur-3xl pt-20 px-6 overflow-y-auto">
+                    <div className="lg:hidden fixed inset-0 z-40 bg-white/95 dark:bg-neutral-950/95 backdrop-blur-3xl pt-20 px-6 overflow-y-auto">
                         <nav className="flex flex-col gap-6 text-lg pb-10">
                             <Link
                                 to="/"
                                 onClick={closeMenu}
-                                className={`font-medium transition-colors hover:text-white ${location.pathname === '/' ? 'text-white' : 'text-neutral-400'
+                                className={`font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${location.pathname === '/' ? 'text-purple-600 dark:text-purple-400' : 'text-neutral-600 dark:text-neutral-400'
                                     }`}
                             >
                                 {t('nav.home')}
@@ -201,7 +201,7 @@ export function Layout({ children }: LayoutProps) {
                             <Link
                                 to="/getting-started"
                                 onClick={closeMenu}
-                                className={`font-medium transition-colors hover:text-white ${location.pathname === '/getting-started' ? 'text-white' : 'text-neutral-400'
+                                className={`font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${location.pathname === '/getting-started' ? 'text-purple-600 dark:text-purple-400' : 'text-neutral-600 dark:text-neutral-400'
                                     }`}
                             >
                                 {t('nav.gettingStarted')}
@@ -210,7 +210,7 @@ export function Layout({ children }: LayoutProps) {
                             <Link
                                 to="/tech-stacks"
                                 onClick={closeMenu}
-                                className={`font-medium transition-colors hover:text-white ${location.pathname.startsWith('/tech-stacks') ? 'text-white' : 'text-neutral-400'
+                                className={`font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${location.pathname.startsWith('/tech-stacks') ? 'text-purple-600 dark:text-purple-400' : 'text-neutral-600 dark:text-neutral-400'
                                     }`}
                             >
                                 {t('nav.techStacks')}
@@ -219,7 +219,7 @@ export function Layout({ children }: LayoutProps) {
                             <Link
                                 to="/how-to-vibe-code"
                                 onClick={closeMenu}
-                                className={`font-medium transition-colors hover:text-white ${location.pathname === '/how-to-vibe-code' ? 'text-white' : 'text-neutral-400'
+                                className={`font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${location.pathname === '/how-to-vibe-code' ? 'text-purple-600 dark:text-purple-400' : 'text-neutral-600 dark:text-neutral-400'
                                     }`}
                             >
                                 {t('nav.vibeCoding')}
@@ -228,7 +228,7 @@ export function Layout({ children }: LayoutProps) {
                             <Link
                                 to="/prompt-library"
                                 onClick={closeMenu}
-                                className={`font-medium transition-colors hover:text-white ${location.pathname === '/prompt-library' ? 'text-white' : 'text-neutral-400'
+                                className={`font-medium transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${location.pathname === '/prompt-library' ? 'text-purple-600 dark:text-purple-400' : 'text-neutral-600 dark:text-neutral-400'
                                     }`}
                             >
                                 {t('nav.promptLibrary')}
@@ -239,13 +239,13 @@ export function Layout({ children }: LayoutProps) {
                                     <Link
                                         to="/tools"
                                         onClick={closeMenu}
-                                        className={`font-medium flex-grow ${location.pathname.startsWith('/tool') || location.pathname === '/tools' || location.pathname.startsWith('/category') ? 'text-white' : 'text-neutral-400'}`}
+                                        className={`font-medium flex-grow hover:text-purple-600 dark:hover:text-purple-400 ${location.pathname.startsWith('/tool') || location.pathname === '/tools' || location.pathname.startsWith('/category') ? 'text-purple-600 dark:text-purple-400' : 'text-neutral-600 dark:text-neutral-400'}`}
                                     >
                                         {t('nav.tools')}
                                     </Link>
                                     <button
                                         onClick={toggleMobileCategories}
-                                        className="p-2 -mr-2 text-neutral-400"
+                                        className="p-2 -mr-2 text-neutral-600 dark:text-neutral-400"
                                     >
                                         {isMobileCategoriesOpen ? <ChevronDown className="w-5 h-5" /> : <ChevronRight className="w-5 h-5" />}
                                     </button>
@@ -256,25 +256,25 @@ export function Layout({ children }: LayoutProps) {
                                         <Link
                                             to="/categories"
                                             onClick={closeMenu}
-                                            className="block text-base text-indigo-400 hover:text-indigo-300"
+                                            className="block text-base text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300"
                                         >
                                             {t('nav.viewAllCategories')}
                                         </Link>
                                         <Link
                                             to="/tools"
                                             onClick={closeMenu}
-                                            className="block text-base text-white hover:text-indigo-300"
+                                            className="block text-base text-neutral-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-300"
                                         >
                                             {t('nav.browseAllTools')}
                                         </Link>
                                         <Link
                                             to="/compare"
                                             onClick={closeMenu}
-                                            className="block text-base text-white hover:text-indigo-300"
+                                            className="block text-base text-neutral-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-300"
                                         >
                                             {t('nav.compareTools')}
                                         </Link>
-                                        <div className="pt-2 pb-1 border-t border-white/5">
+                                        <div className="pt-2 pb-1 border-t border-neutral-200 dark:border-white/5">
                                             <span className="text-xs font-medium text-neutral-500 uppercase">Categories</span>
                                         </div>
                                         {categories.map((link) => (
@@ -282,7 +282,7 @@ export function Layout({ children }: LayoutProps) {
                                                 key={link.name}
                                                 to={link.path}
                                                 onClick={closeMenu}
-                                                className={`block text-base transition-colors hover:text-white ${location.pathname === link.path ? 'text-white' : 'text-neutral-400'
+                                                className={`block text-base transition-colors hover:text-neutral-900 dark:hover:text-white ${location.pathname === link.path ? 'text-neutral-900 dark:text-white' : 'text-neutral-600 dark:text-neutral-400'
                                                     }`}
                                             >
                                                 {link.name}
@@ -296,14 +296,14 @@ export function Layout({ children }: LayoutProps) {
                                 href="https://github.com/Tornado515/SAY"
                                 target="_blank"
                                 rel="noreferrer"
-                                className="flex items-center gap-2 text-neutral-400 hover:text-white font-medium mt-4 pt-4 border-t border-white/10"
+                                className="flex items-center gap-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white font-medium mt-4 pt-4 border-t border-neutral-200 dark:border-white/10"
                             >
                                 <Github className="h-5 w-5" />
                                 {t('nav.github')}
                             </a>
                             <button
                                 onClick={toggleLanguage}
-                                className="flex items-center gap-2 text-neutral-400 hover:text-white font-medium mt-4 pt-4 border-t border-white/10 w-full"
+                                className="flex items-center gap-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white font-medium mt-4 pt-4 border-t border-neutral-200 dark:border-white/10 w-full"
                             >
                                 <Globe className="h-5 w-5" />
                                 {t('nav.language')}

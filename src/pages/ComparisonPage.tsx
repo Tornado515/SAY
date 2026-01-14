@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { tools } from '../data/tools';
-import { Check, X, ArrowRightLeft, ChevronDown } from 'lucide-react';
+import { Check, X, ArrowRightLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { SearchableDropdown } from '../components/PromptLibrary/SearchableDropdown';
 
 export function ComparisonPage() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -23,6 +24,14 @@ export function ComparisonPage() {
 
     const categories = Array.from(new Set(tools.map(t => t.category))).sort();
 
+    const groupedOptions = categories.map(cat => ({
+        label: cat,
+        options: tools.filter(t => t.category === cat).map(t => ({
+            label: t.name,
+            value: t.slug
+        }))
+    }));
+
     const handleSwap = () => {
         const temp = tool1Slug;
         setTool1Slug(tool2Slug);
@@ -31,9 +40,9 @@ export function ComparisonPage() {
 
     // Helper to render a comparison row
     const renderRow = (label: string, val1: any, val2: any, isList = false) => (
-        <div className="grid grid-cols-3 gap-4 py-4 border-b border-neutral-200 dark:border-white/5 items-center">
-            <div className="col-span-1 text-neutral-400 font-medium">{label}</div>
-            <div className="col-span-1 text-neutral-900 dark:text-neutral-200">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 py-4 border-b border-neutral-200 dark:border-white/5 items-center">
+            <div className="col-span-2 md:col-span-1 text-neutral-400 font-medium mb-1 md:mb-0">{label}</div>
+            <div className="col-span-1 text-neutral-900 dark:text-neutral-200 break-words">
                 {isList ? (
                     <ul className="list-disc list-inside space-y-1">
                         {val1?.map((item: string, i: number) => <li key={i} className="text-sm">{item}</li>) || <span className="text-neutral-500 dark:text-neutral-600 italic">N/A</span>}
@@ -42,7 +51,7 @@ export function ComparisonPage() {
                     val1 || <span className="text-neutral-600 italic">N/A</span>
                 )}
             </div>
-            <div className="col-span-1 text-neutral-900 dark:text-neutral-200">
+            <div className="col-span-1 text-neutral-900 dark:text-neutral-200 break-words">
                 {isList ? (
                     <ul className="list-disc list-inside space-y-1">
                         {val2?.map((item: string, i: number) => <li key={i} className="text-sm">{item}</li>) || <span className="text-neutral-600 italic">N/A</span>}
@@ -53,6 +62,7 @@ export function ComparisonPage() {
             </div>
         </div>
     );
+
 
     return (
         <Layout>
@@ -70,24 +80,13 @@ export function ComparisonPage() {
                     {/* Tool Selectors */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16 bg-neutral-50 dark:bg-neutral-900/50 p-8 rounded-3xl border border-neutral-200 dark:border-white/5">
                         <div className="relative">
-                            <label className="block text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">Tool 1</label>
-                            <div className="relative">
-                                <select
-                                    value={tool1Slug}
-                                    onChange={(e) => setTool1Slug(e.target.value)}
-                                    className="w-full appearance-none bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 rounded-xl px-4 py-3 text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-neutral-500 dark:placeholder:text-neutral-600"
-                                >
-                                    <option value="">Select a tool...</option>
-                                    {categories.map(cat => (
-                                        <optgroup key={cat} label={cat}>
-                                            {tools.filter(t => t.category === cat).map(t => (
-                                                <option key={t.slug} value={t.slug}>{t.name}</option>
-                                            ))}
-                                        </optgroup>
-                                    ))}
-                                </select>
-                                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500 pointer-events-none" />
-                            </div>
+                            <SearchableDropdown
+                                label="Tool 1"
+                                options={groupedOptions}
+                                value={tool1Slug}
+                                onChange={setTool1Slug}
+                                placeholder="Select a tool..."
+                            />
                         </div>
 
                         <div className="hidden md:flex items-center justify-center pt-6">
@@ -101,24 +100,13 @@ export function ComparisonPage() {
                         </div>
 
                         <div className="relative">
-                            <label className="block text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">Tool 2</label>
-                            <div className="relative">
-                                <select
-                                    value={tool2Slug}
-                                    onChange={(e) => setTool2Slug(e.target.value)}
-                                    className="w-full appearance-none bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 rounded-xl px-4 py-3 text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-                                >
-                                    <option value="">Select a tool...</option>
-                                    {categories.map(cat => (
-                                        <optgroup key={cat} label={cat}>
-                                            {tools.filter(t => t.category === cat).map(t => (
-                                                <option key={t.slug} value={t.slug}>{t.name}</option>
-                                            ))}
-                                        </optgroup>
-                                    ))}
-                                </select>
-                                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500 pointer-events-none" />
-                            </div>
+                            <SearchableDropdown
+                                label="Tool 2"
+                                options={groupedOptions}
+                                value={tool2Slug}
+                                onChange={setTool2Slug}
+                                placeholder="Select a tool..."
+                            />
                         </div>
                     </div>
 
@@ -130,23 +118,23 @@ export function ComparisonPage() {
                             className="max-w-5xl mx-auto"
                         >
                             {/* Headings */}
-                            <div className="grid grid-cols-3 gap-4 mb-8 text-center">
-                                <div className="col-span-1"></div>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8 text-center sticky top-0 bg-neutral-50 dark:bg-neutral-900 z-10 py-4">
+                                <div className="hidden md:block col-span-1"></div>
                                 <div className="col-span-1">
-                                    <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">{tool1.name}</h2>
+                                    <h2 className="text-xl md:text-2xl font-bold text-neutral-900 dark:text-white mb-2">{tool1.name}</h2>
                                     <span className="inline-flex items-center rounded-full bg-indigo-50 dark:bg-indigo-500/10 px-2.5 py-0.5 text-xs font-medium text-indigo-600 dark:text-indigo-400 ring-1 ring-inset ring-indigo-200 dark:ring-indigo-500/20">
                                         {tool1.category}
                                     </span>
                                 </div>
                                 <div className="col-span-1">
-                                    <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">{tool2.name}</h2>
+                                    <h2 className="text-xl md:text-2xl font-bold text-neutral-900 dark:text-white mb-2">{tool2.name}</h2>
                                     <span className="inline-flex items-center rounded-full bg-indigo-50 dark:bg-indigo-500/10 px-2.5 py-0.5 text-xs font-medium text-indigo-600 dark:text-indigo-400 ring-1 ring-inset ring-indigo-200 dark:ring-indigo-500/20">
                                         {tool2.category}
                                     </span>
                                 </div>
                             </div>
 
-                            <div className="bg-white dark:bg-white/5 rounded-3xl border border-neutral-200 dark:border-white/10 p-8 space-y-2 shadow-lg dark:shadow-none">
+                            <div className="bg-white dark:bg-white/5 rounded-3xl border border-neutral-200 dark:border-white/10 p-6 md:p-8 space-y-2 shadow-lg dark:shadow-none">
                                 {/* Core Info */}
                                 {renderRow('Price Model', tool1.comparisonData?.priceModel, tool2.comparisonData?.priceModel)}
                                 {renderRow('Learning Curve', tool1.comparisonData?.learningCurve, tool2.comparisonData?.learningCurve)}
@@ -155,9 +143,9 @@ export function ComparisonPage() {
                                 {/* Lists */}
                                 {renderRow('Best For', tool1.comparisonData?.bestFor, tool2.comparisonData?.bestFor, true)}
 
-                                <div className="grid grid-cols-3 gap-4 py-6 border-b border-neutral-200 dark:border-white/5">
-                                    <div className="col-span-1 text-neutral-400 font-medium">Pros</div>
-                                    <div className="col-span-1 text-green-600 dark:text-green-400/90 space-y-2">
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 py-6 border-b border-neutral-200 dark:border-white/5">
+                                    <div className="col-span-2 md:col-span-1 text-neutral-400 font-medium mb-2 md:mb-0">Pros</div>
+                                    <div className="col-span-1 text-green-600 dark:text-green-400/90 space-y-2 break-words">
                                         {tool1.comparisonData?.pros.map((pro, i) => (
                                             <div key={i} className="flex gap-2 text-sm">
                                                 <Check className="w-4 h-4 flex-shrink-0 mt-0.5 text-green-500" />
@@ -165,7 +153,7 @@ export function ComparisonPage() {
                                             </div>
                                         )) || <span className="text-neutral-600 italic">N/A</span>}
                                     </div>
-                                    <div className="col-span-1 text-green-600 dark:text-green-400/90 space-y-2">
+                                    <div className="col-span-1 text-green-600 dark:text-green-400/90 space-y-2 break-words">
                                         {tool2.comparisonData?.pros.map((pro, i) => (
                                             <div key={i} className="flex gap-2 text-sm">
                                                 <Check className="w-4 h-4 flex-shrink-0 mt-0.5 text-green-500" />
@@ -175,9 +163,9 @@ export function ComparisonPage() {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-3 gap-4 py-6">
-                                    <div className="col-span-1 text-neutral-400 font-medium">Cons</div>
-                                    <div className="col-span-1 text-red-600 dark:text-red-400/90 space-y-2">
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 py-6">
+                                    <div className="col-span-2 md:col-span-1 text-neutral-400 font-medium mb-2 md:mb-0">Cons</div>
+                                    <div className="col-span-1 text-red-600 dark:text-red-400/90 space-y-2 break-words">
                                         {tool1.comparisonData?.cons.map((con, i) => (
                                             <div key={i} className="flex gap-2 text-sm">
                                                 <X className="w-4 h-4 flex-shrink-0 mt-0.5 text-red-500" />
@@ -185,7 +173,7 @@ export function ComparisonPage() {
                                             </div>
                                         )) || <span className="text-neutral-600 italic">N/A</span>}
                                     </div>
-                                    <div className="col-span-1 text-red-600 dark:text-red-400/90 space-y-2">
+                                    <div className="col-span-1 text-red-600 dark:text-red-400/90 space-y-2 break-words">
                                         {tool2.comparisonData?.cons.map((con, i) => (
                                             <div key={i} className="flex gap-2 text-sm">
                                                 <X className="w-4 h-4 flex-shrink-0 mt-0.5 text-red-500" />

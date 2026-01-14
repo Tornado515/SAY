@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Layout } from '../components/Layout';
 import { tools } from '../data/tools';
 import { motion } from 'framer-motion';
-import { Check, Layers, Save, Database, Server, Globe, Box } from 'lucide-react';
+import { Check, Layers, Save, Database, Server, Globe, Box, Palette } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
@@ -12,6 +12,7 @@ export function CreateStackPage() {
     const [selectedBackend, setSelectedBackend] = useState<string | null>(null);
     const [selectedDatabase, setSelectedDatabase] = useState<string | null>(null);
     const [selectedArchitecture, setSelectedArchitecture] = useState<string | null>(null);
+    const [selectedStyling, setSelectedStyling] = useState<string | null>(null);
 
     // Deployment State
     const [selectedFullDeployment, setSelectedFullDeployment] = useState<string | null>(null);
@@ -41,6 +42,7 @@ export function CreateStackPage() {
     const backendTools = tools.filter(t => t.category === 'Backend' || t.additionalCategories?.includes('Backend'));
     const databaseTools = tools.filter(t => t.category === 'Database');
     const architectureTools = tools.filter(t => t.category === 'Architecture');
+    const stylingTools = tools.filter(t => t.category === 'Styling');
 
     // Filter Deployment Tools
     const fullDeploymentTools = tools.filter(t => t.deploymentTypes?.includes('full'));
@@ -89,6 +91,14 @@ export function CreateStackPage() {
             setSelected: setSelectedFrontend,
             hasFilter: true,
             disabled: !!selectedFullStack
+        },
+        {
+            title: 'Styling Framework',
+            icon: Palette,
+            tools: stylingTools,
+            selected: selectedStyling,
+            setSelected: setSelectedStyling,
+            disabled: frontendType === 'Mobile' // Styling not applicable for mobile
         },
         {
             title: 'Backend Framework',
@@ -157,6 +167,7 @@ export function CreateStackPage() {
                         backend: selectedBackend,
                         database: selectedDatabase,
                         architecture: selectedArchitecture,
+                        styling: frontendType === 'Web' ? selectedStyling : null,
                         deployment: {
                             full: selectedFullDeployment,
                             frontend: selectedFrontendDeployment,
@@ -189,6 +200,7 @@ Since the backend is not fully connected, here is a sample plan structure for yo
 
 - **Stack Type**: ${selectedFullStack ? 'Full Stack Framework' : 'Separate Frontend & Backend'}
 ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**: ${selectedFrontend}\n- **Backend**: ${selectedBackend}`}
+${frontendType === 'Web' && selectedStyling ? `- **Styling**: ${selectedStyling}` : ''}
 - **Database**: ${selectedDatabase}
 - **Architecture**: ${selectedArchitecture}
 - **Deployment**: ${selectedFullDeployment || `${selectedFrontendDeployment} (Frontend) + ${selectedBackendDeployment} (Backend)`}
@@ -208,7 +220,7 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 rounded-3xl p-8 max-w-4xl w-full text-center shadow-2xl dark:shadow-none"
+                        className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 rounded-3xl p-4 sm:p-8 max-w-4xl w-full text-center shadow-2xl dark:shadow-none"
                     >
                         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-500/10 mb-6">
                             <Check className="w-10 h-10 text-green-500" />
@@ -225,6 +237,7 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                                         { label: 'Backend', value: selectedBackend }
                                     ]
                                 ),
+                                ...(frontendType === 'Web' && selectedStyling ? [{ label: 'Styling', value: selectedStyling }] : []),
                                 { label: 'Database', value: selectedDatabase },
                                 { label: 'Architecture', value: selectedArchitecture },
                                 ...(selectedFullDeployment
@@ -261,14 +274,14 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                                     return (
                                         <div className="mt-8 space-y-6">
                                             {/* Section 1: Prerequisites */}
-                                            <div className="bg-neutral-100 dark:bg-neutral-800/50 border border-neutral-200 dark:border-white/10 rounded-2xl p-6 text-left">
+                                            <div className="bg-neutral-100 dark:bg-neutral-800/50 border border-neutral-200 dark:border-white/10 rounded-2xl p-4 sm:p-6 text-left">
                                                 <div className="flex items-center gap-3 mb-4 border-b border-neutral-200 dark:border-white/10 pb-4">
                                                     <div className="p-2 rounded-lg bg-indigo-500/10">
                                                         <Check className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                                                     </div>
                                                     <h3 className="text-xl font-bold text-neutral-900 dark:text-white">Prerequisites & Preparation</h3>
                                                 </div>
-                                                <div className="prose prose-neutral dark:prose-invert max-w-none prose-p:text-neutral-600 dark:prose-p:text-neutral-300 prose-li:text-neutral-600 dark:prose-li:text-neutral-300 prose-strong:text-neutral-900 dark:prose-strong:text-white prose-headings:text-neutral-900 dark:prose-headings:text-white">
+                                                <div className="prose prose-neutral dark:prose-invert max-w-none break-words prose-p:text-neutral-600 dark:prose-p:text-neutral-300 prose-li:text-neutral-600 dark:prose-li:text-neutral-300 prose-strong:text-neutral-900 dark:prose-strong:text-white prose-headings:text-neutral-900 dark:prose-headings:text-white">
                                                     <ReactMarkdown>{section1Content}</ReactMarkdown>
                                                 </div>
                                             </div>
@@ -308,7 +321,7 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div className="p-6 max-h-[500px] overflow-y-auto bg-neutral-50 dark:bg-black/50">
+                                                <div className="p-4 sm:p-6 max-h-[500px] overflow-y-auto bg-neutral-50 dark:bg-black/50">
                                                     <pre className="whitespace-pre-wrap font-mono text-sm text-neutral-600 dark:text-neutral-300">
                                                         {section2Content}
                                                     </pre>
@@ -466,7 +479,7 @@ ${selectedFullStack ? `- **Framework**: ${selectedFullStack}` : `- **Frontend**:
                         <div className="mt-12 flex justify-end">
                             <button
                                 onClick={handleCreateStack}
-                                disabled={!(selectedFullStack || (selectedFrontend && selectedBackend)) || !selectedDatabase || !selectedArchitecture || !(selectedFullDeployment || (selectedFrontendDeployment && selectedBackendDeployment))}
+                                disabled={!(selectedFullStack || (selectedFrontend && selectedBackend)) || !selectedDatabase || !selectedArchitecture || (frontendType === 'Web' && !selectedStyling) || !(selectedFullDeployment || (selectedFrontendDeployment && selectedBackendDeployment))}
                                 className="flex items-center gap-2 px-8 py-4 rounded-full bg-indigo-600 text-white font-bold text-lg hover:bg-indigo-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-indigo-500/20"
                             >
                                 <Save className="w-5 h-5" />
